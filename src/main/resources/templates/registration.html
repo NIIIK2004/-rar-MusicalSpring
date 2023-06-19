@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/registration.css">
+    <link rel="icon" href="../images/logo.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <title>Регистрация</title>
+</head>
+
+<body>
+<div id="video-container">
+    <video id="welcome-video" width="100%" height="100%" autoplay muted>
+        <source src="../images/Video/intro.MP4" type="video/mp4">
+    </video>
+    <section class="vhod__page" id="registration-form">
+        <div class="container__vhod">
+            <img src="../images/header/logotype.svg" alt=""
+                 style="margin: 0 auto; display: block; margin-bottom: 70px;">
+            <h1 class="vhod__title">Регистрация</h1>
+            <div class="vhod__wrapper">
+                <form method="post" th:action="@{/registration/save}" th:object="${user}">
+                    <input type="text" placeholder="Логин" required th:field="*{username}">
+                    <input type="password" placeholder="Пароль" required th:field="*{password}">
+                    <input type="text" placeholder="Имя" required th:field="*{name}">
+                    <input type="text" placeholder="Фамилия" required th:field="*{surname}">
+                    <input type="email" placeholder="Почта" required th:field="*{mail}">
+                    <p>
+                        Аккаунт имеется, <a th:href="@{/login}">Войти?</a>
+                    </p>
+                    <button class="vhod-btn" type="submit">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        var video = document.getElementById('welcome-video');
+        var registrationForm = document.getElementById('registration-form');
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                showRegistrationForm();
+            }
+        });
+
+        video.addEventListener('ended', function () {
+            showRegistrationForm();
+        });
+
+        function showRegistrationForm() {
+            video.style.display = 'none';
+            registrationForm.style.opacity = '1';
+            registrationForm.style.pointerEvents = 'auto';
+        }
+    });
+</script>
+</body>
+
+</html>

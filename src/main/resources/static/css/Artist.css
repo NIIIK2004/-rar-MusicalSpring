@@ -1,0 +1,164 @@
+.Artist {
+    margin-top: 85px;
+}
+
+.Artist__wrapper {
+    margin-top: 40px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.Artist__info-block {
+    max-width: 830px;
+    width: 100%;
+}
+
+.Artist__info-bio {
+    margin-top: 20px;
+}
+
+.Artist__info-title {
+    margin-top: 74px;
+    font-family: 'Nunito';
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 44px;
+
+    color: var(--white)
+}
+
+.Artist__info-playlists {
+    display: flex;
+    gap: 22px;
+}
+
+.Artist__info-playlist {
+    margin-top: 20px;
+    position: relative;
+    transition: all .5s;
+    cursor: pointer;
+}
+
+.Artist__info-social a:hover svg {
+    fill: #ffcc00 !important;
+}
+
+.Artist__info-playlist:hover {
+    transform: scale(0.96);
+}
+
+.Artist__info-playlist-title {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    font-family: 'Nunito';
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 38px;
+    color: var(--white);
+}
+
+.Artist__info-playlist img,
+.Artist__wrapper img {
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/*.statistics*/
+
+.statistics {
+    margin-top: 100px;
+}
+
+.statistics__wrapper {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    justify-content: space-between;
+    margin-bottom: 120px;
+}
+
+.statistics__card {
+    position: relative;
+    border-radius: 20px;
+    padding: 50px;
+    color: var(--white);
+    max-width: 545px;
+    width: 100%;
+    height: 311px;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.statistics__card:hover {
+    transform: scale(.98);
+}
+
+.statistics__card:nth-child(1) {
+    background: #D32581;
+}
+
+.statistics__card:nth-child(2) {
+    background: #5347CC;
+}
+
+.statistics__card:nth-child(3) {
+    background: #EEDE00;
+    color: var(--black);
+}
+
+.statistics__card-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.statistics__card-textsubs {
+    font-family: 'Nunito';
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 44px;
+    transition: all .5s;
+}
+
+.statistics__card-main {
+    margin-top: 30px;
+
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 87px;
+    color: var(--white);
+    transition: all .5s;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 425px;
+}
+
+.etscolor {
+    color: var(--black);
+}
+
+.Polygon {
+    position: absolute;
+    bottom: 9%;
+    right: 7%;
+    transition: all .5s;
+}
+
+
+.statistics__card:hover .Polygon {
+    transform: scale(1.10);
+}
+
+.statistics__card-main-not {
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 87px;
+    color: var(--white);
+    margin-top: 30px;
+}

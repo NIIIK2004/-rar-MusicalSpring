@@ -1,0 +1,53 @@
+a {
+    color: var(--white) !important;
+}
+
+.header__links a {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header {
+    margin: 50px 0 85px;
+}
+
+.header__menu-top {
+    display: flex;
+    align-items: center;
+}
+
+.header__links {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    font-family: 'Nunito';
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 29px;
+
+    margin-left: auto;
+    margin-right: 40px;
+}
+
+.header__link img {
+    top: 5px;
+    left: 70px;
+}
+
+.header_ets {
+    background: #1B1B1B;
+    border-radius: 50px;
+    padding: 18px 21px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header_setting,
+.header_logout {
+    display: flex;
+    align-items: center;
+}

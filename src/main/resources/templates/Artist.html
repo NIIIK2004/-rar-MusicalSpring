@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/Artist.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <title th:text="'Артист - ' + ${artist.name}"></title>
+</head>
+
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header__menu-top">
+            <a th:href="@{/}"><img th:src="@{/images/header/logotype.svg}" alt="лого" class="header_logo"></a>
+            <ul class="header__links">
+                <li class="header__link"><a href="search.html">Поиск <img th:src="@{/images/header/search.svg}"></a>
+                </li>
+                <li class="header__link"><a th:href="@{/}">Все треки <img
+                        th:src="@{/images/header/headphones.svg}"></a></li>
+                <li class="header__link"><a th:href="@{/allartist}">Артисты <img
+                        th:src="@{/images/header/artists.svg}"></a></li>
+                <li class="header__link"><a th:href="@{/subscribe}">Подписка <img th:src="@{/images/header/subs.svg}"></a>
+                </li>
+                <li class="header__link"><a th:href="@{/project}">Проект <img th:src="@{/images/header/project.svg}"></a>
+                </li>
+                <li class="header__link"><a th:href="@{/collection}">Коллекция <img
+                        th:src="@{/images/header/like.svg}"></a></li>
+            </ul>
+            <div class="header_ets">
+                <a th:href="@{/settings}" class="header_setting"><img th:src="@{/images/header/setting.svg}" alt="set"></a>
+                <a th:href="@{/registration}" class="header_logout"><img th:src="@{/images/header/logout.svg}" alt="log"></a>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="Artist">
+    <div class="container">
+        <h1 class="Artist-name title" th:text="${artist.name}"></h1>
+        <div class="Artist__wrapper">
+            <img th:src="@{'/uploads/' + ${artist.filename}}" alt="ava" class="Artist_ava" width="687" height="687">
+            <div class="Artist__info-block">
+                <div class="Artist__info-social">
+                    <a th:href="@{https://open.spotify.com/artist/72lYxQHj6k4H3u18ErEWhH}"><img
+                            th:src="@{/images/spotify.svg}" alt="link"></a>
+                    <a th:href="@{https://vk.com/niiik04}"><img th:src="@{/images/VK.svg}" alt="link"></a>
+                    <a th:href="@{https://web.telegram.org/a/#tosVopros}"><img th:src="@{/images/Telegram.svg}"
+                                                                               alt="link"></a>
+                    <a th:href="@{https://www.youtube.com/channel/UCNZnF-bicYstScveDsd648A}"><img
+                            th:src="@{/images/Youtube.svg}" alt="link"></a>
+                </div>
+                <p class="Artist__info-bio text" th:text="${artist.description}"></p>
+                <h2 class="Artist__info-title">Плейлисты артиста</h2>
+                <div class="Artist__info-playlists">
+                    <div class="Artist__info-playlist">
+                        <h3 class="Artist__info-playlist-title">Выбор редакции</h3>
+                        <img th:src="@{/images/playlist-1.png}" alt="pl1">
+                    </div>
+                    <div class="Artist__info-playlist">
+                        <h3 class="Artist__info-playlist-title">Все треки</h3>
+                        <img th:src="@{/images/playlist-2.png}" alt="pl1">
+                    </div>
+                    <div class="Artist__info-playlist">
+                        <h3 class="Artist__info-playlist-title">Личный</h3>
+                        <img th:src="@{/images/playlist-3.png}" alt="pl1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="statistics">
+    <div class="container">
+        <h1 class="statistics-title title">Статистика</h1>
+        <div class="statistics__wrapper">
+            <div class="statistics__card">
+                <div class="statistics__card-top">
+                    <span class="statistics__card-textsubs">Подписчиков</span>
+                    <img th:src="@{/images/statistics-icon-1.svg}" alt="statistics">
+                </div>
+                <h2 class="statistics__card-main" th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
+                    th:text="${artist.listeners}"></h2>
+                <h2 class="statistics__card-main"
+                    th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">Не указано</h2>
+                <img class="Polygon" th:src="@{/images/Polygon-1.svg}">
+            </div>
+
+            <div class="statistics__card">
+                <div class="statistics__card-top">
+                    <span class="statistics__card-textsubs">Последний альбом</span>
+                    <img th:src="@{/images/statistics-icon-2.svg}" alt="statistics">
+                </div>
+                <div th:if="${noTracks}">
+                    <p class="statistics__card-main-not">Не имеется</p>
+                </div>
+                <div th:unless="${noTracks}">
+                    <img class="statistics__card-main" th:src="@{'/uploads/' + ${latestTrack.coverfilename}}"
+                         style="border-radius: 15px; margin-top: 30px; transition: all .5s; width: 120px;">
+                </div>
+                <img class="Polygon" th:src="@{/images/Polygon-2.svg}">
+            </div>
+
+            <div class="statistics__card">
+                <div class="statistics__card-top">
+                    <span class="statistics__card-textsubs">Пишет в жанре</span>
+                    <img th:src="@{/images/statistics-icon-3.svg}" alt="statistics">
+                </div>
+                <h2 class="statistics__card-main etscolor" th:if="${artist.genre != null && artist.genre.trim() != ''}"
+                    th:text="${artist.genre}"></h2>
+                <h2 class="statistics__card-main etscolor"
+                    th:unless="${artist.genre != null && artist.genre.trim() != ''}">Неизвестно</h2>
+                <img class="Polygon" th:src="@{/images/Polygon-3.svg}">
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</html>

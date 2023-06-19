@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project.css">
+    <link rel="icon" href="../images/logo.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <title>Musical - О проекте</title>
+</head>
+
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header__menu-top">
+            <a th:href="@{/}"><img th:src="@{/images/header/logotype.svg}" alt="лого" class="header_logo"></a>
+            <ul class="header__links">
+                <li class="header__link"><a href="search.html">Поиск <img th:src="@{/images/header/search.svg}"></a>
+                </li>
+                <li class="header__link"><a th:href="@{/}">Все треки <img
+                        th:src="@{/images/header/headphones.svg}"></a></li>
+                <li class="header__link"><a th:href="@{/allartist}">Артисты <img
+                        th:src="@{/images/header/artists.svg}"></a></li>
+                <li class="header__link"><a th:href="@{/subscribe}">Подписка <img th:src="@{/images/header/subs.svg}"></a>
+                </li>
+                <li class="header__link"><a th:href="@{/project}">Проект <img th:src="@{/images/header/project.svg}"></a>
+                </li>
+                <li class="header__link"><a th:href="@{/collection}">Коллекция <img
+                        th:src="@{/images/header/like.svg}"></a></li>
+            </ul>
+            <div class="header_ets">
+                <a th:href="@{/settings}" class="header_setting"><img th:src="@{/images/header/setting.svg}" alt="set"></a>
+                <a th:href="@{/registration}" class="header_logout"><img th:src="@{/images/header/logout.svg}" alt="log"></a>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="project">
+    <div class="container">
+        <h1 class="project__title title">Проект</h1>
+        <p class="project__description text">В проекте принимали участие 2 студента из техникума “Бизнес и право” и
+            один гений, который вложил не мало сил, дал достаточно знаний, и курировал все существование проекта</p>
+        <div class="project__developers">
+            <div class="project__develop">
+                <img src="../images/Аркаша.png" alt="Разработчик">
+                <h2 class="project__develop_name">Аркадий - Куратор, Разработчик, Гений</h2>
+                <p class="project__develop-desciption">За все существования проекта, дал много опыта и знаний в
+                    сфере разработки на Spring-Web.
+                    <br>
+                    Аркадий преобладает многими знаниями в сфере back-end разработки
+                    <br>
+                    Является создателем электронного дневника для учебных заведений.
+                    <br>
+                    В свои 21 добился не мало успеха и больших достижений
+                    <br>
+                    Имеет Диплом техникума “Бизнес и право” по специальности “Информационные системы и
+                    программирование”
+                </p>
+            </div>
+
+            <div class="project__develop">
+                <img src="../images/Тема.png" alt="Разработчик">
+                <h2 class="project__develop_name">Артем - Инженер-Тестировщик, Наставник</h2>
+                <p class="project__develop-desciption">Когда-то на втором курсе Артем заинтересовался купить курс по
+                    верстке у всеми известного Вадима Прокопчука, и получил чуть больше правильных и нужных знаний
+                    чем создатель проекта Никита
+                    <br>
+                    Теперь эти знания он передает ему.
+                    <br>
+                    Участвовал в таких проектах как “Курсы английского языка”, “Электронный дневник”
+                    <br>
+                    Создатель авто-каршеринга а также барбершопа
+                    <br>
+                    В данном проекте Артем тестировал, смотрел, исправлял небольшие проблемы”
+                </p>
+            </div>
+
+            <div class="project__develop">
+                <img src="../images/Никита.png" alt="Разработчик">
+                <h2 class="project__develop_name">Никита - Создатель музыкального сервиса</h2>
+                <p class="project__develop-desciption">Создатель проекта “Musical”, Версткой, дизайном сайта,
+                    построению таблиц и логики занимался именно он, конечно же не без помощи.
+                    <br>
+                    Идея создать музыкальный сервис пришла практически сразу как только нужно было придумать
+                    что-то!<br>
+                    Как выражается сам Никита - “Сейчас время творчества, а музыки мало, так почему бы не совместить
+                    полезное с приятным”</p>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+</html>

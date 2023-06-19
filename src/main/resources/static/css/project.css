@@ -1,0 +1,48 @@
+.project {
+    margin: 85px 0;
+}
+
+.project__description {
+    margin-top: 30px;
+    max-width: 1091px;
+    font-family: 'Nunito';
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 29px;
+    color: var(--white);
+}
+
+.project__developers {
+    margin-top: 80px;
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.project__develop {
+    max-width: 545px;
+    width: 100%;
+}
+
+.project__develop img {
+    max-width: 545px;
+}
+
+.project__develop_name {
+    margin-top: 30px;
+    font-family: 'Nunito';
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 29px;
+    color: var(--white);
+}
+
+.project__develop-desciption {
+    margin-top: 20px;
+    font-family: 'Nunito';
+    font-weight: 300;
+    font-size: 21px;
+    line-height: 29px;
+    color: var(--gray);
+}

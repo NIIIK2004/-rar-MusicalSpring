@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/registration.css">
+    <link rel="icon" href="../images/logo.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <title>Вход в систему</title>
+</head>
+
+<body>
+<section class="vhod__page">
+    <div class="container__vhod">
+        <img src="../images/header/logotype.svg" alt=""
+             style="margin: 0 auto; display: block; margin-bottom: 70px;">
+        <h1 class="vhod__title">Войдем в историю!</h1>
+        <div class="vhod__wrapper">
+            <form th:action="@{/login}" method="post">
+                <input type="text" id="username" name="username" placeholder="Логин" required>
+                <input type="password" id="password" name="password" placeholder="Пароль" required>
+                <p>Это поле здесь просто так потому что с двумя полями было бы не очень красиво, а
+                    когда три блока тогда прикольно и смотрится наполнено
+                    <br>
+                    <br>
+                    Потом я придумаю что можно сюда вставить
+                    <br>
+                    А пока так
+                </p>
+                <p>
+                    Аккаунт имеется? <a th:href="@{/registration}"> Может зарегистрируемся?</a>
+                </p>
+                <button class="vhod-btn" type="submit">Войти</button>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+
+</html>

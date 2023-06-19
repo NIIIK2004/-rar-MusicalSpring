@@ -1,0 +1,62 @@
+@import '../css/collection.css';
+
+.setting__title {
+    margin-top: 85px;
+}
+
+.setting_input {
+    border: transparent;
+    border-radius: 12px;
+    padding: 20px 30px;
+    background: var(--white);
+    color: var(--feolet);
+
+    font-family: 'Nunito';
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 29px;
+    width: 100%;
+    outline: transparent;
+    border: 2px solid transparent;
+    transition: all .3s;
+}
+
+.offer {
+    top: 70%;
+}
+
+.setting_form {
+    display: flex;
+    align-items: center;
+    gap: 23px;
+    margin-top: 50px;
+}
+
+input:focus {
+    border: 2px solid var(--feolet);
+    box-shadow: 0 0 5px var(--feolet);
+    background: transparent;
+}
+
+.setting__btn {
+    display: block;
+    margin-left: auto;
+    margin-top: 30px;
+    color: var(--black);
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid transparent;
+    padding: 15px 30px;
+
+    font-family: 'Nunito';
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 29px;
+    transition: all .4s;
+}
+
+.setting__btn:hover {
+    color: var(--white);
+    background: transparent;
+    border: 1px solid var(--white);
+}

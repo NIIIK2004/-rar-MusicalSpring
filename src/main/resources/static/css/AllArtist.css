@@ -1,0 +1,58 @@
+.AllArtist {
+    margin-top: 85px;
+}
+
+.AllArtist__wrapper {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 22px;
+}
+
+.artist {
+    border-radius: 500px;
+    position: relative;
+    cursor: pointer;
+}
+
+.artist img {
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+}
+
+.img-blackout {
+    position: relative;
+}
+
+.img-blackout::before {
+    content: "";
+    border-radius: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 262px;
+    height: 262px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.artist-name {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    font-family: 'Nunito';
+    text-align: center;
+    font-weight: 600;
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    color: var(--white);
+    transform: translate(-50%, -50%);
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px;
+}
+

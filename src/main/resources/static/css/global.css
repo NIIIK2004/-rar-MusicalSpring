@@ -1,0 +1,83 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+a {
+    color: #272727;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+:root {
+    --feolet: #5347CC;
+    --white: #F8F8F8;
+    --black: #0B0B0B;
+    --gray: #CDCDCD;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background: var(--black);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 300;
+    line-height: 140%;
+    color: var(--white);
+    transition: opacity 1s ease-out;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    z-index: -100;
+    transition: background-color .5s ease-in-out;
+}
+
+body.slide-out {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    transform: translateY(-100%);
+}
+
+body.slide-out.done {
+    transform: translateY(0);
+}
+
+.body--active::before {
+    overflow: hidden;
+    z-index: 100;
+}
+
+.body--active::before {
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.main-page::-webkit-scrollbar {
+    width: 0;
+    background-color: transparent;
+}
+
+button {
+    background: none;
+    outline: none;
+    border: transparent;
+    cursor: pointer;
+}
+
+.main {
+    padding-bottom: 20px;
+}

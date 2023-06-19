@@ -1,0 +1,473 @@
+@import 'global.css';
+@import 'components/modal.css';
+@import 'components/form-styles.css';
+@import 'components/custom-file.css';
+@import 'components/fonts.css';
+
+.title {
+    font-family: 'Nunito';
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 65px;
+    color: var(--white);
+}
+
+.text {
+    font-family: 'Nunito';
+    font-weight: 300;
+    font-size: 21px;
+    line-height: 140%;
+
+    color: var(--white);
+}
+
+.container {
+    max-width: 1785px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
+.bottom_panel {
+    background-color: #1B1B1B;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 300;
+}
+
+.audio-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 40px;
+}
+
+audio {
+    display: none;
+}
+
+.progress-bar {
+    background-color: var(--white);
+    height: 4px;
+    width: 420px;
+    border-radius: 50px;
+    position: relative;
+}
+
+.progress {
+    background-color: var(--feolet);
+    height: 100%;
+    transition: width 0.2s ease;
+    border-radius: 50px;
+}
+
+
+.circle {
+    content: "";
+    background: url(../images/logo-progress-var-line.svg);
+    background-repeat: no-repeat;
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 10px;
+    height: 15px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.progress-bar:hover .circle {
+    opacity: 1;
+}
+
+.audio__info-wrapper {
+    display: flex;
+    gap: 6px;
+}
+
+.audio-action_btn {
+    display: flex;
+    gap: 30px;
+    justify-content: flex-end;
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+}
+
+.audio-left-block,
+.audio-action_btn {
+    flex: 1;
+}
+
+.audio-left-block {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.audio__info-wrapper img {
+    border-radius: 9px;
+}
+
+.time {
+    display: flex;
+    gap: 336px;
+    margin-top: 4px;
+}
+
+.track__info h3 {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 140%;
+    color: var(--gray);
+
+}
+
+.track__info p {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 140%;
+    color: var(--white);
+}
+
+
+.main__AllTracks {
+    margin-top: 85px;
+}
+
+.main__AllTracks-slider {
+    margin-top: 40px;
+}
+
+.main__AllTracks-slider-arrow {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 120;
+}
+
+.main__AllTracks-slider-arrow-left {
+    left: 20px;
+}
+
+.main__AllTracks-slider-arrow-right {
+    right: 20px;
+}
+
+.slider {
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+    justify-content: center;
+}
+
+.track {
+    max-width: 100%;
+    width: 100%;
+}
+
+.track img {
+    border-radius: 10px;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+}
+
+.track__btn img {
+    height: 70px;
+    width: 70px;
+    background-size: cover;
+}
+
+.MainSlide {
+    position: relative;
+}
+
+.MainSlide img {
+    border-radius: 10px;
+}
+
+.MainSlide::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 98.7%;
+    background-color: black;
+    opacity: 0.6;
+    border-radius: 10px;
+}
+
+.slide-info {
+    margin-top: 8px;
+}
+
+.MainSlideInfo {
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+}
+
+.MainSlideInfo button {
+    position: absolute;
+    top: 0;
+    left: 410px;
+}
+
+.MainSlideTitle {
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 55px;
+    color: var(--white);
+}
+
+.MainSlideArtist {
+    font-family: 'Nunito';
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 33px;
+    color: var(--gray);
+}
+
+.slide-info-artist {
+    font-family: 'Nunito';
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 29px;
+    color: var(--white);
+}
+
+.slide-info-title {
+    font-family: 'Nunito';
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    color: var(--gray);
+}
+
+
+::-webkit-scrollbar {
+    background-color: var(--black);
+    width: 7px;
+    border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--feolet);
+    border-radius: 100px;
+}
+
+/* Для Firefox */
+::-moz-scrollbar {
+    background-color: var(--black);
+
+    width: 10px;
+}
+
+::-moz-scrollbar-thumb {
+    background-color: var(--black);
+}
+
+
+.transition {
+    transition: all 0.3s ease-in-out;
+}
+
+
+.fullscreen-container {
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.fullscreen-container.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+body {
+    overflow-x: hidden;
+}
+
+body.slide-out {
+    animation: slideOut .5s ease-in-out;
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+/* select */
+
+.select {
+    position: absolute;
+    opacity: 0;
+    height: 1px;
+    width: 1px;
+    z-index: -100
+}
+
+.custom-select {
+    position: relative;
+    font-size: 16px
+}
+
+.custom-select--show .custom-select__current {
+    border-radius: 10px;
+    border-color: #8478ff
+}
+
+.custom-select--show .custom-select__current::after {
+    -webkit-transform: rotate(-180deg) translateY(50%);
+    -ms-transform: rotate(-180deg) translateY(50%);
+    transform: rotate(-180deg) translateY(50%)
+}
+
+.custom-select--show .custom-select__list {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 1;
+    background-color: #202020;
+    z-index: 100;
+    border: 1px solid #8478ff
+}
+
+.custom-select__current {
+    font-size: 16px;
+    position: relative;
+    cursor: pointer;
+    padding-right: 50px;
+    -webkit-transition: border-radius .3s;
+    -o-transition: border-radius .3s;
+    transition: border-radius .3s
+}
+
+.custom-select__current::after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 13px;
+    height: 6px;
+    background-image: url("../images/select-arrow.svg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-transition: -webkit-transform .3s;
+    transition: -webkit-transform .3s;
+    -o-transition: transform .3s;
+    transition: transform .3s;
+    transition: transform .3s, -webkit-transform .3s
+}
+
+.custom-select__list {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0px;
+    z-index: 2;
+    overflow: hidden;
+    border-radius: 12px;
+    max-height: 230px;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    -webkit-transition: all .25s ease;
+    -o-transition: all .25s ease;
+    transition: all .25s ease;
+}
+
+.custom-select__item {
+    padding: 20px 15px;
+    cursor: pointer;
+    -webkit-transition: color .3s;
+    -o-transition: color .3s;
+    transition: color .3s
+}
+
+.custom-select__item:hover {
+    color: #8478ff;
+}
+
+.custom-select__item:not(:last-child) {
+    border-bottom: 1px solid #8478ff;
+}
+
+/* alert */
+
+.subs__warn {
+    z-index: 500;
+    position: fixed;
+    padding: 20px;
+    border-radius: 13px;
+    border: 1px solid transparent;
+    transition: all .5s;
+    min-width: 300px;
+    min-height: 200px;
+    bottom: 12.7%;
+    right: 6%;
+    background: #1B1B1B;
+    pointer-events: none;
+
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease, border .5s;
+}
+
+.subs__warn:hover {
+    border: 1px solid var(--feolet);
+}
+
+.subs__warn.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.subs__warn p {
+    max-width: 260px;
+    margin-top: 11px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    color: var(--white);
+}
+
+.subs__warn-close {
+    display: block;
+    margin-left: auto;
+}
+
+.subs__warn-subs {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    padding: 11px 5.5px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: var(--white);
+    background: #000;
+    border-radius: 7px;
+    width: 100%;
+    background: linear-gradient(92.05deg, #4A3AF2 44.53%, #CD3FFF 74.96%, #DA138A 105.45%);
+}

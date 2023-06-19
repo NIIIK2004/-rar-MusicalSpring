@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/setting.css">
+    <link rel="icon" href="../images/logo.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <title>Musical - Настройки</title>
+</head>
+
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header__menu-top">
+            <a th:href="@{/}"><img th:src="@{/images/header/logotype.svg}" alt="лого" class="header_logo"></a>
+            <ul class="header__links">
+                <li class="header__link"><a href="search.html">Поиск <img th:src="@{/images/header/search.svg}"></a>
+                </li>
+                <li class="header__link"><a th:href="@{/}">Все треки <img
+                        th:src="@{/images/header/headphones.svg}"></a></li>
+                <li class="header__link"><a th:href="@{/allartist}">Артисты <img
+                        th:src="@{/images/header/artists.svg}"></a></li>
+                <li class="header__link"><a th:href="@{/subscribe}">Подписка <img th:src="@{/images/header/subs.svg}"></a>
+                </li>
+                <li class="header__link"><a th:href="@{/project}">Проект <img th:src="@{/images/header/project.svg}"></a>
+                </li>
+                <li class="header__link"><a th:href="@{/collection}">Коллекция <img
+                        th:src="@{/images/header/like.svg}"></a></li>
+            </ul>
+            <div class="header_ets">
+                <a th:href="@{/settings}" class="header_setting"><img th:src="@{/images/header/setting.svg}" alt="set"></a>
+                <a th:href="@{/registration}" class="header_logout"><img th:src="@{/images/header/logout.svg}" alt="log"></a>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="setting">
+    <div class="container">
+        <h1 class="title setting__title">Настройка</h1>
+        <form class="setting_form" th:object="${user}" th:action="@{/settings/save}" method="post">
+            <input th:field="*{id}" type="hidden">
+            <input th:field="*{password}" type="hidden">
+            <input th:field="*{username}" type="hidden">
+            <input class="setting_input" type="text" required name="name" placeholder="Ваше имя" th:field="*{name}">
+            <input class="setting_input" type="text" required name="surname" placeholder="Ваша фамилия" th:field="*{surname}">
+            <input class="setting_input" type="email" required name="mail" placeholder="Ваша почта" th:field="*{mail}">
+            <button class="setting__btn" type="submit">Сохранить</button>
+        </form>
+    </div>
+</section>
+
+<section class="offer">
+    <img src="../images/logo-premium.svg">
+    <p>Остальное! Профиль и многое другое вас ждет в подписке</p>
+    <a href="subscribe.html" class="offer__btn-subs">Купить подписку</a>
+</section>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/collection.js"></script>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel=" stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/search.css">
+    <link rel="icon" href="../images/logo.svg">
+
+    <title>Musical - Поиск треков</title>
+</head>
+
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header__menu-top">
+            <a th:href="@{/}"><img th:src="@{/images/header/logotype.svg}" alt="лого" class="header_logo"></a>
+            <ul class="header__links">
+                <li class="header__link"><a href="search.html">Поиск <img src="../images/header/search.svg"></a>
+                </li>
+                <li class="header__link"><a th:href="@{/}">Все треки <img
+                        src="../images/header/headphones.svg"></a></li>
+                <li class="header__link"><a th:href="@{allartist}">Артисты <img
+                        src="../images/header/artists.svg"></a></li>
+                <li class="header__link"><a th:href="@{subscribe}">Подписка <img src="../images/header/subs.svg"></a>
+                </li>
+                <li class="header__link"><a th:href="@{project}">Проект <img src="../images/header/project.svg"></a>
+                </li>
+                <li class="header__link"><a th:href="@{collection}">Коллекция <img
+                        src="../images/header/like.svg"></a></li>
+            </ul>
+            <div class="header_ets">
+                <a href="setting.html" class="header_setting"><img src="../images/header/setting.svg" alt="set"></a>
+                <a href="#" class="header_logout"><img src="../images/header/logout.svg" alt="log"></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="search__track">
+    <div class="container">
+        <div class="search__track-wrapper">
+            <div class="search__track-left">
+                <a href="#">
+                    <img src="../images/search-track.jpg" width="100px" style="border-radius: 12px;">
+                    <div class="search__track-left-info">
+                        <p>Имя</p>
+                        <h4>Название трека</h4>
+                    </div>
+                </a>
+            </div>
+            <button class="search__track-btn">Перейти</button>
+        </div>
+    </div>
+</section>
+
+</body>
+<script src="../js/swiper-for-subs.js"></script>
+
+</html>

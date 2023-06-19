@@ -1,0 +1,152 @@
+.details-track {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    transition: bottom 0.6s ease-in-out;
+    z-index: 200;
+    background-color: var(--black);
+}
+
+.details-track.open {
+    bottom: 0;
+    transition: bottom 0.6s ease-in-out;
+}
+
+.details-track__inner {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    gap: 200px;
+}
+
+.details-track__img {
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: center;
+    background-repeat: no-repeat;
+}
+
+.details-track__top {
+    margin-bottom: 50px;
+    display: flex;
+    gap: 70px;
+}
+
+.details-track__btn {
+    font-family: 'Nunito';
+
+    font-weight: 400;
+    font-size: 21px;
+    position: relative;
+    font-size: 20px;
+    line-height: 1;
+    transition: color .3s, opacity .3s;
+    padding: 0 0 6px;
+    color: var(--gray);
+}
+
+.details-track__btn::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: transparent;
+    transition: background-color .3s;
+}
+
+.details-track__btn.active::after {
+    background-color: var(--feolet);
+}
+
+.details-track__tabs {
+    max-width: 700px;
+    width: 100%;
+}
+
+.details-track__content {
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.details-track__tab {
+    padding: 5px 20px;
+    position: relative;
+    display: none;
+}
+
+.details-track__tab.active {
+    display: block;
+}
+
+.details-track__tab::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background-color: var(--feolet);
+}
+
+.details-track__video {
+    position: relative;
+}
+
+.details-track__video::after {
+    content: "";
+    position: absolute;
+    background-color: rgba(0, 0, 0, .4);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.details-track__img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    background-repeat: no-repeat;
+}
+
+.details-track__play {
+    position: absolute;
+    z-index: 100;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.details-track__inner {
+    position: relative;
+}
+
+.details-track__img {
+    display: block;
+}
+
+.details-track__inner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    mix-blend-mode: multiply;
+    opacity: 0;
+}
+
+.details-track__img.loaded {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.details-track__inner::before.loaded {
+    opacity: 1;
+    transition: background-color 0.5s ease;
+}

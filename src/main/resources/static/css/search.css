@@ -1,0 +1,79 @@
+.search_tracks {
+    background: var(--white);
+    border-radius: 500px;
+    padding: 18px 60px 18px 30px;
+    font-family: 'Nunito';
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    color: #000000;
+    position: relative;
+    outline: none;
+    width: 100%;
+    display: block;
+    border: 1px solid transparent;
+    transition: all .4s;
+}
+
+.search_tracks-img {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    right: 30px;
+    filter: invert();
+}
+
+form {
+    position: relative;
+    max-width: 1230px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+}
+
+.search__track-wrapper {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: .7px solid var(--white);
+    padding-bottom: 26px;
+}
+
+.search__track-wrapper:first-child {
+    margin-top: 50px;
+}
+
+.search__track-left a {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.search__track-left-info p {
+    margin-bottom: 6px;
+}
+
+.search__track-left-info p,
+.search__track-left-info h4 {
+    font-family: 'Nunito';
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 29px;
+    color: var(--white);
+}
+
+.search__track-btn {
+    padding: 12px 50px;
+    font-family: 'Nunito';
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    color: var(--white);
+    border: transparent;
+    border: 1px solid var(--white);
+    border-radius: 500px;
+}

@@ -1,0 +1,128 @@
+.tracks-main {
+    margin-bottom: 200px;
+}
+
+.tracks-main__list {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 60px 20px;
+}
+
+.tracks-main__item:hover .tracks-main__btn {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.tracks-main__item:nth-child(n+7) {
+    display: none;
+}
+
+.tracks-main__item.is-visible {
+    display: block;
+}
+
+.tracks-main__top {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    gap: 15px;
+}
+
+.tracks-main__img {
+    object-fit: cover;
+    object-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    display: block;
+    border-radius: 15px;
+}
+
+.tracks-main__name,
+.tracks-main__album {
+    font-weight: 600;
+}
+
+.tracks-main__name {
+    margin-bottom: 5px;
+    font-size: 22px;
+}
+
+.tracks-main__album {
+    font-size: 18px;
+    color: var(--gray);
+}
+
+.tracks-main__btn {
+    pointer-events: none;
+    opacity: 0;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    transition: opacity .4s;
+}
+
+.tracks-main__btn img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.tracks-main__more {
+    display: block;
+    margin-left: auto;
+    margin-top: 60px;
+    font-size: 18px;
+    color: var(--white);
+    padding: 14px 60px;
+    line-height: 1;
+    font-weight: 500;
+    border-radius: 30px;
+    background-color: transparent;
+    border: 1px solid var(--white);
+    transition: color .3s, background-color .3s, opacity .3s;
+}
+
+.tracks-main__more:hover {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.tracks-main__top-button {
+    color: #fff;
+}
+
+.card__admin {
+    opacity: 0;
+
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    transition: all .3s;
+}
+
+.artist:hover .card__admin,
+.tracks-main__item:hover .card__admin {
+    z-index: 10;
+    opacity: 1;
+}
+
+.card__admin-btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.artist-main__top {
+    display: flex;
+    gap: 15px;
+}

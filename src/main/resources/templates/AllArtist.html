@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/tracks-main.css}">
+    <link rel="stylesheet" th:href="@{/css/details-track.css}">
+    <link rel="stylesheet" th:href="@{/css/AllArtist.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <title>Musical - Артисты</title>
+</head>
+
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header__menu-top">
+            <a th:href="@{/}"><img th:src="@{/images/header/logotype.svg}" alt="лого" class="header_logo"></a>
+            <ul class="header__links">
+                <li class="header__link"><a href="search.html">Поиск <img th:src="@{/images/header/search.svg}"></a>
+                </li>
+                <li class="header__link"><a th:href="@{/}">Все треки <img
+                        th:src="@{/images/header/headphones.svg}"></a></li>
+                <li class="header__link"><a th:href="@{/allartist}">Артисты <img
+                        th:src="@{/images/header/artists.svg}"></a></li>
+                <li class="header__link"><a th:href="@{/subscribe}">Подписка <img th:src="@{/images/header/subs.svg}"></a>
+                </li>
+                <li class="header__link"><a th:href="@{/project}">Проект <img th:src="@{/images/header/project.svg}"></a>
+                </li>
+                <li class="header__link"><a th:href="@{/collection}">Коллекция <img
+                        th:src="@{/images/header/like.svg}"></a></li>
+            </ul>
+            <div class="header_ets">
+                <a th:href="@{/settings}" class="header_setting"><img th:src="@{/images/header/setting.svg}" alt="set"></a>
+                <a th:href="@{/registration}" class="header_logout"><img th:src="@{/images/header/logout.svg}" alt="log"></a>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="AllArtist">
+    <div class="container">
+        <div class="artist-main__top">
+            <h1 class="title">Артисты</h1>
+            <button class="artist-main__top-button" onclick="modal_addArtist()">
+                <img src="../images/admin-add-entity.svg">
+            </button>
+        </div>
+
+        <div class="AllArtist__wrapper">
+            <th:block th:if="${artists.isEmpty()}">
+                <p>Артистов пока нет</p>
+            </th:block>
+            <th:block th:each="artist: ${artists}">
+                <div class="artist">
+                    <ul class="card__admin">
+                        <li class="card__admin-item" onclick="modal_EditArtist(event)">
+                            <button class="card__admin-btn" id="button-open-edit_release"
+                                    th:data-artist-id="${artist.id}"
+                                    th:data-artist-name="${artist.name}"
+                                    th:data-artist-description="${artist.description}"
+                                    th:data-artist-genre="${artist.genre}"
+                                    th:data-artist-listeners="${artist.listeners}"
+                                    th:data-artist-filename="${artist.filename}"
+                            >
+                                <img src="../images/admin-edit-entity.svg" alt="редактирование">
+                            </button>
+                        </li>
+                        <li class="card__admin-item" onclick="modal_DeleteArtist(event)">
+                            <button class="card__admin-btn" id="button-open-delete_release"
+                                    th:data-artist-id="${artist.id}" th:data-artist-name="${artist.name}">
+                                <img src="../images/admin-delete-entity.svg" alt="удаление">
+                            </button>
+                        </li>
+                    </ul>
+
+                    <a th:href="@{/artist/{id}/details(id=${artist.id})}">
+                    <div class="img-blackout">
+                        <img th:src="@{'/uploads/' + ${artist.filename}}" alt="artist" width="260" height="260"
+                             style="border-radius: 50%" id="myImage">
+                    </div>
+                    </a>
+                    <p class="artist-name" th:text="${artist.name}" id="myText"></p>
+                    <!-- <p th:text="'Количество подписчиков - ' + ${artist.listeners} + ' г.'"></p>-->
+                </div>
+            </th:block>
+        </div>
+    </div>
+</section>
+</body>
+<div class="modal" id="modal-edit_artist">
+    <button class="modal__close" onclick="modal_ArtistClose()">
+        <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"/>
+            <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"/>
+        </svg>
+    </button>
+    <h2 class="section-title modal__title" id="edit_modal__title">Добавление артиста</h2>
+    <form class="modal__form" enctype="multipart/form-data">
+        <ul class="modal__list">
+            <li class="modal__item">
+                <label class="label" for="name">Имя артиста или название группы</label>
+                <input class="input" type="text" id="name" name="name" placeholder="Псевдоним">
+                <span class="error">Тут написать ошибку</span>
+            </li>
+            <li class="modal__item">
+                <label class="label" for="description">Описание артиста</label>
+                <textarea class="input textarea" id="description" name="description"
+                          placeholder="Напишите про жизнь артиста его цели или биографию">
+                </textarea>
+                <span class="error">Тут написать ошибку</span>
+            </li>
+            <li class="modal__item">
+                <label class="label" for="genre">Жанр</label>
+                <input class="input" type="text" id="genre" name="genre" placeholder="Жанр в котором пишет артист">
+                <span class="error">Тут написать ошибку</span>
+            </li>
+            <li class="modal__item">
+                <label class="listeners" for="listeners">Слушателей в месяц</label>
+                <input class="input" type="number" id="listeners" name="listeners"
+                       placeholder="Напишите примерное кол-во слушателей у артиста,(это нужно для статистики)">
+                <span class="error">Тут написать ошибку</span>
+            </li>
+            <li class="modal__item">
+                <span class="label">Фотография</span>
+                <div class="file-upload-container">
+                    <input type="file" id="photo" name="photo" onchange="updateFileName(event)">
+                    <label class="custom-file-upload" for="photo" id="file-upload-label">
+                        Загрузить файл
+                    </label>
+                </div>
+            </li>
+        </ul>
+        <div class="modal__buttons">
+            <button class="modal__btn" type="button" onclick="modal_ArtistClose()" style="background-color: #B44646;">
+                Отменить
+            </button>
+            <button class="modal__btn" type="button" onclick="modal_saveArtist()" style="background-color: #46B451;">
+                Сохранить
+            </button>
+        </div>
+    </form>
+</div>
+<div class="modal modal--delete" id="modal-delete_Artist">
+    <button class="modal__close" onclick="modal_DeleteArtistClose()">
+        <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"/>
+            <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"/>
+        </svg>
+    </button>
+    <div class="modal__inner">
+        <p class="modal__text">
+            Вы действительно хотите удалить "<span id="artist_name-delete"></span>?" Отменить это действие будет
+            невозможно.
+        </p>
+        <form class="modal__form-actions" action="">
+            <div class="modal__buttons">
+                <button class="modal__btn" type="button" onclick="deleteArtist()" style="background: #B44646;">Удалить
+                </button>
+                <button class="modal__btn" type="button" onclick="modal_DeleteArtistClose()"
+                        style="background: #5B5858;">
+                    Отмена
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/custom-file.js}"></script>
+<script th:src="@{/js/artists.js}"></script>
+
+</html>
