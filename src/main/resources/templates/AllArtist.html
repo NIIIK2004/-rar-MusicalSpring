@@ -18,165 +18,129 @@
 </head>
 
 <body>
-<header class="header">
-    <div class="container">
-        <div class="header__menu-top">
-            <a th:href="@{/}"><img th:src="@{/images/header/logotype.svg}" alt="лого" class="header_logo"></a>
-            <ul class="header__links">
-                <li class="header__link"><a href="search.html">Поиск <img th:src="@{/images/header/search.svg}"></a>
-                </li>
-                <li class="header__link"><a th:href="@{/}">Все треки <img
-                        th:src="@{/images/header/headphones.svg}"></a></li>
-                <li class="header__link"><a th:href="@{/allartist}">Артисты <img
-                        th:src="@{/images/header/artists.svg}"></a></li>
-                <li class="header__link"><a th:href="@{/subscribe}">Подписка <img th:src="@{/images/header/subs.svg}"></a>
-                </li>
-                <li class="header__link"><a th:href="@{/project}">Проект <img th:src="@{/images/header/project.svg}"></a>
-                </li>
-                <li class="header__link"><a th:href="@{/collection}">Коллекция <img
-                        th:src="@{/images/header/like.svg}"></a></li>
-            </ul>
-            <div class="header_ets">
-                <a th:href="@{/settings}" class="header_setting"><img th:src="@{/images/header/setting.svg}" alt="set"></a>
-                <a th:href="@{/registration}" class="header_logout"><img th:src="@{/images/header/logout.svg}" alt="log"></a>
-            </div>
-        </div>
-    </div>
-</header>
+<header class="header" th:include="components/header :: header"></header>
 <section class="AllArtist">
     <div class="container">
         <div class="artist-main__top">
             <h1 class="title">Артисты</h1>
-            <button class="artist-main__top-button" onclick="modal_addArtist()">
-                <img src="../images/admin-add-entity.svg">
-            </button>
+            <div class="view">
+                <span>Вид:</span>
+                <a href="#" data-view="one-view">
+                    <svg class="icon-one" width="29" height="29" viewBox="0 0 29 29" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="14.5" cy="14.5" r="8.5" stroke="#F8F8F8" stroke-width="2"/>
+                        <rect x="0.5" y="0.5" width="28" height="28" rx="14" stroke="#F8F8F8"/>
+                    </svg>
+                </a>
+                <a href="#" data-view="two-view">
+                    <svg class="icon-two" width="29" height="29" viewBox="0 0 29 29" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <rect width="29" height="29" rx="14.5" fill="#F8F8F8"/>
+                        <g clip-path="url(#clip0_1183_2449)">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M14.146 5.87533C14.3689 5.76389 14.6313 5.76389 14.8541 5.87533L22.7708 9.83366C23.039 9.96776 23.2084 10.2419 23.2084 10.5417C23.2084 10.8416 23.039 11.1157 22.7708 11.2498L14.8541 15.2082C14.6313 15.3196 14.3689 15.3196 14.146 15.2082L6.22937 11.2498C5.96117 11.1157 5.79175 10.8416 5.79175 10.5417C5.79175 10.2419 5.96117 9.96776 6.22937 9.83366L14.146 5.87533ZM8.35364 10.5417L14.5001 13.615L20.6465 10.5417L14.5001 7.46852L8.35364 10.5417Z"
+                                  fill="#0C0C0C"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.87526 18.1043C6.07079 17.7132 6.54632 17.5547 6.93739 17.7503L14.5 21.5316L22.0626 17.7503C22.4537 17.5547 22.9292 17.7132 23.1248 18.1043C23.3203 18.4954 23.1618 18.9709 22.7707 19.1664L14.8541 23.1248C14.6312 23.2362 14.3688 23.2362 14.146 23.1248L6.2293 19.1664C5.83823 18.9709 5.67972 18.4954 5.87526 18.1043Z"
+                                  fill="#0C0C0C"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.87526 14.146C6.07079 13.755 6.54632 13.5965 6.93739 13.792L14.5 17.5733L22.0626 13.792C22.4537 13.5965 22.9292 13.755 23.1248 14.146C23.3203 14.5371 23.1618 15.0126 22.7707 15.2082L14.8541 19.1665C14.6312 19.278 14.3688 19.278 14.146 19.1665L6.2293 15.2082C5.83823 15.0126 5.67972 14.5371 5.87526 14.146Z"
+                                  fill="#0C0C0C"/>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_1183_2449">
+                                <rect width="19" height="19" fill="white" transform="translate(5 5)"/>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </a>
+                <a href="#" data-view="three-view">
+                    <svg class="icon-three" width="29" height="29" viewBox="0 0 29 29" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <rect width="29" height="29" rx="14.5" fill="#F8F8F8"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M6.58325 7.37492C6.58325 6.93769 6.93769 6.58325 7.37492 6.58325H12.9166C13.3538 6.58325 13.7083 6.93769 13.7083 7.37492V12.9166C13.7083 13.3538 13.3538 13.7083 12.9166 13.7083H7.37492C6.93769 13.7083 6.58325 13.3538 6.58325 12.9166V7.37492ZM8.16659 8.16659V12.1249H12.1249V8.16659H8.16659Z"
+                              fill="#0C0C0C"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M15.2917 7.37492C15.2917 6.93769 15.6462 6.58325 16.0834 6.58325H21.6251C22.0623 6.58325 22.4167 6.93769 22.4167 7.37492V12.9166C22.4167 13.3538 22.0623 13.7083 21.6251 13.7083H16.0834C15.6462 13.7083 15.2917 13.3538 15.2917 12.9166V7.37492ZM16.8751 8.16659V12.1249H20.8334V8.16659H16.8751Z"
+                              fill="#0C0C0C"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M15.2917 16.0834C15.2917 15.6462 15.6462 15.2917 16.0834 15.2917H21.6251C22.0623 15.2917 22.4167 15.6462 22.4167 16.0834V21.6251C22.4167 22.0623 22.0623 22.4167 21.6251 22.4167H16.0834C15.6462 22.4167 15.2917 22.0623 15.2917 21.6251V16.0834ZM16.8751 16.8751V20.8334H20.8334V16.8751H16.8751Z"
+                              fill="#0C0C0C"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M6.58325 16.0834C6.58325 15.6462 6.93769 15.2917 7.37492 15.2917H12.9166C13.3538 15.2917 13.7083 15.6462 13.7083 16.0834V21.6251C13.7083 22.0623 13.3538 22.4167 12.9166 22.4167H7.37492C6.93769 22.4167 6.58325 22.0623 6.58325 21.6251V16.0834ZM8.16659 16.8751V20.8334H12.1249V16.8751H8.16659Z"
+                              fill="#0C0C0C"/>
+                    </svg>
+                </a>
+            </div>
         </div>
 
-        <div class="AllArtist__wrapper">
+        <div class="AllArtist__wrapper one-view" style="display: none;">
             <th:block th:if="${artists.isEmpty()}">
                 <p>Артистов пока нет</p>
             </th:block>
             <th:block th:each="artist: ${artists}">
                 <div class="artist">
-                    <ul class="card__admin">
-                        <li class="card__admin-item" onclick="modal_EditArtist(event)">
-                            <button class="card__admin-btn" id="button-open-edit_release"
-                                    th:data-artist-id="${artist.id}"
-                                    th:data-artist-name="${artist.name}"
-                                    th:data-artist-description="${artist.description}"
-                                    th:data-artist-genre="${artist.genre}"
-                                    th:data-artist-listeners="${artist.listeners}"
-                                    th:data-artist-filename="${artist.filename}"
-                            >
-                                <img src="../images/admin-edit-entity.svg" alt="редактирование">
-                            </button>
-                        </li>
-                        <li class="card__admin-item" onclick="modal_DeleteArtist(event)">
-                            <button class="card__admin-btn" id="button-open-delete_release"
-                                    th:data-artist-id="${artist.id}" th:data-artist-name="${artist.name}">
-                                <img src="../images/admin-delete-entity.svg" alt="удаление">
-                            </button>
-                        </li>
-                    </ul>
-
                     <a th:href="@{/artist/{id}/details(id=${artist.id})}">
-                    <div class="img-blackout">
-                        <img th:src="@{'/uploads/' + ${artist.filename}}" alt="artist" width="260" height="260"
-                             style="border-radius: 50%" id="myImage">
-                    </div>
+                        <div class="img-blackout">
+                            <img th:src="@{'/uploads/' + ${artist.filename}}" alt="artist" width="130" height="130"
+                                 style="border-radius: 50%" id="myImage">
+                        </div>
                     </a>
                     <p class="artist-name" th:text="${artist.name}" id="myText"></p>
                     <!-- <p th:text="'Количество подписчиков - ' + ${artist.listeners} + ' г.'"></p>-->
                 </div>
             </th:block>
         </div>
+
+        <div class="AllArtist__wrapper two-view" style="display: none;">
+            <th:block th:if="${artists.isEmpty()}">
+                <p>Артистов пока нет</p>
+            </th:block>
+            <th:block th:each="artist: ${artists}">
+                <div class="artist-view-two">
+                    <a th:href="@{/artist/{id}/details(id=${artist.id})}">
+                        <div class="img-blackout-two">
+                            <img th:src="@{'/uploads/' + ${artist.filename}}" alt="artist" width="65" height="65"
+                                 style="border-radius: 50%">
+                        </div>
+
+                    <div class="artist-info-view-two">
+                    <p class="artist-name-view-two" th:text="${artist.name}"></p>
+                    <p class="artist-listen-view-two" th:text="'Артист | ' + ${artist.listeners} + ' слушателей'"></p>
+                    </div>
+                    </a>
+                </div>
+            </th:block>
+        </div>
+
+        <div class="AllArtist__wrapper three-view" style="display: none;">
+            <th:block th:if="${artists.isEmpty()}">
+                <p>Артистов пока нет</p>
+            </th:block>
+            <th:block th:each="artist: ${artists}">
+                <div class="artist-view-two">
+                    <a th:href="@{/artist/{id}/details(id=${artist.id})}">
+                        <div class="img-blackout-two">
+                            <img th:src="@{'/uploads/' + ${artist.filename}}" alt="artist" width="80" height="80"
+                                 style="border-radius: 50%">
+                        </div>
+
+                        <div class="artist-info-view-two">
+                            <p class="artist-name-view-two" th:text="${artist.name}"></p>
+                        </div>
+                    </a>
+                </div>
+            </th:block>
+        </div>
     </div>
 </section>
 </body>
-<div class="modal" id="modal-edit_artist">
-    <button class="modal__close" onclick="modal_ArtistClose()">
-        <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
-                  stroke-linejoin="round"/>
-            <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
-                  stroke-linejoin="round"/>
-        </svg>
-    </button>
-    <h2 class="section-title modal__title" id="edit_modal__title">Добавление артиста</h2>
-    <form class="modal__form" enctype="multipart/form-data">
-        <ul class="modal__list">
-            <li class="modal__item">
-                <label class="label" for="name">Имя артиста или название группы</label>
-                <input class="input" type="text" id="name" name="name" placeholder="Псевдоним">
-                <span class="error">Тут написать ошибку</span>
-            </li>
-            <li class="modal__item">
-                <label class="label" for="description">Описание артиста</label>
-                <textarea class="input textarea" id="description" name="description"
-                          placeholder="Напишите про жизнь артиста его цели или биографию">
-                </textarea>
-                <span class="error">Тут написать ошибку</span>
-            </li>
-            <li class="modal__item">
-                <label class="label" for="genre">Жанр</label>
-                <input class="input" type="text" id="genre" name="genre" placeholder="Жанр в котором пишет артист">
-                <span class="error">Тут написать ошибку</span>
-            </li>
-            <li class="modal__item">
-                <label class="listeners" for="listeners">Слушателей в месяц</label>
-                <input class="input" type="number" id="listeners" name="listeners"
-                       placeholder="Напишите примерное кол-во слушателей у артиста,(это нужно для статистики)">
-                <span class="error">Тут написать ошибку</span>
-            </li>
-            <li class="modal__item">
-                <span class="label">Фотография</span>
-                <div class="file-upload-container">
-                    <input type="file" id="photo" name="photo" onchange="updateFileName(event)">
-                    <label class="custom-file-upload" for="photo" id="file-upload-label">
-                        Загрузить файл
-                    </label>
-                </div>
-            </li>
-        </ul>
-        <div class="modal__buttons">
-            <button class="modal__btn" type="button" onclick="modal_ArtistClose()" style="background-color: #B44646;">
-                Отменить
-            </button>
-            <button class="modal__btn" type="button" onclick="modal_saveArtist()" style="background-color: #46B451;">
-                Сохранить
-            </button>
-        </div>
-    </form>
-</div>
-<div class="modal modal--delete" id="modal-delete_Artist">
-    <button class="modal__close" onclick="modal_DeleteArtistClose()">
-        <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
-                  stroke-linejoin="round"/>
-            <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
-                  stroke-linejoin="round"/>
-        </svg>
-    </button>
-    <div class="modal__inner">
-        <p class="modal__text">
-            Вы действительно хотите удалить "<span id="artist_name-delete"></span>?" Отменить это действие будет
-            невозможно.
-        </p>
-        <form class="modal__form-actions" action="">
-            <div class="modal__buttons">
-                <button class="modal__btn" type="button" onclick="deleteArtist()" style="background: #B44646;">Удалить
-                </button>
-                <button class="modal__btn" type="button" onclick="modal_DeleteArtistClose()"
-                        style="background: #5B5858;">
-                    Отмена
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/view-switcher.js}"></script>
 <script th:src="@{/js/custom-file.js}"></script>
 <script th:src="@{/js/artists.js}"></script>
 

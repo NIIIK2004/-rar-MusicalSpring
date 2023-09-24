@@ -5,10 +5,9 @@
 @import 'components/fonts.css';
 
 .title {
-    font-family: 'Nunito';
-    font-weight: 600;
-    font-size: 48px;
-    line-height: 65px;
+    font-family: Nunito;
+    font-size: 28px;
+    font-weight: 500;
     color: var(--white);
 }
 
@@ -76,25 +75,32 @@ audio {
     opacity: 0;
     transition: opacity 0.2s ease;
 }
-
+.total-time,
+.current-time {
+    color: var(--white);
+    font-family: Nunito;
+    font-size: 12px;
+    font-weight: 600;
+}
 .progress-bar:hover .circle {
     opacity: 1;
 }
 
 .audio__info-wrapper {
     display: flex;
-    gap: 6px;
+    align-items: center;
+    gap: 8px;
 }
 
 .audio-action_btn {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     justify-content: flex-end;
 }
 
 .controls {
     display: flex;
-    gap: 15px;
+    gap: 5px;
 }
 
 .audio-left-block,
@@ -105,7 +111,7 @@ audio {
 .audio-left-block {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
 }
 
 .audio__info-wrapper img {
@@ -114,7 +120,7 @@ audio {
 
 .time {
     display: flex;
-    gap: 336px;
+    gap: 354px;
     margin-top: 4px;
 }
 
@@ -470,4 +476,13 @@ body.slide-out {
     border-radius: 7px;
     width: 100%;
     background: linear-gradient(92.05deg, #4A3AF2 44.53%, #CD3FFF 74.96%, #DA138A 105.45%);
+}
+
+.top-decor-left {
+    position: absolute;
+    width: 438px;
+    height: 438px;
+    border-radius: 438px;
+    filter: blur(240px);
+    z-index: -18;
 }

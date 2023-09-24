@@ -1,164 +1,202 @@
-.Artist {
-    margin-top: 85px;
-}
-
-.Artist__wrapper {
-    margin-top: 40px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-}
-
-.Artist__info-block {
-    max-width: 830px;
+.Artist_ava {
+    top: -50px;
+    background-size: cover;
+    position: absolute;
     width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    margin: 0;
+    padding: 0;
+}
+
+.Artist_ava-wrapper {
+    position: relative;
+
+}
+
+.Artist_ava-wrapper::after {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.21) 0%, rgba(0, 0, 0, 0.80) 99.94%);
+    z-index: -1;
+}
+
+.Artist-name {
+    margin-top: 85px;
+    color: var(--white);
+    font-family: Nunito;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
 }
 
 .Artist__info-bio {
-    margin-top: 20px;
+    margin-top: 50px;
+    color: var(--white);
+    font-family: Nunito;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.Artist__btns {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.Artist__btns-subs {
+    border-radius: 8px;
+    background: var(--feolet);
+    padding: 15px 45px;
+
+    color: var(--white);
+    font-family: Nunito;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.Artist__btns-similar {
+    color: var(--white);
+    font-family: Nunito;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 15px 45px;
+    border-radius: 8px;
+    line-height: normal;
+    background: linear-gradient(90deg, #2F1DE8 3.57%, #7534FF 51.64%, #F00994 106.26%);
+}
+
+.Artist__info-social {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+
+.statistics-wrapper {
+    /*margin-top: 110px;*/
+    position: absolute;
+    bottom: 13%;
+    width: 100%;
+}
+
+.statistics-title {
+    color: var(--white);
+    font-family: Nunito;
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.statistics-blocks {
+    margin-top: 42px;
+    display: flex;
+    align-items: center;
+    gap: 97px;
+    justify-content: space-between;
+    max-width: 1680px;
+}
+
+.statistics-block {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+}
+
+.statistics-block-data {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.statistics-block span {
+    color: var(--gray);
+    font-family: Nunito;
+    font-size: 21px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.statistics__card-main {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+    color: var(--white);
+    font-family: Nunito;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.Artist__info-block {
+    margin-top: 485px;
 }
 
 .Artist__info-title {
-    margin-top: 74px;
-    font-family: 'Nunito';
-    font-weight: 400;
-    font-size: 32px;
-    line-height: 44px;
-
-    color: var(--white)
+    color: var(--white);
+    font-family: Nunito;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: normal;
 }
 
 .Artist__info-playlists {
     display: flex;
-    gap: 22px;
-}
-
-.Artist__info-playlist {
-    margin-top: 20px;
-    position: relative;
-    transition: all .5s;
-    cursor: pointer;
-}
-
-.Artist__info-social a:hover svg {
-    fill: #ffcc00 !important;
-}
-
-.Artist__info-playlist:hover {
-    transform: scale(0.96);
-}
-
-.Artist__info-playlist-title {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-
-    font-family: 'Nunito';
-    font-weight: 400;
-    font-size: 28px;
-    line-height: 38px;
-    color: var(--white);
-}
-
-.Artist__info-playlist img,
-.Artist__wrapper img {
-    border-radius: 10px;
-    object-fit: cover;
-}
-
-/*.statistics*/
-
-.statistics {
-    margin-top: 100px;
-}
-
-.statistics__wrapper {
-    margin-top: 40px;
-    display: flex;
     align-items: center;
-    gap: 22px;
-    justify-content: space-between;
-    margin-bottom: 120px;
-}
-
-.statistics__card {
+    gap: 18px;
+    grid-template-columns: repeat(7, 1fr);
     position: relative;
-    border-radius: 20px;
-    padding: 50px;
+    margin-top: 40px;
+}
+
+.Artist__info-playlist h3 {
+    margin: 18px;
     color: var(--white);
-    max-width: 545px;
-    width: 100%;
-    height: 311px;
-    cursor: pointer;
-    transition: all .5s;
-}
-
-.statistics__card:hover {
-    transform: scale(.98);
-}
-
-.statistics__card:nth-child(1) {
-    background: #D32581;
-}
-
-.statistics__card:nth-child(2) {
-    background: #5347CC;
-}
-
-.statistics__card:nth-child(3) {
-    background: #EEDE00;
-    color: var(--black);
-}
-
-.statistics__card-top {
-    display: flex;
-    justify-content: space-between;
-}
-
-.statistics__card-textsubs {
-    font-family: 'Nunito';
-    font-weight: 400;
-    font-size: 32px;
-    line-height: 44px;
-    transition: all .5s;
-}
-
-.statistics__card-main {
-    margin-top: 30px;
-
-    font-family: 'Nunito';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 64px;
-    line-height: 87px;
-    color: var(--white);
-    transition: all .5s;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 425px;
-}
-
-.etscolor {
-    color: var(--black);
-}
-
-.Polygon {
+    font-family: Nunito;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: normal;
     position: absolute;
-    bottom: 9%;
-    right: 7%;
-    transition: all .5s;
+    z-index: 1;
+    width: 191px;
+    overflow-wrap: break-word;
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.Artist__info-playlist img {
+    width: 223px;
+    height: 223px;
+    border-radius: 7px;
+    position: relative;
+}
+
+.Artist__info-playlist img::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 
-.statistics__card:hover .Polygon {
-    transform: scale(1.10);
-}
 
-.statistics__card-main-not {
-    font-weight: 700;
-    font-size: 64px;
-    line-height: 87px;
-    color: var(--white);
-    margin-top: 30px;
-}
+
+
+
+
+

@@ -19,24 +19,19 @@
 <header class="header">
     <div class="container">
         <div class="header__menu-top">
-            <a th:href="@{/}"><img th:src="@{/images/header/logotype.svg}" alt="лого" class="header_logo"></a>
+            <a th:href="@{/artist/search}">
+                <img src="../images/header/logotype.svg" class="header_logo">
+            </a>
+            <form action="/artist/search" method="GET">
+                <input type="search" class="search_tracks" name="id" placeholder="Найти">
+                <img class="search_tracks-img" src="../images/header/search.svg">
+            </form>
             <ul class="header__links">
-                <li class="header__link"><a href="search.html">Поиск <img src="../images/header/search.svg"></a>
-                </li>
-                <li class="header__link"><a th:href="@{/}">Все треки <img
-                        src="../images/header/headphones.svg"></a></li>
-                <li class="header__link"><a th:href="@{allartist}">Артисты <img
-                        src="../images/header/artists.svg"></a></li>
-                <li class="header__link"><a th:href="@{subscribe}">Подписка <img src="../images/header/subs.svg"></a>
-                </li>
-                <li class="header__link"><a th:href="@{project}">Проект <img src="../images/header/project.svg"></a>
-                </li>
-                <li class="header__link"><a th:href="@{collection}">Коллекция <img
-                        src="../images/header/like.svg"></a></li>
+                <li class="header__link"><a th:href="@{/}">Назад</a></li>
             </ul>
             <div class="header_ets">
-                <a href="setting.html" class="header_setting"><img src="../images/header/setting.svg" alt="set"></a>
-                <a href="#" class="header_logout"><img src="../images/header/logout.svg" alt="log"></a>
+                <a th:href="@{setting}" class="header_setting"><img src="../images/header/setting.svg" alt="set"></a>
+                <a th:href="@{registration}" class="header_logout"><img src="../images/header/logout.svg" alt="log"></a>
             </div>
         </div>
     </div>
@@ -44,17 +39,16 @@
 
 <section class="search__track">
     <div class="container">
-        <div class="search__track-wrapper">
+        <div class="search__track-wrapper" th:each="artist : ${artists}">
             <div class="search__track-left">
                 <a href="#">
                     <img src="../images/search-track.jpg" width="100px" style="border-radius: 12px;">
                     <div class="search__track-left-info">
-                        <p>Имя</p>
-                        <h4>Название трека</h4>
+                        <p th:text="${artist.name}"></p>
                     </div>
                 </a>
             </div>
-            <button class="search__track-btn">Перейти</button>
+            <a th:href="@{/artist/{id}/details(id=${artist.id})}" class="search__track-btn">Перейти</a>
         </div>
     </div>
 </section>

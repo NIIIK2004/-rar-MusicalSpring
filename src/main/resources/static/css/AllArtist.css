@@ -5,8 +5,8 @@
 .AllArtist__wrapper {
     margin-top: 40px;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 22px;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 18px;
 }
 
 .artist {
@@ -21,8 +21,14 @@
     object-fit: cover;
 }
 
+.img-blackout-two,
 .img-blackout {
     position: relative;
+    line-height: 0;
+}
+.img-blackout-two img,
+.img-blackout img {
+    object-fit: cover;
 }
 
 .img-blackout::before {
@@ -32,8 +38,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 262px;
-    height: 262px;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -44,7 +50,7 @@
     font-family: 'Nunito';
     text-align: center;
     font-weight: 600;
-    font-size: 28px;
+    font-size: 14px;
     margin: 0;
     padding: 0;
     line-height: 1;
@@ -55,4 +61,100 @@
     text-overflow: ellipsis;
     width: 200px;
 }
+
+.artist-main__top {
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+}
+
+.view {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+}
+
+.view a {
+    line-height: 0;
+}
+
+.view span {
+    color: var(--gray);
+    font-family: Nunito;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+/*view-two*/
+.two-view {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 7px;
+}
+
+.artist-view-two a{
+    width: 100%;
+    padding: 15px 36px 15px 22px;
+    border-radius: 13px;
+    background: #121212;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.artist-name-view-two {
+    color: var(--white);
+    font-family: Nunito;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.artist-listen-view-two {
+    color: var(--gray);
+    font-family: Nunito;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.artist-info-view-two {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+/*view-three*/
+
+.three-view {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.artist-view-two a {
+    width: 100%;
+    border-radius: 13px;
+    background: #121212;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 23px 30px 23px 23px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 

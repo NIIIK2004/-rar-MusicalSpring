@@ -5,7 +5,8 @@
 .tracks-main__list {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    grid-gap: 60px 20px;
+    grid-gap: 40px 18px;
+    margin-top: 40px;
 }
 
 .tracks-main__item:hover .tracks-main__btn {
@@ -25,7 +26,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 15px;
     gap: 15px;
 }
 
@@ -122,7 +123,3 @@
     display: flex;
 }
 
-.artist-main__top {
-    display: flex;
-    gap: 15px;
-}

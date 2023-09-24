@@ -175,3 +175,4 @@ window.addEventListener("DOMContentLoaded", function (event) {
         content.style.opacity = 1;
     }, 3000);
 });
+

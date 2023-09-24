@@ -18,31 +18,7 @@
 </head>
 
 <body>
-<header class="header">
-    <div class="container">
-        <div class="header__menu-top">
-            <a th:href="@{/}"><img th:src="@{/images/header/logotype.svg}" alt="лого" class="header_logo"></a>
-            <ul class="header__links">
-                <li class="header__link"><a href="search.html">Поиск <img th:src="@{/images/header/search.svg}"></a>
-                </li>
-                <li class="header__link"><a th:href="@{/}">Все треки <img
-                        th:src="@{/images/header/headphones.svg}"></a></li>
-                <li class="header__link"><a th:href="@{/allartist}">Артисты <img
-                        th:src="@{/images/header/artists.svg}"></a></li>
-                <li class="header__link"><a th:href="@{/subscribe}">Подписка <img th:src="@{/images/header/subs.svg}"></a>
-                </li>
-                <li class="header__link"><a th:href="@{/project}">Проект <img th:src="@{/images/header/project.svg}"></a>
-                </li>
-                <li class="header__link"><a th:href="@{/collection}">Коллекция <img
-                        th:src="@{/images/header/like.svg}"></a></li>
-            </ul>
-            <div class="header_ets">
-                <a th:href="@{/settings}" class="header_setting"><img th:src="@{/images/header/setting.svg}" alt="set"></a>
-                <a th:href="@{/registration}" class="header_logout"><img th:src="@{/images/header/logout.svg}" alt="log"></a>
-            </div>
-        </div>
-    </div>
-</header>
+<header class="header" th:include="components/header :: header"></header>
 
 <section class="one-page" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-center">
     <div class="container">

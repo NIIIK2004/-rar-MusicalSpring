@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/podcast.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <title>Musical - Подкасты</title>
+</head>
+
+<body class="body">
+<div style="background: rgba(83, 71, 204, 0.60); top: -28%; left: -7%;" class="top-decor-left"></div>
+<div style="background: rgba(191, 62, 253, 0.50); top: -40%; left: 30%;" class="top-decor-left"></div>
+
+<header class="header" th:include="components/header :: header"></header>
+
+<section class="podcast">
+    <div class="container">
+        <div class="podcast-main__top">
+            <h1 class="title">Подкасты / Книги</h1>
+        </div>
+        <ul class="podcast-main__list">
+            <li class="podcast-main__item">
+                <div class="podcast-main__blur">
+                    <img th:src="@{images/podcast-ava.png}" alt="Блюр-Обложка">
+                </div>
+                <img th:src="@{images/podcast-ava.png}" alt="Обложка" class="podcast-main__cover">
+                <button class="podcast-main__listen">Слушать</button>
+                <h3 class="tracks-main__title">Название подкаста/книги</h3>
+                <span class="tracks-main__name-podcaster">Имя подкастера</span>
+                <div class="podcast-main__bottom">
+                    <span class="podcast-main__stars" title="Это средняя оценка воспроизведения">
+                        <img th:src="@{images/li_sprout.svg}" alt="Растение">
+                        4.6</span>
+                    <span class="podcast-main__more">
+                        <img th:src="@{/images/li_mic.svg}" alt="Микрофон">
+                        <img th:src="@{/images/ver-line.svg}" alt="Линия">
+                        <a style="display: inherit;" href=""><img th:src="@{/images/li_more-vertical.svg}"
+                                                                  alt="Еще больше"></a>
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/js/custom-select.js}"></script>
+<script th:src="@{/js/custom-file.js}"></script>
+<script th:src="@{/js/alert.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</html>

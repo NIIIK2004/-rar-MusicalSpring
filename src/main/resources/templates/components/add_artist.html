@@ -1,0 +1,115 @@
+<ul class="card__admin">
+  <li class="card__admin-item" onclick="modal_EditArtist(event)">
+    <button class="card__admin-btn" id="button-open-edit_release"
+            th:data-artist-id="${artist.id}"
+            th:data-artist-name="${artist.name}"
+            th:data-artist-description="${artist.description}"
+            th:data-artist-genre="${artist.genre}"
+            th:data-artist-listeners="${artist.listeners}"
+            th:data-artist-filename="${artist.filename}"
+    >
+      <img src="../images/admin-edit-entity.svg" alt="редактирование">
+    </button>
+  </li>
+  <li class="card__admin-item" onclick="modal_DeleteArtist(event)">
+    <button class="card__admin-btn" id="button-open-delete_release"
+            th:data-artist-id="${artist.id}" th:data-artist-name="${artist.name}">
+      <img src="../images/admin-delete-entity.svg" alt="удаление">
+    </button>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal" id="modal-edit_artist">
+  <button class="modal__close" onclick="modal_ArtistClose()">
+    <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
+            stroke-linejoin="round"/>
+      <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
+            stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <h2 class="section-title modal__title" id="edit_modal__title">Добавление артиста</h2>
+  <form class="modal__form" enctype="multipart/form-data">
+    <ul class="modal__list">
+      <li class="modal__item">
+        <label class="label" for="name">Имя артиста или название группы</label>
+        <input class="input" type="text" id="name" name="name" placeholder="Псевдоним">
+        <span class="error">Тут написать ошибку</span>
+      </li>
+      <li class="modal__item">
+        <label class="label" for="description">Описание артиста</label>
+        <textarea class="input textarea" id="description" name="description"
+                  placeholder="Напишите про жизнь артиста его цели или биографию">
+                </textarea>
+        <span class="error">Тут написать ошибку</span>
+      </li>
+      <li class="modal__item">
+        <label class="label" for="genre">Жанр</label>
+        <input class="input" type="text" id="genre" name="genre" placeholder="Жанр в котором пишет артист">
+        <span class="error">Тут написать ошибку</span>
+      </li>
+      <li class="modal__item">
+        <label class="listeners" for="listeners">Слушателей в месяц</label>
+        <input class="input" type="number" id="listeners" name="listeners"
+               placeholder="Напишите примерное кол-во слушателей у артиста,(это нужно для статистики)">
+        <span class="error">Тут написать ошибку</span>
+      </li>
+      <li class="modal__item">
+        <span class="label">Фотография</span>
+        <div class="file-upload-container">
+          <input type="file" id="photo" name="photo" onchange="updateFileName(event)">
+          <label class="custom-file-upload" for="photo" id="file-upload-label">
+            Загрузить файл
+          </label>
+        </div>
+      </li>
+    </ul>
+    <div class="modal__buttons">
+      <button class="modal__btn" type="button" onclick="modal_ArtistClose()" style="background-color: #B44646;">
+        Отменить
+      </button>
+      <button class="modal__btn" type="button" onclick="modal_saveArtist()" style="background-color: #46B451;">
+        Сохранить
+      </button>
+    </div>
+  </form>
+</div>
+<div class="modal modal--delete" id="modal-delete_Artist">
+  <button class="modal__close" onclick="modal_DeleteArtistClose()">
+    <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
+            stroke-linejoin="round"/>
+      <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
+            stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <div class="modal__inner">
+    <p class="modal__text">
+      Вы действительно хотите удалить "<span id="artist_name-delete"></span>?" Отменить это действие будет
+      невозможно.
+    </p>
+    <form class="modal__form-actions" action="">
+      <div class="modal__buttons">
+        <button class="modal__btn" type="button" onclick="deleteArtist()" style="background: #B44646;">Удалить
+        </button>
+        <button class="modal__btn" type="button" onclick="modal_DeleteArtistClose()"
+                style="background: #5B5858;">
+          Отмена
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -137,5 +137,15 @@ public class AllArtistController {
         return "Artist";
     }
 
+    @GetMapping("/artist/search")
+    public String searchArtist(@ModelAttribute("artist") Artist artist, Model model) {
+        List<Artist> artists = artistImpl.findAll();
+        if (artists == null) {
+            model.addAttribute("artists", artists);
+            return "search";
+        } else  {
+            return "search";
+        }
+    }
 
 }

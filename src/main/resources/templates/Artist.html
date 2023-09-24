@@ -16,112 +16,169 @@
 </head>
 
 <body>
-<header class="header">
-    <div class="container">
-        <div class="header__menu-top">
-            <a th:href="@{/}"><img th:src="@{/images/header/logotype.svg}" alt="лого" class="header_logo"></a>
-            <ul class="header__links">
-                <li class="header__link"><a href="search.html">Поиск <img th:src="@{/images/header/search.svg}"></a>
-                </li>
-                <li class="header__link"><a th:href="@{/}">Все треки <img
-                        th:src="@{/images/header/headphones.svg}"></a></li>
-                <li class="header__link"><a th:href="@{/allartist}">Артисты <img
-                        th:src="@{/images/header/artists.svg}"></a></li>
-                <li class="header__link"><a th:href="@{/subscribe}">Подписка <img th:src="@{/images/header/subs.svg}"></a>
-                </li>
-                <li class="header__link"><a th:href="@{/project}">Проект <img th:src="@{/images/header/project.svg}"></a>
-                </li>
-                <li class="header__link"><a th:href="@{/collection}">Коллекция <img
-                        th:src="@{/images/header/like.svg}"></a></li>
-            </ul>
-            <div class="header_ets">
-                <a th:href="@{/settings}" class="header_setting"><img th:src="@{/images/header/setting.svg}" alt="set"></a>
-                <a th:href="@{/registration}" class="header_logout"><img th:src="@{/images/header/logout.svg}" alt="log"></a>
-            </div>
-        </div>
-    </div>
-</header>
+<div class="Artist_ava-wrapper">
+    <img th:src="@{'/uploads/' + ${artist.filename}}" alt="ava" class="Artist_ava">
+</div>
+<header class="header" th:include="components/header :: header"></header>
+
 <section class="Artist">
     <div class="container">
-        <h1 class="Artist-name title" th:text="${artist.name}"></h1>
         <div class="Artist__wrapper">
-            <img th:src="@{'/uploads/' + ${artist.filename}}" alt="ava" class="Artist_ava" width="687" height="687">
-            <div class="Artist__info-block">
-                <div class="Artist__info-social">
-                    <a th:href="@{https://open.spotify.com/artist/72lYxQHj6k4H3u18ErEWhH}"><img
-                            th:src="@{/images/spotify.svg}" alt="link"></a>
-                    <a th:href="@{https://vk.com/niiik04}"><img th:src="@{/images/VK.svg}" alt="link"></a>
-                    <a th:href="@{https://web.telegram.org/a/#tosVopros}"><img th:src="@{/images/Telegram.svg}"
-                                                                               alt="link"></a>
-                    <a th:href="@{https://www.youtube.com/channel/UCNZnF-bicYstScveDsd648A}"><img
-                            th:src="@{/images/Youtube.svg}" alt="link"></a>
+            <h1 class="Artist-name title" th:text="${artist.name}"></h1>
+            <p class="Artist__info-bio text" th:text="${artist.description}"></p>
+
+            <div class="Artist__btns">
+                <button class="Artist__btns-subs">Подписаться</button>
+                <button class="Artist__btns-similar">Найти похожих</button>
+            </div>
+
+            <div class="Artist__info-social">
+                <a th:href="@{https://open.spotify.com/artist/72lYxQHj6k4H3u18ErEWhH}"><img
+                        th:src="@{/images/spotify.svg}" alt="link"></a>
+                <a th:href="@{https://vk.com/niiik04}"><img th:src="@{/images/VK.svg}" alt="link"></a>
+                <a th:href="@{https://web.telegram.org/a/#tosVopros}"><img th:src="@{/images/Telegram.svg}"
+                                                                           alt="link"></a>
+                <a th:href="@{https://www.youtube.com/channel/UCNZnF-bicYstScveDsd648A}"><img
+                        th:src="@{/images/Youtube.svg}" alt="link"></a>
+            </div>
+
+            <div class="statistics-wrapper">
+                <h1 class="statistics-title title">Статистика артиста</h1>
+
+                <div class="statistics-blocks">
+                    <div class="statistics-block">
+                        <span>
+                            <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M37.5001 18.75C38.6507 18.75 39.5834 19.6827 39.5834 20.8333V41.6667C39.5834 42.8173 38.6507 43.75 37.5001 43.75C36.3495 43.75 35.4167 42.8173 35.4167 41.6667V20.8333C35.4167 19.6827 36.3495 18.75 37.5001 18.75Z"
+                                  fill="#F8F8F8"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M25.0001 6.25C26.1507 6.25 27.0834 7.18274 27.0834 8.33333V41.6667C27.0834 42.8173 26.1507 43.75 25.0001 43.75C23.8495 43.75 22.9167 42.8173 22.9167 41.6667V8.33333C22.9167 7.18274 23.8495 6.25 25.0001 6.25Z"
+                                  fill="#F8F8F8"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M12.5001 27.0835C13.6507 27.0835 14.5834 28.0162 14.5834 29.1668V41.6668C14.5834 42.8174 13.6507 43.7502 12.5001 43.7502C11.3495 43.7502 10.4167 42.8174 10.4167 41.6668V29.1668C10.4167 28.0162 11.3495 27.0835 12.5001 27.0835Z"
+                                  fill="#F8F8F8"/>
+                            </svg>
+                        </span>
+                        <div class="statistics-block-data">
+                            <span>Слушателей</span>
+                            <h2 class="statistics__card-main"
+                                th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
+                                th:text="${artist.listeners}"></h2>
+                            <h2 class="statistics__card-main"
+                                th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">0</h2>
+                        </div>
+                    </div>
+
+                    <span class="line-separator">
+                        <svg width="2" height="32" viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 1L0.999999 31" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round"/>
+</svg>
+
+                    </span>
+
+                    <div class="statistics-block">
+                         <span>
+                         <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                         <path d="M4.43999 18.9201C3.19999 7.31005 15.92 2.78005 24.39 9.86005C24.5723 10.0136 24.8035 10.097 25.0418 10.0951C25.2802 10.0933 25.5101 10.0064 25.69 9.85005C30.3433 5.83672 35.06 5.15005 39.84 7.79005C48.58 12.6001 46.41 21.8701 41.09 28.5901C36.7233 34.1101 31.5433 38.9967 25.55 43.2501C25.3777 43.3722 25.1716 43.437 24.9615 43.4352C24.7513 43.4334 24.5477 43.3651 24.38 43.2401C17.43 38.1101 5.40999 28.1001 4.43999 18.9201Z"
+                               fill="#F8F8F8"/>
+                         </svg>
+                        </span>
+                        <div class="statistics-block-data">
+                            <span>Симпатий</span>
+                            <h2 class="statistics__card-main"
+                                th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
+                                th:text="${artist.listeners}"></h2>
+                            <h2 class="statistics__card-main"
+                                th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">0</h2>
+                        </div>
+                    </div>
+
+                    <span class="line-separator">
+                        <svg width="2" height="32" viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1L0.999999 31" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+
+                    <div class="statistics-block">
+                        <span>
+                            <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_808_2037)">
+                        <path d="M24.9998 4.16602C16.9373 4.16602 10.4165 10.6868 10.4165 18.7493C10.4165 29.6869 24.9998 45.8327 24.9998 45.8327C24.9998 45.8327 39.5832 29.6869 39.5832 18.7493C39.5832 10.6868 33.0623 4.16602 24.9998 4.16602ZM24.9998 23.9577C22.1248 23.9577 19.7915 21.6243 19.7915 18.7493C19.7915 15.8743 22.1248 13.541 24.9998 13.541C27.8748 13.541 30.2082 15.8743 30.2082 18.7493C30.2082 21.6243 27.8748 23.9577 24.9998 23.9577Z"
+                              fill="#F8F8F8"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_808_2037">
+                        <rect width="50" height="50" fill="white"/>
+                        </clipPath>
+                        </defs>
+                            </svg>
+                        </span>
+                        <div class="statistics-block-data">
+                            <span>Страна</span>
+                            <h2 class="statistics__card-main"
+                                th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
+                                th:text="${artist.listeners}"></h2>
+                            <h2 class="statistics__card-main"
+                                th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">0</h2>
+                        </div>
+                    </div>
+
+                    <span class="line-separator">
+                        <svg width="2" height="32" viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 1L0.999999 31" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round"/>
+</svg>
+
+                    </span>
+
+                    <div class="statistics-block">
+                        <span>
+                            <svg width="50" height="46" viewBox="0 0 50 46" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                            <path d="M25.9065 16.2001L41.3635 0.749438C41.4997 0.612884 41.6906 0.534286 41.8958 0.530236L49.6556 0.505184C49.7005 0.504351 49.7452 0.512646 49.7869 0.529584C49.8287 0.546521 49.8667 0.571762 49.8988 0.603831C49.9308 0.635901 49.9563 0.674156 49.9737 0.716361C49.9911 0.758567 50.0001 0.803878 50.0001 0.849646V5.09592C50.0001 5.20555 49.9565 5.31069 49.879 5.3882C49.8015 5.46572 49.6963 5.50927 49.5867 5.50927H44.1317C43.731 5.50918 43.3458 5.66913 43.0607 5.95394L27.8981 21.1165C27.8127 21.2011 27.7091 21.2651 27.5952 21.3035C27.4814 21.3419 27.3604 21.3537 27.2417 21.3379C27.123 21.3222 27.0098 21.2793 26.9107 21.2127C26.8117 21.146 26.7295 21.0574 26.6706 20.9537C25.8982 19.6259 25.5621 18.223 25.6623 16.745C25.6783 16.5386 25.7647 16.3458 25.9065 16.2001Z"
+                                  fill="#F8F8F8"/>
+                            <path d="M2.09478 26.0146C4.41207 23.1003 7.38488 21.5366 11.0132 21.3237C11.9359 21.2694 12.6437 20.9563 13.1363 20.3843C13.4244 20.0502 13.6332 19.378 13.7626 18.3676C14.0883 15.8749 15.2115 13.8729 17.1321 12.3614C18.1091 11.5932 19.0381 11.1923 19.9191 11.1589C20.9713 11.1172 21.7082 11.6099 22.1299 12.637C22.3262 13.1088 22.4347 13.9084 22.4556 15.0357C22.4932 17.2152 22.6456 18.8937 22.9128 20.0711C23.894 24.4009 26.4931 26.5908 30.7102 26.6409C32.4095 26.6618 32.8771 27.4301 32.1131 28.9457C31.1569 30.858 29.6037 31.9185 27.4534 32.1273C26.4305 32.2275 25.6748 32.5782 25.1862 33.1794C24.9065 33.526 24.7061 34.2504 24.585 35.3527C24.0673 40.0833 21.7917 43.2169 17.7584 44.7534C15.5246 45.6009 13.3034 45.722 11.0946 45.1166C8.86084 44.507 6.85044 43.3087 5.06341 41.5217C3.19706 39.6553 1.8046 37.6637 0.886031 35.5468C-0.6129 32.0855 -0.209984 28.9081 2.09478 26.0146ZM17.832 23.3618C17.7869 23.3162 17.7333 23.28 17.6741 23.2551C17.615 23.2302 17.5515 23.2173 17.4874 23.2169C17.4232 23.2166 17.3596 23.2289 17.3002 23.2531C17.2408 23.2774 17.1868 23.3131 17.1412 23.3582L15.2625 25.2172C15.217 25.2624 15.1807 25.316 15.1558 25.3752C15.131 25.4343 15.118 25.4978 15.1177 25.5619C15.1173 25.6261 15.1297 25.6897 15.1539 25.7491C15.1781 25.8085 15.2139 25.8625 15.259 25.9081L19.5762 30.2707C19.6213 30.3163 19.6749 30.3526 19.7341 30.3775C19.7932 30.4023 19.8567 30.4153 19.9208 30.4156C19.985 30.416 20.0486 30.4037 20.108 30.3794C20.1674 30.3552 20.2214 30.3195 20.267 30.2744L22.1456 28.4153C22.1912 28.3702 22.2275 28.3166 22.2524 28.2574C22.2772 28.1983 22.2902 28.1348 22.2905 28.0707C22.2908 28.0065 22.2785 27.9429 22.2543 27.8835C22.2301 27.8241 22.1943 27.7701 22.1492 27.7245L17.832 23.3618ZM12.8317 28.3823C12.7344 28.2846 12.6023 28.2297 12.4644 28.2294C12.3266 28.2292 12.1943 28.2837 12.0966 28.381L10.26 30.2112C10.2116 30.2594 10.1732 30.3167 10.147 30.3797C10.1208 30.4427 10.1072 30.5103 10.1071 30.5786C10.107 30.6468 10.1203 30.7144 10.1463 30.7776C10.1723 30.8407 10.2105 30.898 10.2587 30.9464L14.5558 35.2585C14.6531 35.3561 14.7852 35.4111 14.9231 35.4113C15.0609 35.4116 15.1932 35.357 15.2909 35.2597L17.1275 33.4295C17.1759 33.3813 17.2143 33.3241 17.2405 33.2611C17.2667 33.198 17.2803 33.1305 17.2804 33.0622C17.2805 32.9939 17.2672 32.9263 17.2412 32.8632C17.2152 32.8001 17.177 32.7427 17.1288 32.6944L12.8317 28.3823Z"
+                                  fill="#F8F8F8"/>
+                            </svg>
+                        </span>
+                        <div class="statistics-block-data">
+                            <span>Жанр Артиста</span>
+                            <h2 class="statistics__card-main"
+                                th:if="${artist.genre != null && artist.genre.trim() != ''}"
+                                th:text="${artist.genre}"></h2>
+                            <h2 class="statistics__card-main"
+                                th:unless="${artist.genre != null && artist.genre.trim() != ''}">Неизвестно</h2>
+                        </div>
+                    </div>
                 </div>
-                <p class="Artist__info-bio text" th:text="${artist.description}"></p>
+            </div>
+
+            <div class="Artist__info-block">
                 <h2 class="Artist__info-title">Плейлисты артиста</h2>
                 <div class="Artist__info-playlists">
                     <div class="Artist__info-playlist">
-                        <h3 class="Artist__info-playlist-title">Выбор редакции</h3>
+                        <h3>Выбор редакции</h3>
                         <img th:src="@{/images/playlist-1.png}" alt="pl1">
                     </div>
                     <div class="Artist__info-playlist">
-                        <h3 class="Artist__info-playlist-title">Все треки</h3>
+                        <h3>Все треки</h3>
                         <img th:src="@{/images/playlist-2.png}" alt="pl1">
                     </div>
                     <div class="Artist__info-playlist">
-                        <h3 class="Artist__info-playlist-title">Личный</h3>
+                        <h3>Личный</h3>
                         <img th:src="@{/images/playlist-3.png}" alt="pl1">
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 </section>
 
-<section class="statistics">
-    <div class="container">
-        <h1 class="statistics-title title">Статистика</h1>
-        <div class="statistics__wrapper">
-            <div class="statistics__card">
-                <div class="statistics__card-top">
-                    <span class="statistics__card-textsubs">Подписчиков</span>
-                    <img th:src="@{/images/statistics-icon-1.svg}" alt="statistics">
-                </div>
-                <h2 class="statistics__card-main" th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
-                    th:text="${artist.listeners}"></h2>
-                <h2 class="statistics__card-main"
-                    th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">Не указано</h2>
-                <img class="Polygon" th:src="@{/images/Polygon-1.svg}">
-            </div>
-
-            <div class="statistics__card">
-                <div class="statistics__card-top">
-                    <span class="statistics__card-textsubs">Последний альбом</span>
-                    <img th:src="@{/images/statistics-icon-2.svg}" alt="statistics">
-                </div>
-                <div th:if="${noTracks}">
-                    <p class="statistics__card-main-not">Не имеется</p>
-                </div>
-                <div th:unless="${noTracks}">
-                    <img class="statistics__card-main" th:src="@{'/uploads/' + ${latestTrack.coverfilename}}"
-                         style="border-radius: 15px; margin-top: 30px; transition: all .5s; width: 120px;">
-                </div>
-                <img class="Polygon" th:src="@{/images/Polygon-2.svg}">
-            </div>
-
-            <div class="statistics__card">
-                <div class="statistics__card-top">
-                    <span class="statistics__card-textsubs">Пишет в жанре</span>
-                    <img th:src="@{/images/statistics-icon-3.svg}" alt="statistics">
-                </div>
-                <h2 class="statistics__card-main etscolor" th:if="${artist.genre != null && artist.genre.trim() != ''}"
-                    th:text="${artist.genre}"></h2>
-                <h2 class="statistics__card-main etscolor"
-                    th:unless="${artist.genre != null && artist.genre.trim() != ''}">Неизвестно</h2>
-                <img class="Polygon" th:src="@{/images/Polygon-3.svg}">
-            </div>
-        </div>
-    </div>
-</section>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script th:src="@{/js/main.js}"></script>
