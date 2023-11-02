@@ -1,62 +1,92 @@
-@import '../css/collection.css';
-
-.setting__title {
-    margin-top: 85px;
+.profile {
+    position: relative;
 }
 
-.setting_input {
-    border: transparent;
-    border-radius: 12px;
-    padding: 20px 30px;
-    background: var(--white);
-    color: var(--feolet);
-
-    font-family: 'Nunito';
-    font-weight: 600;
-    font-size: 21px;
-    line-height: 29px;
-    width: 100%;
-    outline: transparent;
-    border: 2px solid transparent;
-    transition: all .3s;
+.profile-wrapper {
+    height: 768px;
 }
 
-.offer {
-    top: 70%;
+.profile-setting-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.setting_form {
+.setting-form {
     display: flex;
     align-items: center;
-    gap: 23px;
-    margin-top: 50px;
+    gap: 60px;
 }
 
-input:focus {
-    border: 2px solid var(--feolet);
-    box-shadow: 0 0 5px var(--feolet);
-    background: transparent;
+.setting-ava {
+    position: relative;
 }
 
-.setting__btn {
-    display: block;
-    margin-left: auto;
-    margin-top: 30px;
-    color: var(--black);
-    background: var(--white);
-    border-radius: 12px;
+#avatar {
+    display: none;
+}
+
+.avatar-file {
+    display: flex;
+    padding: 17px;
+    background: rgba(50, 50, 50, 0.50);
+    border-radius: 500px;
+    position: absolute;
+    cursor: pointer;
+    bottom: 0;
+    right: 50%;
+    transform: translate(50%, -10px);
+
+    transition: all .3s;
+    opacity: 0;
+}
+
+.setting-ava:hover .avatar-file {
+    background: rgba(50, 50, 50, 0.70);
+    transform: translate(50%, -18px);
+    opacity: 1;
+}
+
+.setting-ava-img {
+    object-fit: cover;
+    border-radius: 500px;
+    width: 220px;
+    height: 220px;
+}
+
+.setting-info {
+    width: 430px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.setting-info-input {
+    outline: none;
     border: 1px solid transparent;
-    padding: 15px 30px;
-
-    font-family: 'Nunito';
-    font-weight: 600;
-    font-size: 21px;
-    line-height: 29px;
+    padding: 14px 21px;
+    border-radius: 12px;
+    background: #323232;
+    color: #FFF;
+    font-family: Nunito;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: normal;
     transition: all .4s;
 }
 
-.setting__btn:hover {
-    color: var(--white);
-    background: transparent;
-    border: 1px solid var(--white);
+.profile-setting-save {
+    position: absolute;
+    bottom: -233px;
+    right: -465px;
+    color: #FFF;
+    font-family: Nunito;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 15px;
+    background: #00A542;
+    padding: 13px 28px;
 }
+

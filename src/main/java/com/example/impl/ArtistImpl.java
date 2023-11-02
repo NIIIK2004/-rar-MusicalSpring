@@ -32,6 +32,11 @@ public class ArtistImpl implements ArtistDao {
     }
 
     @Override
+    public List<Artist> findByName(String name) {
+        return artistRepo.findByName(name);
+    }
+
+    @Override
     public Optional<Artist> findById(Long id) {
         return this.artistRepo.findById(id);
     }

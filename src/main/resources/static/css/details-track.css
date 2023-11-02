@@ -6,7 +6,20 @@
     height: 100vh;
     transition: bottom 0.6s ease-in-out;
     z-index: 200;
-    background-color: var(--black);
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+
+.details-track::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(7.5px);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Здесь 0.5 - это прозрачность, вы можете изменить ее по своему усмотрению */
 }
 
 .details-track.open {

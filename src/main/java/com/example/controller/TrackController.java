@@ -154,4 +154,29 @@ public class TrackController {
         return "redirect:/";
     }
 
+    @GetMapping("/search")
+    public String searchArtistAndTrack(@RequestParam(name = "name", required = false) String name, Model model){
+        List<Artist> artists = new ArrayList<>();
+        List<Track> tracks = new ArrayList<>();
+
+        if (name != null && !name.isEmpty()) {
+            artists = artistRepo.findByName(name);
+            tracks = trackRepo.findByName(name);
+
+            List<Track> artistTracks = new ArrayList<>();
+            for (Artist artist: artists) {
+                artistTracks.addAll(artist.getTracks());
+            }
+            tracks.addAll(artistTracks);
+        } else {
+            artists = artistRepo.findAll();
+            tracks = trackRepo.findAll();
+        }
+        model.addAttribute("artists", artists);
+        model.addAttribute("tracks", tracks);
+
+        return "search";
+    }
+
+
 }

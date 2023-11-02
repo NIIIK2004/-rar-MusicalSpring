@@ -12,48 +12,118 @@
     <link rel="stylesheet" href="../css/search.css">
     <link rel="icon" href="../images/logo.svg">
 
-    <title>Musical - Поиск треков</title>
+    <title>Musical - Поиск</title>
 </head>
 
 <body>
 <header class="header">
     <div class="container">
         <div class="header__menu-top">
-            <a th:href="@{/artist/search}">
-                <img src="../images/header/logotype.svg" class="header_logo">
+            <a th:href="@{/search}">
+                <img src="../images/header/logotype-update.svg" class="header_logo">
             </a>
-            <form action="/artist/search" method="GET">
-                <input type="search" class="search_tracks" name="id" placeholder="Найти">
-                <img class="search_tracks-img" src="../images/header/search.svg">
+            <form action="/search" method="GET">
+                <input type="search" class="search_tracks" name="name" placeholder="Найти">
+                <button type="submit" class="search-button"><img class="search_tracks-img"
+                                                                 src="../images/header/search.svg"></button>
             </form>
             <ul class="header__links">
                 <li class="header__link"><a th:href="@{/}">Назад</a></li>
             </ul>
             <div class="header_ets">
-                <a th:href="@{setting}" class="header_setting"><img src="../images/header/setting.svg" alt="set"></a>
-                <a th:href="@{registration}" class="header_logout"><img src="../images/header/logout.svg" alt="log"></a>
+                <a th:href="@{/}" class="header_user">
+                    <div class="header_ets-wrapper" sec:authorize="isAuthenticated()">
+                        <img th:src="@{/images/ava.svg}" alt="ava">
+                    </div>
+                </a>
+
+                <div class="header_user-menu">
+                    <ul class="user_menu-list">
+                        <li><a th:href="@{/profile}"><img th:src="@{/images/header/profile.svg}">Мой профиль</a></li>
+                        <li><a th:href="@{/settings}"><img th:src="@{/images/header/setting.svg}">Настройки</a></li>
+                        <li><a th:href="@{/subscribe}"><img th:src="@{/images/header/subs.svg}">Подписка</a></li>
+                        <li><a th:href="@{/logout}"><img th:src="@{/images/header/logout.svg}">Выйти из аккаунта</a>
+                        </li>
+                    </ul>
+
+                    <div class="user-menu-themes">
+                        <a th:href="@{/}">
+                            <img th:src="@{images/header/theme_sun.svg}">
+                            <span>Светлая</span>
+                        </a>
+
+                        <a th:href="@{/}">
+                            <img th:src="@{images/header/theme_moon.svg}">
+                            <span>Темная</span>
+                        </a>
+
+                        <a th:href="@{/}">
+                            <img th:src="@{images/header/theme_classic.svg}">
+                            <span>Классика</span>
+                        </a>
+                    </div>
+                </div>
+
+                <a th:href="@{/login}" class="header_login">
+                    <div class="header_ets-wrapper" sec:authorize="!isAuthenticated()">
+                        Войти
+                    </div>
+                </a>
             </div>
         </div>
     </div>
 </header>
 
+<section class="search__artist">
+    <div class="container">
+        <h1 class="title">Артисты </h1>
+        <div class="search__track-wrapper" th:if="${artists.isEmpty()}">
+            <span>Артистов не найдено</span>
+        </div>
+        <div th:each="artist : ${artists}" th:if="${!artists.isEmpty()}">
+            <div class="search__artist-wrapper">
+                <div class="search__artist-left">
+                    <a th:href="@{/artist/{id}/details(id=${artist.id})}">
+                        <img th:src="@{'/uploads/' + ${artist.filename}}" width="100px" height="100px"
+                             style="border-radius: 12px; object-fit: cover">
+                        <div class="search__artist-left-info">
+                            <p th:text="${artist.name}"></p>
+                        </div>
+                    </a>
+                </div>
+                <a th:href="@{/artist/{id}/details(id=${artist.id})}" class="search__artist-btn">Перейти</a>
+            </div>
+            <div class="line"></div>
+        </div>
+    </div>
+</section>
+
 <section class="search__track">
     <div class="container">
-        <div class="search__track-wrapper" th:each="artist : ${artists}">
-            <div class="search__track-left">
-                <a href="#">
-                    <img src="../images/search-track.jpg" width="100px" style="border-radius: 12px;">
-                    <div class="search__track-left-info">
-                        <p th:text="${artist.name}"></p>
+        <h1 class="title">Треки</h1>
+        <div class="search__track-wrapper" th:if="${tracks.isEmpty()}">
+            <span>Из треков ничего не найдено</span>
+        </div>
+        <div class="search__track-wrapper">
+            <ul class="search__track-track" th:each="track : ${tracks}" th:if="${!tracks.isEmpty()}">
+                <li>
+                    <div class="search__track-track-ava">
+                        <img th:src="@{'/uploads/' + ${track.getCoverfilename()}}" width="120px" height="120px"
+                             style="border-radius: 13px; object-fit: cover">
                     </div>
-                </a>
-            </div>
-            <a th:href="@{/artist/{id}/details(id=${artist.id})}" class="search__track-btn">Перейти</a>
+                    <div class="search__track-track-info">
+                        <h3 class="track-info-title" th:text="${track.title}"></h3>
+                        <p class="track-info-artist" th:text="${track.artists.name}"></p>
+                        <span class="track-info-genre" th:text="${track.genre}"></span>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </section>
 
 </body>
-<script src="../js/swiper-for-subs.js"></script>
-
+<!--<script src="../js/swiper-for-subs.js"></script>-->
+<script th:src="@{/js/search.js}"></script>
+<script th:src="@{/js/header-user-menu.js}"></script>
 </html>

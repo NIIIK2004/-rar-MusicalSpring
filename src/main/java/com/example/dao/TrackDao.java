@@ -15,6 +15,8 @@ public interface TrackDao {
 
     public Optional<Track> findById(Long id);
 
+    public List<Track> findByName(String name);
+
     Track findLatestTrackByArtistId(Long artistId);
 
     Track editFileds(Long id,

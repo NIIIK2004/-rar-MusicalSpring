@@ -1,9 +1,9 @@
-<header class="header">
+<header class="header" xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="container">
         <div class="header__menu-top">
             <a th:href="@{/}"><img th:src="@{/images/header/logotype-update.svg}" alt="лого" class="header_logo"></a>
             <ul class="header__links">
-                <li class="header__link"><a th:href="@{/artist/search}">Поиск <img
+                <li class="header__link"><a th:href="@{/search}">Поиск <img
                         th:src="@{/images/header/search.svg}"></a>
                 </li>
                 <li class="header__link"><a th:href="@{/}">Все треки <img
@@ -12,9 +12,6 @@
                         th:src="@{/images/header/podcast.svg}"></a></li>
                 <li class="header__link"><a th:href="@{/allartist}">Артисты <img
                         th:src="@{/images/header/artists.svg}"></a></li>
-                <li class="header__link"><a th:href="@{/subscribe}">Подписка <img
-                        th:src="@{/images/header/subs.svg}"></a>
-                </li>
                 <li class="header__link"><a th:href="@{/project}">Новости <img
                         th:src="@{/images/header/project.svg}"></a>
                 </li>
@@ -22,10 +19,46 @@
                         th:src="@{/images/header/like.svg}"></a></li>
             </ul>
             <div class="header_ets">
-                <a th:href="@{/settings}" class="header_setting"><img th:src="@{/images/header/setting.svg}" alt="set"></a>
-                <a th:href="@{/registration}" class="header_logout"><img th:src="@{/images/header/logout.svg}"
-                                                                         alt="log"></a>
+                <a th:href="@{/}" class="header_user">
+                    <div class="header_ets-wrapper" sec:authorize="isAuthenticated()">
+                        <img th:src="@{/images/ava.svg}" alt="ava">
+                    </div>
+                </a>
+
+                <div class="header_user-menu">
+                    <ul class="user_menu-list">
+                        <li><a th:href="@{/profile}"><img th:src="@{/images/header/profile.svg}">Мой профиль</a></li>
+                        <li><a th:href="@{/setting}"><img th:src="@{/images/header/setting.svg}">Настройки</a></li>
+                        <li><a th:href="@{/subscribe}"><img th:src="@{/images/header/subs.svg}">Подписка</a></li>
+                        <li><a th:href="@{/logout}"><img th:src="@{/images/header/logout.svg}">Выйти из аккаунта</a>
+                        </li>
+                    </ul>
+
+                    <div class="user-menu-themes">
+                        <a th:href="@{/}">
+                            <img th:src="@{/images/header/theme_sun.svg}">
+                            <span>Светлая</span>
+                        </a>
+
+                        <a th:href="@{/}">
+                            <img th:src="@{/images/header/theme_moon.svg}">
+                            <span>Темная</span>
+                        </a>
+
+                        <a th:href="@{/}">
+                            <img th:src="@{/images/header/theme_classic.svg}">
+                            <span>Классика</span>
+                        </a>
+                    </div>
+                </div>
+
+                <a th:href="@{/login}" class="header_login">
+                    <div class="header_ets-wrapper" sec:authorize="!isAuthenticated()">
+                        Войти
+                    </div>
+                </a>
             </div>
         </div>
     </div>
+    <script th:src="@{/js/header-user-menu.js}"></script>
 </header>

@@ -34,6 +34,11 @@ public class TrackImpl implements TrackDao {
     }
 
     @Override
+    public List<Track> findByName(String name) {
+        return trackRepo.findByName(name);
+    }
+
+    @Override
     public Optional<Track> findById(Long id) {
         return this.trackRepo.findById(id);
     }

@@ -18,219 +18,219 @@
 </head>
 
 <body>
-<header class="header" th:include="components/header :: header"></header>
-
-<section class="one-page" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-center">
-    <div class="container">
-        <div class="one-page__wrapper">
-            <img class="one-page-logo" src="../images/logo-premium.svg" alt="prema" data-aos="fade-up"
-                 data-aos-delay="500">
-            <img src="../images/headphones.png" class="one-page-headphones">
-
-            <p class="one-page-description" data-aos="fade-up">
-                С Musical Exclusive ваши возможности становятся намного шире и грандиознее, чем у обычного
-                пользователя. Вы получаете сразу эксклюзивный доступ к большому количеству музыкальных треков и
-                альбомов, включая новые релизы, эксклюзивные треки и редкие записи.
-            </p>
-
-            <div class="one-page-plushki">
-                <img data-aos="fade-up" data-aos-delay="300" src="../images/subscribe-noads.svg">
-                <img data-aos="fade-up" data-aos-delay="500" src="../images/subscribe-downloads.svg">
-                <img data-aos="fade-up" data-aos-delay="700" src="../images/subscribe-gifts.svg">
-                <img data-aos="fade-up" data-aos-delay="900" src="../images/subscribe-hq.svg">
-            </div>
-
-            <button class="one-page-button">Стать эксклюзивным?</button>
-        </div>
+<div class="wrapper">
+    <div class="headphones-img-wrapper">
+        <img class="main-img-top" src="/images/subs.png">
     </div>
-</section>
 
-<section class="plan">
-    <div class="container">
-        <h2 class="plan__title" data-aos="fade-up">Не упустите возможность получить неограниченный доступ к музыке
-            высокого качества
-        </h2>
-        <div class="plan_cards">
-            <div class="plan_card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="300">
-                <div class="plan_card-title">
-                    <h3>Слушатель</h3>
-                    <img src="../images/plan-decor-1.svg">
-                </div>
+    <header class="header" th:include="components/header :: header"></header>
 
-                <div class="plan_card-pluski">
-                    <span data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">Преимущества:</span>
-                    <ul>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="600" style="color: #2FF443;">
-                            Прослушивание треков
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">Создание персональных
-                            плейлистов
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">Доступ к подкастам</li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="1200">Аудио в mp3 формате
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="1400">Несинхронизированные
-                            текста треков
-                        </li>
-                    </ul>
+    <section class="one-page">
+        <div class="container">
+            <img class="onepage_logo" src="/images/MUSICAL-LOGO.svg">
+            <span class="onepage_span">New</span>
+            <h2 class="onepage_title">Musical <span style="background: linear-gradient(92deg, #FFF 44.53%, #CC7DE8 74.96%, #DA138A 105.45%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;">Exclusive</span></h2>
+            <div class="onepage_blocks">
+                <div class="onepage_block">
+                    <h5 class="onepage-check">> 1000</h5>
+                    <span>Пользователей</span>
                 </div>
-                <button class="plan_card-btn" style="background-color: #2FF443;">Бесплатно</button>
+                <div class="onepage_block">
+                    <h5 class="onepage-check">> 50 млн</h5>
+                    <span>Релизов</span>
+                </div>
             </div>
-
-            <div class="plan_card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="500">
-                <div class="plan_card-title">
-                    <h3 style="background: linear-gradient(93.07deg, #E6E95B 3.51%, #F2F711 109.23%);
-                        -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        background-clip: text;
-                        text-fill-color: transparent;">Эклектик</h3>
-                    <img src="../images/plan-decor-2.svg">
-                </div>
-
-                <div class="plan_card-pluski">
-                    <span data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">Преимущества:</span>
-                    <ul>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="600">Доступ к мобильной
-                            версии приложения
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">Поддержка Hi-Res аудио
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">Доступ к концертам в
-                            прямом эфире
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="1200">Аудио в FLAC формате
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="1400">Поддержка виртуальной
-                            реальности
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="1600">Смена тем (Кастомная)
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="1800"
-                            style="color: #E6E95B;">Возможность создания собственного профиля и общения с другими
-                            пользователями сервиса
-                        </li>
-                    </ul>
-                </div>
-                <button class="plan_card-btn" style="background-color: #E6E95B;">499,99 Рублей/Мес</button>
-            </div>
-
-            <div class="plan_card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="700">
-                <div class="plan_card-title">
-                    <h3 style="color: #6859FF;">Меломан</h3>
-                    <img src="../images/plan-decor-3.svg">
-                </div>
-
-                <div class="plan_card-pluski">
-                    <span data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">Преимущества:</span>
-                    <ul>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="600">Доступ к опр.функциям
-                            (shuffle, repeat)
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">Возможность подписки на
-                            артиста
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">Возможность загружать
-                            личные записи
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="1200">Аудио в WAV формате
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="1400">Синхронизированные
-                            текста треков
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="1600">Смена тем (Темная,
-                            Светлая)
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="1800">Эксклюзивный логотип
-                            “Musical Exclusive”
-                        </li>
-                        <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="2000"
-                            style="color: #6859FF;">Без рекламы и ненужных баннеров
-                        </li>
-                    </ul>
-                </div>
-                <button class="plan_card-btn" style="background-color: #5D50E1; color: #F8F8F8;">199,99
-                    Рублей/Мес
-                </button>
-            </div>
-
+            <button class="onepage_btn">Узнать преимущества</button>
         </div>
-    </div>
-</section>
-
-<div class="error-subs">
-    <div class="container">
-        <div class="error__wrapper">
-            Musical Exclusive в настоящее время недоступен в вашей стране. Извините.
-        </div>
-    </div>
+    </section>
 </div>
+<section class="section-plan">
+    <div class="container">
+        <h2 class="title">Планы</h2>
+        <div class="plan-wrapper">
+            <div class="plan-block">
+                <div class="plan-title">
+                    <h2>Слушатель</h2>
+                    <img src="/images/icon-subs-plan-1.svg" alt="decor-plan">
+                </div>
+                <p class="plan-description">Для тех кто хочет просто послушать музыку</p>
+                <div class="line"></div>
+                <ul class="plan-advantages">
+                    <li>Прослушивание Треков / Подкастов / Книг</li>
+                    <li>Новости, доступ к будущим планам</li>
+                    <li>Личный кабинет пользователя</li>
+                    <li>Новый дизайн нашего сервиса</li>
+                    <li>Доступна мобильная версия</li>
+                </ul>
+                <div class="line"></div>
+                <div class="plan-buy">
+                    <span class="plan-buy-cost">Бесплатно</span>
+                    <button class="plan-buy-btn">Используется</button>
+                </div>
+            </div>
 
-<section class="theme">
-    <h2 class="theme__title" data-aos="fade-up">Что вас ждет?</h2>
-    <div class="theme__swiper" data-aos="fade-up" data-aos-duration="1500">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <img class="theme__img" src="../images/themes/1.webp" alt="" width="730" height="410">
+            <div class="plan-block">
+                <div class="plan-title">
+                    <h2>Меломан</h2>
+                    <img src="/images/icon-subs-plan-2.svg" alt="decor-plan">
+                </div>
+                <p class="plan-description">Для тех кто любит слушать творчество</p>
+                <div class="line"></div>
+                <ul class="plan-advantages">
+                    <li>Доступ к коллекции</li>
+                    <li>Доступ ко всем трекам мира</li>
+                    <li>Скачивать музыку, и слушать оффлайн</li>
+                    <li>Регистрация 3 аккаунтов на одной почте</li>
+                    <li>Высокое качество аудио (wav-формат)</li>
+                </ul>
+                <div class="line"></div>
+                <div class="plan-buy">
+                    <span class="plan-buy-cost">199.99 Рублей  / Месяц</span>
+                    <button class="plan-buy-btn" style="background: #4A39F2;">Купить</button>
+                </div>
             </div>
-            <div class="swiper-slide">
-                <img class="theme__img" src="../images/themes/2.webp" alt="" width="730" height="410">
+
+            <div class="plan-block">
+                <div class="plan-title">
+                    <h2>Слушатель</h2>
+                    <img src="/images/icon-subs-plan-3.svg" alt="decor-plan">
+                </div>
+                <p class="plan-description">Для тех кто ценит, понимает, и живёт в музыке</p>
+                <div class="line"></div>
+                <ul class="plan-advantages">
+                    <li>Доступ к музыкальным новинкам раньше, чем на других площадках</li>
+                    <li>Тайминги</li>
+                    <li>Перевод треков на все языки мира</li>
+                    <li>Функция “Случайная песня”</li>
+                    <li>Функция “Музыкальная терапия”</li>
+                </ul>
+                <div class="line"></div>
+                <div class="plan-buy">
+                    <span class="plan-buy-cost">399.99 Рублей  / Месяц</span>
+                    <button class="plan-buy-btn" style="background: #D523B7;">Купить</button>
+                </div>
             </div>
-            <div class="swiper-slide">
-                <img class="theme__img" src="../images/themes/3.webp" alt="" width="730" height="410">
-            </div>
-            <div class="swiper-slide">
-                <img class="theme__img" src="../images/themes/4.webp" alt="" width="730" height="410">
-            </div>
-            <div class="swiper-slide">
-                <img class="theme__img" src="../images/themes/1.webp" alt="" width="730" height="410">
-            </div>
-            <div class="swiper-slide">
-                <img class="theme__img" src="../images/themes/2.webp" alt="" width="730" height="410">
+
+            <div class="plan-block">
+                <div class="plan-title">
+                    <h2>Слушатель</h2>
+                    <img src="/images/icon-subs-plan-new.svg" alt="decor-plan">
+                </div>
+                <p class="plan-description">Для семьи - для всех!</p>
+                <div class="line"></div>
+                <ul class="plan-advantages">
+                    <li>Создание персональных плейлистов</li>
+                    <li>Доступен радио-контент</li>
+                    <li>Возможность слушать музыку на нескольких устройствах сразу</li>
+                    <li>Синхронизированный режим</li>
+                    <li>Поддержка Apple CarPlay и Android Auto</li>
+                </ul>
+                <div class="line"></div>
+                <div class="plan-buy">
+                    <span class="plan-buy-cost">599.99 Рублей  / Месяц</span>
+                    <button class="plan-buy-btn" style="background: #E6E95B; color: #0C0C0C">Купить</button>
+                </div>
             </div>
         </div>
     </div>
-    <div class="container">
-        <p class="theme__description" data-aos="fade-up">Новые темы</p>
-    </div>
 </section>
 
-<section class="profile">
+<section class="section-business">
     <div class="container">
-        <img src="../images/Чатик 1.png" data-aos="fade-up" data-aos-duration="700" data-aos-delay="350">
-        <p style="margin-left: 10%;" data-aos="fade-up">Собственный профиль</p>
-        <img src="../images/Чатик 2.png" data-aos="fade-up" data-aos-duration="700" data-aos-delay="350">
-        <p data-aos="fade-up" style="text-align: right; max-width: 830px; margin-left: 40%; margin-bottom: 120px;">А
-            еще общение с
-            другими <span class="gradient">Exclusive</span> пользователями</p>
-    </div>
-</section>
-
-<section class="etssubs">
-    <div class="container">
-        <div class="etssubs__wrapper">
-            <p data-aos="fade-up">Подписка на артиста
-                <br>
-                Покупка билетов на концерт прямо на сайте
-                <br>
-                Редизайн главной страницы артиста
-                <br>
-                И многое другое...
-            </p>
-            <img src="../images/Артист редизайн 1.png" data-aos="fade-up" data-aos-duration="350"
-                 data-aos-delay="650">
+        <div class="business_wrapper">
+            <div class="business_block">
+                <div class="business_block-title">
+                    <h2>Расширяем бизнес</h2>
+                    <p>Музыка везде - На планшетах, телефонах, смарт-часах, колонах!</p>
+                    <img src="/images/business-img-title.png" width="545" height="319" style="border-radius: 30px">
+                </div>
+                <img src="/images/business-img-1.png" width="545" height="509" style="border-radius: 30px">
+            </div>
+            <div class="business_block">
+                <img src="/images/business-img-2.png" width="545" height="850" style="border-radius: 30px">
+            </div>
+            <div class="business_block">
+                <img src="/images/business-img-3.png" width="545" height="414" style="border-radius: 30px">
+                <img src="/images/business-img-4.png" width="545" height="414" style="border-radius: 30px">
+            </div>
         </div>
     </div>
 </section>
 
-<section class="feedback">
+<section class="section-advantages">
     <div class="container">
-            <span data-aos="fade-up" data-aos-duration="1200">
-                Пока все =) Если остались вопросы<br>
-                Можете написать нам на почту: nikitaxxx840@gmail.com<br>
-                Мы с каждым днем стараемся улучшаться и придумывать что-то новое и необычное</span>
+        <h2 class="title">Преимущества в отличие от других сервисов</h2>
+        <div class="advantages-wrapper">
+            <div class="advantage-block" style="background: #00A542;">
+                <div class="advantage-title">
+                    <h3>Простота</h3>
+                    <img th:src="@{/images/li_hand-1.svg}" alt="decor">
+                </div>
+                <p class="advantage-info">
+                    По нашему и большинства мнению наш сервис интуитивно понятен и прост как в дизайне, так и
+                    функционально. Нужно послушать трек? Слушай! Хочешь посмотреть артистов? Смотри. Без всякой рекламы
+                    и надоедливых проплаченных баннеров.
+                </p>
+                <button class="advantage-btn">Послушать треки</button>
+            </div>
+
+            <div class="advantage-block" style="background: #4A39F2;">
+                <div class="advantage-title">
+                    <h3>Скорость</h3>
+                    <img th:src="@{/images/li_gauge-2.svg}" alt="decor">
+                </div>
+                <p class="advantage-info">
+                    У нас не только самый быстрый программист сидит делает работу, но и сам сервис прекрасно и быстро
+                    справляется со своими задачами. Все распределено так, чтобы вы оставались на нашей странице и
+                    слушали
+                    волну, без всяких задержек, и реклам.
+                </p>
+                <button class="advantage-btn">Узнать скорость?</button>
+            </div>
+
+            <div class="advantage-block" style="background: #C330AB;">
+                <div class="advantage-title">
+                    <h3>Качество</h3>
+                    <img th:src="@{/images/li_grab-3.svg}" alt="decor">
+                </div>
+                <p class="advantage-info">
+                    При создании сервиса мы сразу отказались использование mp3 формата и начали использовать wav и flac.
+                    Это высшее качество аудио без какого либо сжатия и лишней компрессии. При этом потребление вашего
+                    трафика остается таким же незаметным и медленным.
+                </p>
+                <button class="advantage-btn">Удостоверится в качестве</button>
+            </div>
+
+            <div class="advantage-block" style="background: #CE9032;">
+                <div class="advantage-title">
+                    <h3>Современность</h3>
+                    <img th:src="@{/images/li_hand-metal-4.svg}" alt="decor">
+                </div>
+                <p class="advantage-info">
+                    Мы очень современные и крутые. Не только, потому что у нас работают молодые люди, но и потому что мы
+                    следим за трендами, и прекрасно знаем что вы любите слушать. Но, а также каждую неделю мы
+                    разыгрываем
+                    Iphone 14 pro, apple watch и ipad. И можно гарантировано выиграть подарок.
+                </p>
+                <button class="advantage-btn">На страницу розыгрыша!</button>
+            </div>
+        </div>
     </div>
 </section>
-<!-- <a href="#top" class="topbtn"><img src="../images/up-to-up.svg"></a> -->
+
+
+<section class="section-progress">
+    <div class="container">
+        <h2 class="title">Наши достижения</h2>
+        <div class="progress__wrapper">
+
+        </div>
+    </div>
+</section>
+
 </body>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

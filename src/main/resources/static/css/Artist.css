@@ -1,3 +1,8 @@
+.wrapper {
+    position: relative;
+    height: 100%;
+}
+
 .Artist_ava {
     top: -50px;
     background-size: cover;
@@ -13,6 +18,10 @@
 .Artist_ava-wrapper {
     position: relative;
 
+}
+
+.Artist__wrapper-top {
+    position: relative;
 }
 
 .Artist_ava-wrapper::after {
@@ -54,7 +63,30 @@
 
 .Artist__btns-subs {
     border-radius: 8px;
+    border: 1px solid transparent;
     background: var(--feolet);
+    padding: 15px 45px;
+
+    color: var(--white);
+    font-family: Nunito;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal;
+
+    transition: all .4s;
+}
+
+.Artist__btns-subs:hover {
+    border: 1px solid var(--white);
+    background: transparent;
+    color: var(--white);
+}
+
+
+.Artist__btns-unsubs {
+    border-radius: 8px;
+    border: 1px solid var(--white);
+    background: transparent;
     padding: 15px 45px;
 
     color: var(--white);
@@ -139,10 +171,6 @@
     line-height: normal;
 }
 
-.Artist__info-block {
-    margin-top: 485px;
-}
-
 .Artist__info-title {
     color: var(--white);
     font-family: Nunito;
@@ -152,8 +180,7 @@
 }
 
 .Artist__info-playlists {
-    display: flex;
-    align-items: center;
+    display: grid;
     gap: 18px;
     grid-template-columns: repeat(7, 1fr);
     position: relative;
@@ -193,10 +220,49 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.Artist__info-block {
+    margin-top: 85px;
+}
+
+.Artist__info-sets {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.Artist__info-set {
+    position: relative;
+}
+
+.Artist__info-set img {
+    border-radius: 13px;
+}
 
 
+.Artist__info-set span {
+    position: absolute;
+    color: var(--white);
+    font-size: 28px;
+    font-weight: 500;
+    line-height: normal;
+}
 
+.set-date {
+    left: 30px;
+    top: 30px;
+}
 
+.set-title {
+    left: 30px;
+    bottom: 30px;
+}
 
-
-
+.set-more {
+    color: var(--gray);
+    font-family: Nunito;
+    font-size: 16px !important;
+    border-radius: 13px;
+    bottom: 30px;
+    right: 30px;
+}

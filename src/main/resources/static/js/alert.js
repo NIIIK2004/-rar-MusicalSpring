@@ -29,3 +29,23 @@ function addSubsWarn() {
 function removeSubsWarn() {
     subsWarn.classList.remove('visible');
 }
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    var messageElement = document.getElementById('user-data-message');
+    if (messageElement) {
+        setTimeout(function () {
+            messageElement.classList.add('hide');
+        }, 5000);
+
+        var closeLink = document.getElementById('close-link');
+        if (closeLink) {
+            closeLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                messageElement.classList.add('hide');
+            });
+        }
+    }
+});
+
+

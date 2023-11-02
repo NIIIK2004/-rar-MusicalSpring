@@ -16,37 +16,54 @@
 </head>
 
 <body>
-<div class="Artist_ava-wrapper">
-    <img th:src="@{'/uploads/' + ${artist.filename}}" alt="ava" class="Artist_ava">
-</div>
-<header class="header" th:include="components/header :: header"></header>
+<div class="wrapper">
+    <div class="Artist_ava-wrapper">
+        <img th:src="@{'/uploads/' + ${artist.filename}}" alt="ava" class="Artist_ava">
+    </div>
+    <header class="header" th:include="components/header :: header"></header>
 
-<section class="Artist">
-    <div class="container">
-        <div class="Artist__wrapper">
-            <h1 class="Artist-name title" th:text="${artist.name}"></h1>
-            <p class="Artist__info-bio text" th:text="${artist.description}"></p>
+    <section class="Artist">
+        <div class="container">
+            <div class="Artist__wrapper">
+                <h1 class="Artist-name title" th:text="${artist.name}"></h1>
+                <p class="Artist__info-bio text" th:text="${artist.description}"></p>
 
-            <div class="Artist__btns">
-                <button class="Artist__btns-subs">Подписаться</button>
-                <button class="Artist__btns-similar">Найти похожих</button>
-            </div>
+                <div class="Artist__btns">
 
-            <div class="Artist__info-social">
-                <a th:href="@{https://open.spotify.com/artist/72lYxQHj6k4H3u18ErEWhH}"><img
-                        th:src="@{/images/spotify.svg}" alt="link"></a>
-                <a th:href="@{https://vk.com/niiik04}"><img th:src="@{/images/VK.svg}" alt="link"></a>
-                <a th:href="@{https://web.telegram.org/a/#tosVopros}"><img th:src="@{/images/Telegram.svg}"
-                                                                           alt="link"></a>
-                <a th:href="@{https://www.youtube.com/channel/UCNZnF-bicYstScveDsd648A}"><img
-                        th:src="@{/images/Youtube.svg}" alt="link"></a>
-            </div>
+                    <form th:if="${isUserRegistered && !isSubscribed}" th:action="@{/subscribe}" method="post" >
+                        <input type="hidden" name="artistId" th:value="${artist.id}"/>
+                        <input type="hidden" name="userId" th:value="${user.id}"/>
+                        <button class="Artist__btns-subs" type="submit">Подписаться</button>
+                    </form>
 
-            <div class="statistics-wrapper">
-                <h1 class="statistics-title title">Статистика артиста</h1>
+                    <form th:action="@{/login}" method="post" th:if="${!isUserRegistered}">
+                        <button class="Artist__btns-subs" type="submit">Для подписки необходимо войти</button>
+                    </form>
 
-                <div class="statistics-blocks">
-                    <div class="statistics-block">
+                    <form th:if="${isUserRegistered && isSubscribed}" th:action="@{/unsubscribe}" method="post">
+                        <input type="hidden" name="artistId" th:value="${artist.id}" />
+                        <input type="hidden" name="userId" th:value="${user.id}" />
+                        <button class="Artist__btns-unsubs" type="submit">Отписаться</button>
+                    </form>
+
+                    <button class="Artist__btns-similar">Найти похожих</button>
+                </div>
+
+                <div class="Artist__info-social">
+                    <a th:href="@{https://open.spotify.com/artist/72lYxQHj6k4H3u18ErEWhH}"><img
+                            th:src="@{/images/spotify.svg}" alt="link"></a>
+                    <a th:href="@{https://vk.com/niiik04}"><img th:src="@{/images/VK.svg}" alt="link"></a>
+                    <a th:href="@{https://web.telegram.org/a/#tosVopros}"><img th:src="@{/images/Telegram.svg}"
+                                                                               alt="link"></a>
+                    <a th:href="@{https://www.youtube.com/channel/UCNZnF-bicYstScveDsd648A}"><img
+                            th:src="@{/images/Youtube.svg}" alt="link"></a>
+                </div>
+
+                <div class="statistics-wrapper">
+                    <h1 class="statistics-title title">Статистика артиста</h1>
+
+                    <div class="statistics-blocks">
+                        <div class="statistics-block">
                         <span>
                             <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -61,24 +78,24 @@
                                   fill="#F8F8F8"/>
                             </svg>
                         </span>
-                        <div class="statistics-block-data">
-                            <span>Слушателей</span>
-                            <h2 class="statistics__card-main"
-                                th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
-                                th:text="${artist.listeners}"></h2>
-                            <h2 class="statistics__card-main"
-                                th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">0</h2>
+                            <div class="statistics-block-data">
+                                <span>Слушателей</span>
+                                <h2 class="statistics__card-main"
+                                    th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
+                                    th:text="${artist.listeners}"></h2>
+                                <h2 class="statistics__card-main"
+                                    th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">0</h2>
+                            </div>
                         </div>
-                    </div>
 
-                    <span class="line-separator">
+                        <span class="line-separator">
                         <svg width="2" height="32" viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 1L0.999999 31" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round"/>
 </svg>
 
                     </span>
 
-                    <div class="statistics-block">
+                        <div class="statistics-block">
                          <span>
                          <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
                               xmlns="http://www.w3.org/2000/svg">
@@ -86,23 +103,23 @@
                                fill="#F8F8F8"/>
                          </svg>
                         </span>
-                        <div class="statistics-block-data">
-                            <span>Симпатий</span>
-                            <h2 class="statistics__card-main"
-                                th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
-                                th:text="${artist.listeners}"></h2>
-                            <h2 class="statistics__card-main"
-                                th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">0</h2>
+                            <div class="statistics-block-data">
+                                <span>Симпатий</span>
+                                <h2 class="statistics__card-main"
+                                    th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
+                                    th:text="${artist.listeners}"></h2>
+                                <h2 class="statistics__card-main"
+                                    th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">0</h2>
+                            </div>
                         </div>
-                    </div>
 
-                    <span class="line-separator">
+                        <span class="line-separator">
                         <svg width="2" height="32" viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L0.999999 31" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </span>
 
-                    <div class="statistics-block">
+                        <div class="statistics-block">
                         <span>
                             <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -117,24 +134,24 @@
                         </defs>
                             </svg>
                         </span>
-                        <div class="statistics-block-data">
-                            <span>Страна</span>
-                            <h2 class="statistics__card-main"
-                                th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
-                                th:text="${artist.listeners}"></h2>
-                            <h2 class="statistics__card-main"
-                                th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">0</h2>
+                            <div class="statistics-block-data">
+                                <span>Страна</span>
+                                <h2 class="statistics__card-main"
+                                    th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
+                                    th:text="${artist.listeners}"></h2>
+                                <h2 class="statistics__card-main"
+                                    th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">0</h2>
+                            </div>
                         </div>
-                    </div>
 
-                    <span class="line-separator">
+                        <span class="line-separator">
                         <svg width="2" height="32" viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 1L0.999999 31" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round"/>
 </svg>
 
                     </span>
 
-                    <div class="statistics-block">
+                        <div class="statistics-block">
                         <span>
                             <svg width="50" height="46" viewBox="0 0 50 46" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -144,37 +161,88 @@
                                   fill="#F8F8F8"/>
                             </svg>
                         </span>
-                        <div class="statistics-block-data">
-                            <span>Жанр Артиста</span>
-                            <h2 class="statistics__card-main"
-                                th:if="${artist.genre != null && artist.genre.trim() != ''}"
-                                th:text="${artist.genre}"></h2>
-                            <h2 class="statistics__card-main"
-                                th:unless="${artist.genre != null && artist.genre.trim() != ''}">Неизвестно</h2>
+                            <div class="statistics-block-data">
+                                <span>Жанр Артиста</span>
+                                <h2 class="statistics__card-main"
+                                    th:if="${artist.genre != null && artist.genre.trim() != ''}"
+                                    th:text="${artist.genre}"></h2>
+                                <h2 class="statistics__card-main"
+                                    th:unless="${artist.genre != null && artist.genre.trim() != ''}">Неизвестно</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+</div>
 
-            <div class="Artist__info-block">
-                <h2 class="Artist__info-title">Плейлисты артиста</h2>
-                <div class="Artist__info-playlists">
-                    <div class="Artist__info-playlist">
-                        <h3>Выбор редакции</h3>
-                        <img th:src="@{/images/playlist-1.png}" alt="pl1">
-                    </div>
-                    <div class="Artist__info-playlist">
-                        <h3>Все треки</h3>
-                        <img th:src="@{/images/playlist-2.png}" alt="pl1">
-                    </div>
-                    <div class="Artist__info-playlist">
-                        <h3>Личный</h3>
-                        <img th:src="@{/images/playlist-3.png}" alt="pl1">
-                    </div>
+<section class="Artist-info">
+    <div class="container">
+        <div class="Artist__info-block">
+            <h2 class="Artist__info-title">Плейлисты артиста</h2>
+            <div class="Artist__info-playlists">
+                <div class="Artist__info-playlist">
+                    <h3>Выбор редакции</h3>
+                    <img th:src="@{/images/playlist-1.png}" alt="pl1">
+                </div>
+                <div class="Artist__info-playlist">
+                    <h3>Все треки</h3>
+                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
+                </div>
+                <div class="Artist__info-playlist">
+                    <h3>Личный</h3>
+                    <img th:src="@{/images/playlist-3.png}" alt="pl1">
+                </div>
+                <div class="Artist__info-playlist">
+                    <h3>Все треки</h3>
+                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
+                </div>
+                <div class="Artist__info-playlist">
+                    <h3>Все треки</h3>
+                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
+                </div>
+                <div class="Artist__info-playlist">
+                    <h3>Все треки</h3>
+                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
+                </div>
+                <div class="Artist__info-playlist">
+                    <h3>Все треки</h3>
+                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
+                </div>
+                <div class="Artist__info-playlist">
+                    <h3>Все треки</h3>
+                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
+                </div>
+                <div class="Artist__info-playlist">
+                    <h3>Все треки</h3>
+                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
                 </div>
             </div>
+        </div>
 
-
+        <div class="Artist__info-block">
+            <h2 class="Artist__info-title">Фотосеты</h2>
+            <div class="Artist__info-sets">
+                <a href="#" class="Artist__info-set">
+                    <span class="set-date">ФотоОтчет за 2019 Год</span>
+                    <span class="set-title">Тур по городам</span>
+                    <span class="set-more">Подробнее</span>
+                    <img th:src="@{/images/sets-1.png}">
+                </a>
+                <a href="#" class="Artist__info-set">
+                    <span class="set-date">ФотоОтчет за 2019 Год</span>
+                    <span class="set-title">Тур по городам</span>
+                    <span class="set-more">Подробнее</span>
+                    <img th:src="@{/images/sets-2.png}">
+                </a>
+                <a href="#" class="Artist__info-set">
+                    <span class="set-date">ФотоОтчет за 2019 Год</span>
+                    <span class="set-title">Тур по городам</span>
+                    <span class="set-more">Подробнее</span>
+                    <img th:src="@{/images/sets-3.png}">
+                </a>
+            </div>
         </div>
     </div>
 </section>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <title>Musical - Профиль</title>
+</head>
+
+<body class="body">
+
+<header class="header" th:include="components/header :: header"></header>
+
+<section class="profile">
+    <div class="container">
+        <div class="profile-wrapper">
+
+            <div class="profile_info-user">
+                <div class="profile_info-user-left">
+                    <img th:src="@{'/uploads/' + ${user.avatar}}" alt="ava-user" class="profile_info-user-ava">
+                    <img th:src="@{'/uploads/' + ${user.avatar}}" alt="Avatar" class="profile_info-user-ava-cap">
+                    <div class="profile_info-user-info" th:object="${user}">
+                        <h1 class="user-info-name"  th:text="*{name}"></h1>
+                        <div class="user-info-surnameAndRole">
+                            <h2 class="user-info-surname" th:text="*{surname}"></h2>
+                            <span th:text="*{'⠀-⠀' + roles}"></span>
+                        </div>
+
+                        <span class="user-info-username" th:text="*{'@' + username}"></span>
+                        <a th:href="@{/setting}"><button class="user-info-edit">Редактировать профиль</button></a>
+                    </div>
+                </div>
+                <div class="profile_info-user-right">
+                    <div class="info-user-counting">
+                        <div class="user-counting">
+                            <h3 th:text="${subscription.size()}"></h3>
+                            <img th:src="@{/images/counting-subs.svg}" alt="dec">
+                        </div>
+                        <span>Подписок</span>
+                    </div>
+
+                    <div class="info-user-counting">
+                        <div class="user-counting">
+                            <h3>128</h3>
+                            <img th:src="@{/images/counting-like.svg}" alt="dec">
+                        </div>
+                        <span>Любимых треков</span>
+                    </div>
+
+                    <div class="info-user-counting">
+                        <div class="user-counting">
+                            <h3>78880</h3>
+                            <img th:src="@{/images/counting-listening.svg}" alt="dec">
+                        </div>
+                        <span>Прослушанных треков</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="profile_function">
+                <div class="profile_function-language">
+                    <h3 class="profile_function-title">Язык</h3>
+                    <select class="select">
+                        <option>Русский (Russian)</option>
+                        <option>Английский (English)</option>
+                    </select>
+                </div>
+
+                <div class="profile_function-additional">
+                    <h3 class="profile_function-title">Дополнительное</h3>
+                    <form class="checkbox">
+                        <input type="checkbox" id="function1" name="function" class="custom-checkbox">
+                        <label for="function1">Включить Бесконечные треки</label>
+
+                        <input type="checkbox" id="function2" name="function" class="custom-checkbox">
+                        <label for="function2">Плавные переходы между треками</label>
+                    </form>
+                </div>
+
+                <div class="profile_function-preferences">
+                    <h3 class="profile_function-title">Мои предпочтения</h3>
+                    <button class="preferences-btn">Уточнить</button>
+                </div>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="profile-interesting">
+                <h2 class="interesting-title">Интересное</h2>
+                <div class="interesting-wrapper">
+                    <a href="https://www.youtube.com/watch?v=kWHEiCqaVDs&t=952s&pp=ygUY0LTQttC40LfRg9GBINCy0YEg0YDRjdC_"><img th:src="@{/images/interesting-1.png}"></a>
+                    <a href="https://www.youtube.com/watch?v=a59FNLE3rNI&pp=ygUd0YTQsNGA0LDQvtC9INC40L3RgtC10YDQstGM0Y4%3D"><img th:src="@{/images/interesting-2.png}"></a>
+                    <a href="https://www.youtube.com/watch?v=FdfyDmG8X7s&pp=ygUVbGlua2luIHBhcmsgaW50ZXJ2aWV3"><img th:src="@{/images/interesting-3.png}"></a>
+                    <a href="https://www.youtube.com/watch?v=H-0t5E3zi5M&t=52s&pp=ygUE0LTQug%3D%3D"><img th:src="@{/images/interesting-4.png}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="user-data-message" id="user-data-message" th:if="${message}">
+    <h2>Данные о пользователе изменены!</h2>
+    <p>Вы можете увидеть это в личном кабинете. Не меняли данные? Статья о Безопасности данных</p>
+    <a href="#" id="close-link">Хорошо</a>
+</div>
+
+</body>
+<script th:src="@{/js/custom-select.js}"></script>
+<script th:src="@{/js/custom-file.js}"></script>
+<script th:src="@{/js/alert.js}"></script>
+</html>

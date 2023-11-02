@@ -37,13 +37,21 @@ a {
     left: 70px;
 }
 
-.header_ets {
-    background: #1B1B1B;
+.header_ets-wrapper {
+    display: flex;
+    /*gap: 20px;*/
+    background: linear-gradient(106deg, #2614D4 0%, #9D33D4 103.05%);
     border-radius: 50px;
     padding: 18px 21px;
     display: flex;
     align-items: center;
-    gap: 20px;
+}
+
+.header_login {
+    color: #FFF;
+    font-size: 21px;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .header_setting,
@@ -51,3 +59,90 @@ a {
     display: flex;
     align-items: center;
 }
+
+.header_ets {
+    position: relative;
+}
+.header_user-menu {
+    position: absolute;
+    top: 100%;
+    right: 4.5%;
+    z-index: 12;
+    padding: 28px 18px 25px;
+    border-radius: 22px;
+    background: #161616;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.header_user-menu-active {
+    top: 130%;
+    opacity: 1;
+    pointer-events: initial;
+}
+
+.user_menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 0 13px;
+}
+
+.user_menu-list li {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.user_menu-list a{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.user-menu-themes {
+    display: flex;
+    gap: 21px;
+    padding: 15px 25px;
+    justify-content: center;
+    align-items: flex-end;
+    border-radius: 13px;
+    background: #292929;
+}
+
+.user-menu-themes span {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.user-menu-themes a {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.user-menu-themes img {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

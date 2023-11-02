@@ -1,26 +1,32 @@
 .search_tracks {
-    background: var(--white);
-    border-radius: 500px;
-    padding: 18px 60px 18px 30px;
+    border-radius: 10px;
+    border: 1px solid #686868;
+    background: rgba(81, 81, 81, 0.50);
     font-family: 'Nunito';
-    font-weight: 600;
+    padding: 18px 30px;
+
+    color: var(--white);
     font-size: 18px;
-    line-height: 25px;
-    color: #000000;
-    position: relative;
+    font-weight: 600;
+    line-height: normal;
+
     outline: none;
     width: 100%;
     display: block;
-    border: 1px solid transparent;
-    transition: all .4s;
+    transition: all .6s;
 }
 
-.search_tracks-img {
+.search_tracks:focus {
+    border: 1px solid #686868;
+    background: rgba(81, 81, 81, 0.15);
+}
+
+.search-button {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    right: 30px;
-    filter: invert();
+    right: 15px;
+    line-height: 1;
 }
 
 form {
@@ -34,31 +40,37 @@ input[type="search"]::-webkit-search-cancel-button {
     display: none;
 }
 
-.search__track-wrapper {
+.search__artist-wrapper {
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: .7px solid var(--white);
-    padding-bottom: 26px;
+
+    transition: all .4s;
 }
 
-.search__track-wrapper:first-child {
+.search__artist-wrapper:hover {
+    background: #252525;
+    border-radius: 13px;
+    padding: 15px;
+}
+
+.search__artist-wrapper:first-child {
     margin-top: 50px;
 }
 
-.search__track-left a {
+.search__artist-left a {
     display: flex;
     align-items: center;
     gap: 22px;
 }
 
-.search__track-left-info p {
+.search__artist-left-info p {
     margin-bottom: 6px;
 }
 
-.search__track-left-info p,
-.search__track-left-info h4 {
+.search__artist-left-info p,
+.search__artist-left-info h4 {
     font-family: 'Nunito';
     font-weight: 600;
     font-size: 21px;
@@ -66,7 +78,7 @@ input[type="search"]::-webkit-search-cancel-button {
     color: var(--white);
 }
 
-.search__track-btn {
+.search__artist-btn {
     padding: 12px 50px;
     font-family: 'Nunito';
     font-weight: 600;
@@ -77,3 +89,67 @@ input[type="search"]::-webkit-search-cancel-button {
     border: 1px solid var(--white);
     border-radius: 500px;
 }
+
+.line {
+    width: 100%;
+    border-bottom: .7px solid var(--white);
+    padding-bottom: 26px;
+}
+
+.search__track-wrapper {
+    margin-top: 40px;
+    display: grid;
+    gap: 20px 10px;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+}
+
+.search__track-track li {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.search__track-track-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.track-info-title {
+    color: var(--white);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.track-info-artist {
+    color: var(--white);
+    font-size: 19px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.track-info-genre {
+    color: var(--gray);
+    font-size: 19px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.search__track-track-info {
+    max-width: 190px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search__track {
+    margin-top: 40px;
+}
+
+
+
+
+
+

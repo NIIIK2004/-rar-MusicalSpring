@@ -7,6 +7,7 @@ const body = document.querySelector('.body');
 const fullscreenButton = document.getElementById("fullscreen-container");
 const maximizeIcon = document.querySelector("#fullscreen-container img");
 const detailsTrack = document.querySelector(".details-track");
+const bottomPanel = document.querySelector(".bottom_panel");
 
 let curr_track_id = -1;
 let items = 6;
@@ -22,6 +23,32 @@ showMore.addEventListener('click', () => {
     }
 });
 
+// fullscreenButton.addEventListener("click", function (event) {
+//     event.preventDefault();
+//     if (maximizeIcon.src.includes("maximize-icon.svg")) {
+//         maximizeIcon.src = "../images/minimize-icon.svg";
+//         detailsTrack.classList.add("open");
+//         document.body.classList.add('body--active');
+//         bottomPanel.style.backgroundColor = 'transparent';
+//     } else {
+//         maximizeIcon.src = "../images/maximize-icon.svg";
+//         detailsTrack.classList.remove("open");
+//         document.body.classList.remove('body--active');
+//         bottomPanel.style.backgroundColor = '#1B1B1B';
+//     }
+// });
+
+
+function animate() {
+    if (maximizeIcon.src.includes("maximize-icon.svg")) {
+        bottomPanel.style.backgroundColor = '#1B1B1B';
+    } else {
+        bottomPanel.style.backgroundColor = 'transparent';
+    }
+
+    requestAnimationFrame(animate);
+}
+
 fullscreenButton.addEventListener("click", function (event) {
     event.preventDefault();
     if (maximizeIcon.src.includes("maximize-icon.svg")) {
@@ -34,6 +61,9 @@ fullscreenButton.addEventListener("click", function (event) {
         document.body.classList.remove('body--active');
     }
 });
+
+requestAnimationFrame(animate);
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const tabButtons = document.querySelectorAll(".details-track__btn");
