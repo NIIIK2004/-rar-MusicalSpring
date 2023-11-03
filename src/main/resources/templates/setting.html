@@ -30,7 +30,8 @@
                             <img th:src="@{/images/li_camera.svg}">
                         </label>
                         <input id="avatar" type="file" name="file" accept="image/*" onchange="previewFile()">
-                        <img class="setting-ava-img" th:src="@{'/uploads/' + ${user.avatar}}" alt="Avatar" id="preview"></div>
+                        <img class="setting-ava-img" th:src="@{'/uploads/' + ${user.avatar}}" alt="Avatar" id="preview">
+                    </div>
                     <div class="setting-info">
                         <input th:field="*{id}" type="hidden" class="setting-info-input" placeholder="Ваше имя"
                                name="id" required>
@@ -56,24 +57,6 @@
 </section>
 
 </body>
-
-<script>
-    function previewFile() {
-        const preview = document.getElementById('preview');
-        const file = document.querySelector('input[type=file]').files[0];
-        const reader = new FileReader();
-
-        reader.onloadend = function () {
-            if (file) {
-                preview.src = reader.result;
-            }
-        }
-
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    }
-</script>
-
+<script th:src="@{/js/registration.js}"></script>
 
 </html>

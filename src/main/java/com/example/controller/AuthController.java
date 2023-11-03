@@ -5,6 +5,7 @@ import com.example.model.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -14,12 +15,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
 public class AuthController {
-
+    @Value("${upload.path}")
+    private String uploadPath;
     private final UserImpl userImpl;
 
     @GetMapping("/registration")
@@ -29,10 +37,19 @@ public class AuthController {
     }
 
     @PostMapping("/registration/save")
-    public String registration(@ModelAttribute("user") User user, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String registration(@ModelAttribute("user") User user, BindingResult result, Model model, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         User existingUser = userImpl.findByUsername(user.getUsername());
+
+        try {
+            String avatar = UUID.randomUUID().toString() + ".jpg";
+            file.transferTo(new File(uploadPath + "/" + avatar));
+            user.setAvatar(avatar);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
-            result.rejectValue("username", null,
+                        result.rejectValue("username", null,
                     "Пользователь с такие логином уже зарегистрирован!");
         }
         if (result.hasErrors()) {

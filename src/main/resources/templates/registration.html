@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/registration.css">
+    <link rel="stylesheet" href="../css/setting.css">
     <link rel="icon" href="../images/logo.svg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
     <title>Регистрация</title>
@@ -19,49 +20,48 @@
     <video id="welcome-video" width="100%" height="100%" autoplay muted>
         <source src="../images/Video/intro.MP4" type="video/mp4">
     </video>
-    <section class="vhod__page" id="registration-form">
-        <div class="container__vhod">
-            <img src="../images/header/logotype.svg" alt=""
-                 style="margin: 0 auto; display: block; margin-bottom: 70px;">
-            <h1 class="vhod__title">Регистрация</h1>
-            <div class="vhod__wrapper">
-                <form method="post" th:action="@{/registration/save}" th:object="${user}">
+    <section class="autorizated__page" id="registration-form">
+        <div class="container__autorizated">
+            <img th:src="@{/images/registrationLogo.svg}" alt="logo-new"
+                 style="margin: 0 auto; display: block; margin-bottom: 100px;">
+            <img th:src="@{/images/logo-background.svg}" class="logotype-background">
+            <h1 class="autorizated__title">Привет зарегистрируемся?</h1>
+
+            <form th:action="@{/registration/save}" method="POST" th:object="${user}" enctype="multipart/form-data">
+
+                <div class="autorizated__wrapper">
+                    <h3 class="autorizated__wrapper-title">Бесконечный поток музыки - Это когда пароль и логин хорошо
+                        защищены</h3>
                     <input type="text" placeholder="Логин" required th:field="*{username}">
                     <input type="password" placeholder="Пароль" required th:field="*{password}">
+                    <a th:href="@{/login}" class="autorizated__wrapper-check">Есть аккаунт? Давай авторизуемся!</a>
+                    <a href="" class="autorizated__wrapper-next">Дальше</a>
+                </div>
+
+                <div class="autorizated__wrapper hidden">
+                    <h3 class="autorizated__wrapper-title">Ваше имя это стиль вашего профиля</h3>
                     <input type="text" placeholder="Имя" required th:field="*{name}">
                     <input type="text" placeholder="Фамилия" required th:field="*{surname}">
                     <input type="email" placeholder="Почта" required th:field="*{mail}">
-                    <p>
-                        Аккаунт имеется, <a th:href="@{/login}">Войти?</a>
-                    </p>
-                    <button class="vhod-btn" type="submit">Зарегистрироваться</button>
-                </form>
-            </div>
+                    <a href="" class="autorizated__wrapper-next">Дальше</a>
+                </div>
+
+                <div class="autorizated__wrapper hidden">
+                    <h3 class="autorizated__wrapper-title">Мир глазами вашего объектива</h3>
+                    <div class="setting-ava">
+                        <label for="avatar" class="avatar-file">
+                            <img th:src="@{/images/li_camera.svg}">
+                        </label>
+                        <input id="avatar" type="file" name="file" accept="image/*" onchange="previewFile()">
+                        <img class="setting-ava-img" th:src="@{'/uploads/' + ${user.avatar}}" id="preview">
+                    </div>
+                    <button class="autorizated__wrapper-senddData" type="submit">Зарегистрироваться</button>
+                </div>
+
+            </form>
         </div>
     </section>
 </div>
-<script>
-    window.addEventListener('DOMContentLoaded', function () {
-        var video = document.getElementById('welcome-video');
-        var registrationForm = document.getElementById('registration-form');
-
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-                showRegistrationForm();
-            }
-        });
-
-        video.addEventListener('ended', function () {
-            showRegistrationForm();
-        });
-
-        function showRegistrationForm() {
-            video.style.display = 'none';
-            registrationForm.style.opacity = '1';
-            registrationForm.style.pointerEvents = 'auto';
-        }
-    });
-</script>
 </body>
-
+<script th:src="@{/js/registration.js}"></script>
 </html>

@@ -1,112 +1,3 @@
-.vhod__page {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-}
-
-.container__vhod {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 0px 20px;
-}
-
-.vhod__title {
-    font-family: 'Nunito';
-    font-weight: 600;
-    font-size: 48px;
-    line-height: 65px;
-    color: var(--white);
-    text-align: center;
-}
-
-.vhod__wrapper {
-    margin-top: 50px;
-    background: #101010;
-    box-shadow: 0px 0px 31px rgba(0, 0, 0, 0.14);
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    padding: 50px;
-}
-
-.vhod-btn {
-    display: block;
-    margin-top: 20px;
-    margin-left: auto;
-    padding: 11px 50px;
-    border-radius: 50px;
-    border: 1px solid var(--white);
-    font-family: 'Nunito';
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 25px;
-    color: var(--white);
-    transition: all .5s;
-}
-
-.vhod-btn:hover {
-    border: 1px solid transparent;
-    color: var(--black);
-    background: var(--white);
-}
-
-a {
-    text-align: right;
-    display: block;
-    margin-top: 20px;
-    font-family: 'Nunito';
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 22px;
-    color: var(--white);
-    transition: all .3s
-}
-
-a:hover {
-    color: var(--feolet)
-}
-
-input {
-    transition: all .5s;
-    width: 100%;
-    display: block;
-    font-family: 'Nunito';
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 22px;
-    color: var(--white);
-
-    border: 1px solid transparent;
-    border-radius: 5px;
-    padding: 17px 30px;
-    outline: none;
-    background: #1A1A1A;
-}
-
-input:focus {
-    border: 1px solid var(--feolet);
-    background: transparent;
-}
-
-.vhod__wrapper p {
-    padding: 30px 40px;
-    background: #1A1A1A;
-    border-radius: 5px;
-    font-family: 'Nunito';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 22px;
-    color: var(--white);
-    margin-top: 22px;
-}
-
-input:not(:first-child) {
-    margin-top: 22px;
-}
-
-
 #video-container {
     position: relative;
     width: 100%;
@@ -118,7 +9,7 @@ input:not(:first-child) {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
     opacity: 0;
     transition: opacity 1s ease-in-out;
     pointer-events: none;
@@ -131,4 +22,99 @@ input:not(:first-child) {
     width: 100%;
     height: auto;
     transform: translate(-50%, -50%);
+}
+
+.hidden {
+    display: none;
+}
+
+.autorizated__page {
+
+}
+
+.container__autorizated {
+}
+
+.logotype-background {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -27%);
+    z-index: -5;
+}
+
+.autorizated__title {
+    text-align: center;
+    margin-top: 135px;
+    color: var(--white);
+    font-size: 48px;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.autorizated__wrapper {
+    padding: 50px;
+    border-radius: 20px;
+    background: #101010;
+    width: 546px;
+    margin: 50px auto 0;
+}
+
+.autorizated__wrapper input{
+    padding: 17px 30px;
+    color: var(--white);
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+    width: 100%;
+    display: block;
+    border-radius: 5px;
+    background: #1A1A1A;
+    margin-bottom: 13px;
+    outline: none;
+    border: transparent;
+}
+
+.autorizated__wrapper-title {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 25px;
+}
+
+.autorizated__wrapper-check {
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+    margin: 7px auto 0;
+}
+.autorizated__wrapper-senddData,
+.autorizated__wrapper-next {
+    padding: 15px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin: 20px auto 0;
+    color: var(--white);
+    font-family: Nunito;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 30px;
+    border: 1px solid var(--white);
+    background: transparent;
+
+    transition: all .6s;
+}
+
+.setting-ava-img {
+    display: block;
+    margin: 0 auto;;
+    background: #1A1A1A;
+    width: 200px !important;
+    height: 200px !important;
 }

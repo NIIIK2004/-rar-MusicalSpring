@@ -28,9 +28,9 @@
 }
 
 .details-track__inner {
-    margin-top: 60px;
+    margin-top: 80px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     gap: 200px;
 }
 
@@ -78,6 +78,41 @@
 .details-track__tabs {
     max-width: 700px;
     width: 100%;
+}
+
+.details-track__artist {
+    color: var(--white);
+    font-size: 64px;
+    font-weight: 500;
+    line-height: 140%;
+    margin-top: 80px;
+}
+
+.details-track__title {
+    margin-top: 20px;
+    color: var(--white);
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 140%;
+}
+
+.details-track__genre {
+    margin-top: 20px;
+    color: var(--gray);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 140%;
+
+}
+
+
+.details-track__lyrics {
+    text-wrap: balance;
+    color: var(--white);
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
 }
 
 .details-track__content {
