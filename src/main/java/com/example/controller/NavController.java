@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class NavController {
     @GetMapping("/subscribe")
     public String subscribePage() {
-        return "subscribe";
+        return "Subscribe";
     }
 
-    @GetMapping("/project")
-    public String projectPage() {
-        return "project";
+    @GetMapping("/news")
+    public String newsPage() {
+        return "News";
     }
 
     @GetMapping("/collection")

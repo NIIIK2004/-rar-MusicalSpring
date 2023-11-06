@@ -33,7 +33,7 @@ public class AuthController {
     @GetMapping("/registration")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
-        return "registration";
+        return "Registration";
     }
 
     @PostMapping("/registration/save")
@@ -54,7 +54,7 @@ public class AuthController {
         }
         if (result.hasErrors()) {
             model.addAttribute("user", user);
-            return "registration";
+            return "Registration";
         }
         userImpl.save(user);
         redirectAttributes.addFlashAttribute("success", "Вы успешно зарегистрировали!");

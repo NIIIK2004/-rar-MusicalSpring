@@ -7,7 +7,6 @@ import com.example.repo.SubscriptionRepo;
 import com.example.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -61,7 +56,7 @@ public class ProfileController {
             return "redirect:/login?logout";
         }
         model.addAttribute("user", user);
-        return "setting";
+        return "Setting";
     }
 
     @PostMapping("/setting/save")

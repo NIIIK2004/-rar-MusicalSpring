@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/news.css">
+    <link rel="icon" href="../images/logo.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <title>Musical - Новости</title>
+</head>
+
+<body>
+<header class="header" th:include="components/header :: header"></header>
+
+<section class="section-news">
+    <div class="container">
+        <h1 class="title">Новости</h1>
+        <div class="news__wrapper">
+            <div class="news__block">
+                <div class="news_titleAndDate">
+                    <h2 class="news_title">Добавлено - Профиль</h2>
+                    <span class="news_date">Сегодня</span>
+                </div>
+                <div class="news_descAndPhoto">
+                    <p class="news_description">В профиле вас ждут много интересного:
+                        Редактирование сервиса под себя
+                        Статистику подписок, лайков и прослушиваний
+                        Тесты на любимых</p>
+                    <img class="news_photo" th:src="@{images/news-test.png}">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-event">
+    <div class="container">
+        <div class="event__wrapper">
+            <video th:src="@{/video/VideoForNews.mp4}" muted autoplay loop class="event__wrapper-video"></video>
+            <div class="Blackout"></div>
+            <div class="event_info">
+                <span class="event_filter">Событие</span>
+                <h3 class="event_title">Глобальные изменения нашего сайта</h3>
+                <p class="event_description">В марте 2023 года появилась идея создать наш музыкальный сервис. Уже в мае
+                    был анонсирован первый макет. А в июне и вовсе запущен. Сегодня 2024 год и за этот период было
+                    проделано
+                    немало работы над нашим проектом. В этом разделе нельзя поместить всю историю нашего сервиса, но
+                    можно уместить в одно видео - Коротко и Понятно. Но если вам не интересны картинки, видео, и
+                    приятная музыка и вы Паша Молчанов, который любите читать то в крации об изменениях за ГОД:</p>
+                <ul class="event_updateList">
+                    <li>Редизайн Главной и Подробной страницы Артистов</li>
+                    <li>Персональный Личный Кабинет пользователя</li>
+                    <li>Новости (Вместо страницы Проект)</li>
+                    <li>Фулскрин трека стал намного красивее</li>
+                    <li>Улучшен Поиск Артистов</li>
+                    <li>Плейлисты, Перемешивание, Повтор, Звук, ФотоОтчеты</li>
+                    <li>Улучшена защита между связями Администратора и Слушателя</li>
+                    <li>Светлая тема</li>
+                </ul>
+            </div>
+            <div class="event_videoUpdate">
+                <img th:src="@{/images/CoverForNewsUpdateVideo.jpg}">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-ideas">
+    <div class="container">
+        <h1 class="ideas-title title">Наши планы</h1>
+        <p class="ideas-description">Планы это всегда хорошо, ведь когда они есть, то есть чем заниматься. Ниже распишем
+            планы. Как мы хотим улучшить сервис для нашей работы и для вашего пользования, ну а в случае не
+            выполнения, будет стыдно нам, вот еще одна причина разместить здесь “Наши Планы”</p>
+        <div class="ideas_wrapper">
+            <div class="ideas_block" style="background: #4A39F2">
+                <h2 class="ideas_block-title">3D - Звучание</h2>
+                <p class="ideas_block-description">
+                    Хотим запустить атмосферное звучание прямо с сервиса без дополнительных программ, чтобы slowed,
+                    reverb, 8D - звучали по новому
+                </p>
+                <img class="ideas_block-decor" th:src="@{/images/BlackButterfly.svg}" alt="decor">
+            </div>
+
+            <div class="ideas_block" style="background: #6317C5">
+                <h2 class="ideas_block-title">Коннект с Windows</h2>
+                <p class="ideas_block-description">
+                    Каждому было бы удобнее если бы он запускал свой ПК и при открытии папки “Музыка”, происходил импорт
+                    с его аккаунта Musical, и при этом не занимало лишнее место в памяти
+                </p>
+                <img class="ideas_block-decor" th:src="@{/images/BlackButterfly.svg}" alt="decor">
+            </div>
+
+            <div class="ideas_block" style="background: #4A39F2">
+                <h2 class="ideas_block-title">Дистрибуция</h2>
+                <p class="ideas_block-description">
+                    В планах сделать возможность дистрибуции вашего контента, если вы музыкант, группа, исполнитель или
+                    исполнительный продюсер.
+                </p>
+                <img class="ideas_block-decor" th:src="@{/images/BlackButterfly.svg}" alt="decor">
+            </div>
+
+            <div class="ideas_block" style="background: #6317C5">
+                <h2 class="ideas_block-title">Мерч</h2>
+                <p class="ideas_block-description">
+                    В планах запустить собственный мерч, с бабочками и цветочками, это придаст вам свободу в
+                    прослушивании музыки, и легкость в происходящем дне.
+                </p>
+                <img class="ideas_block-decor" th:src="@{/images/BlackButterfly.svg}" alt="decor">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-developer">
+    <div class="container">
+        <h1 class="title">Разработчки</h1>
+        <div class="developer_wrapper">
+            <div class="developer">
+                <img th:src="@{/images/Аркаша.png}" width="262px" height="340px">
+            </div>
+            <div class="developer">
+                <img th:src="@{/images/Аркаша.png}" width="262px" height="340px">
+            </div>
+            <div class="developer">
+                <img th:src="@{/images/Аркаша.png}" width="262px" height="340px">
+            </div>
+            <div class="developer">
+                <img th:src="@{/images/Аркаша.png}" width="262px" height="340px">
+            </div>
+            <div class="developer">
+                <img th:src="@{/images/Аркаша.png}" width="262px" height="340px">
+            </div>
+            <div class="developer">
+                <img th:src="@{/images/Аркаша.png}" width="262px" height="340px">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-miniFooter">
+    <div class="container">
+        <div class="line"></div>
+        <p class="miniFooter-info">Musical может собирать информацию о пользователях, а также владеть авторской
+            размещаемой информацией. За распространение чужого авторского контента сервис не несет ответственности.
+            На основе закона такого то администраторы в силе размещать защищенный контент. Также сервис может
+            хранить информацию не предназначенную для несовершеннолетних лиц. </p>
+        <div class="margin"></div>
+    </div>
+</section>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+</html>

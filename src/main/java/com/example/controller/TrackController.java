@@ -175,7 +175,7 @@ public class TrackController {
         model.addAttribute("artists", artists);
         model.addAttribute("tracks", tracks);
 
-        return "search";
+        return "Search";
     }
 
 
