@@ -26,6 +26,7 @@
     position: relative;
     line-height: 0;
 }
+
 .img-blackout-two img,
 .img-blackout img {
     object-fit: cover;
@@ -59,13 +60,18 @@
 
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 200px;
+    width: 100px;
 }
 
 .artist-main__top {
     display: flex;
     gap: 15px;
     flex-direction: column;
+}
+
+.selected {
+    /*fill: #F8F8F8;*/
+    /*stroke: black;*/
 }
 
 .view {
@@ -95,7 +101,7 @@
     gap: 7px;
 }
 
-.artist-view-two a{
+.artist-view-two a {
     width: 100%;
     padding: 15px 36px 15px 22px;
     border-radius: 13px;

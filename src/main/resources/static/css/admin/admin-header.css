@@ -1,0 +1,103 @@
+.header__top {
+    margin: 50px auto 35px;
+    display: flex;
+    align-items: center;
+}
+
+.header__top-logo {
+    width: 162px;
+    height: 58px;
+    flex: 1;
+}
+
+.header__top-logo img {
+    object-fit: cover;
+}
+
+.header__top-logout {
+    position: relative;
+    padding-left: 37px;
+}
+
+.header__top-logout::before {
+    display: block;
+    position: absolute;
+    content: "";
+    width: 22px;
+    height: 22px;
+    background: url("/images/admin/logout.svg") no-repeat;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: -75px;
+}
+
+.header__top-nameAdmin {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header__top-logout,
+.header__top-nameAdmin {
+    color: var(--white);
+    font-family: SF Pro Display, serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.header__left {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    text-align: left;
+    margin-top: 50px;
+}
+
+.header__title {
+    color: var(--white);
+    font-family: SF Pro Display, serif;
+    font-size: 64px;
+    font-weight: 600;
+    line-height: normal;
+}
+.header__left ul {
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+}
+
+.header__left ul li a {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    color: var(--white);
+    font-family: SF Pro Display, serif;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.header__left ul li a img {
+    width: 28px;
+    height: 28px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

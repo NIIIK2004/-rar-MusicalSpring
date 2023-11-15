@@ -5,14 +5,14 @@
 @import 'components/fonts.css';
 
 .title {
-    font-family: Nunito;
+    font-family: 'Nunito', serif;
     font-size: 28px;
     font-weight: 500;
     color: var(--white);
 }
 
 .text {
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     font-weight: 300;
     font-size: 21px;
     line-height: 140%;
@@ -21,7 +21,8 @@
 }
 
 .container {
-    max-width: 1785px;
+    /*max-width: 1785px;*/
+    max-width: 1710px;
     padding: 0 20px;
     margin: 0 auto;
 }

@@ -13,14 +13,14 @@
                 <li class="header__link"><a th:href="@{/allartist}">Артисты <img
                         th:src="@{/images/header/artists.svg}"></a></li>
                 <li class="header__link"><a th:href="@{/news}">Новости <img
-                        th:src="@{/images/header/project.svg}"></a>
+                        th:src="@{/images/header/news.svg}"></a>
                 </li>
                 <li class="header__link"><a th:href="@{/collection}">Коллекция <img
                         th:src="@{/images/header/like.svg}"></a></li>
             </ul>
             <div class="header_ets">
                 <a th:href="@{/}" class="header_user">
-                    <div class="header_ets-wrapper" sec:authorize="isAuthenticated()">
+                    <div class="header_ets-wrapper header_ets-wrapper--authenticated" sec:authorize="isAuthenticated()">
                         <img th:src="@{/images/ava.svg}" alt="ava">
                     </div>
                 </a>

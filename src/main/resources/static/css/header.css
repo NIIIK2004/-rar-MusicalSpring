@@ -4,7 +4,7 @@ a {
 
 .header__links a {
     position: relative;
-
+    font-weight: 500;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -39,18 +39,33 @@ a {
 
 .header_ets-wrapper {
     display: flex;
-    /*gap: 20px;*/
-    background: linear-gradient(106deg, #2614D4 0%, #9D33D4 103.05%);
-    border-radius: 50px;
-    padding: 18px 21px;
-    display: flex;
+    background: rgba(81, 81, 81, 0.50);
+    border-radius: 10px;
+    border: 1px solid #686868;
+    padding: 15px 30px;
     align-items: center;
 }
 
+.header_ets-wrapper--authenticated {
+    border-radius: 50%;
+    padding: 20px;
+    width: 55px;
+    height: 55px;
+    display: block;
+    position: relative;
+}
+
+.header_ets-wrapper--authenticated img{
+    position: absolute;
+    width: 18px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .header_login {
-    color: #FFF;
-    font-size: 21px;
-    font-weight: 400;
+    font-size: 18px;
+    font-weight: 500;
     line-height: normal;
 }
 

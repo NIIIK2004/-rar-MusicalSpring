@@ -10,8 +10,8 @@
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/Artist.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/admin-editArtist.css}">
     <link rel="icon" th:href="@{/images/logo.svg}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
     <title th:text="'Артист - ' + ${artist.name}"></title>
 </head>
 
@@ -30,7 +30,7 @@
 
                 <div class="Artist__btns">
 
-                    <form th:if="${isUserRegistered && !isSubscribed}" th:action="@{/subscribe}" method="post" >
+                    <form th:if="${isUserRegistered && !isSubscribed}" th:action="@{/subscribe}" method="post">
                         <input type="hidden" name="artistId" th:value="${artist.id}"/>
                         <input type="hidden" name="userId" th:value="${user.id}"/>
                         <button class="Artist__btns-subs" type="submit">Подписаться</button>
@@ -41,15 +41,15 @@
                     </form>
 
                     <form th:if="${isUserRegistered && isSubscribed}" th:action="@{/unsubscribe}" method="post">
-                        <input type="hidden" name="artistId" th:value="${artist.id}" />
-                        <input type="hidden" name="userId" th:value="${user.id}" />
+                        <input type="hidden" name="artistId" th:value="${artist.id}"/>
+                        <input type="hidden" name="userId" th:value="${user.id}"/>
                         <button class="Artist__btns-unsubs" type="submit">Отписаться</button>
                     </form>
 
                     <button class="Artist__btns-similar">Найти похожих</button>
                 </div>
 
-                <div class="Artist__info-social">
+                <!--<div class="Artist__info-social">
                     <a th:href="@{https://open.spotify.com/artist/72lYxQHj6k4H3u18ErEWhH}"><img
                             th:src="@{/images/spotify.svg}" alt="link"></a>
                     <a th:href="@{https://vk.com/niiik04}"><img th:src="@{/images/VK.svg}" alt="link"></a>
@@ -57,7 +57,7 @@
                                                                                alt="link"></a>
                     <a th:href="@{https://www.youtube.com/channel/UCNZnF-bicYstScveDsd648A}"><img
                             th:src="@{/images/Youtube.svg}" alt="link"></a>
-                </div>
+                </div>-->
 
                 <div class="statistics-wrapper">
                     <h1 class="statistics-title title">Статистика артиста</h1>
@@ -222,25 +222,50 @@
         </div>
 
         <div class="Artist__info-block">
-            <h2 class="Artist__info-title">Фотосеты</h2>
-            <div class="Artist__info-sets">
-                <a href="#" class="Artist__info-set">
-                    <span class="set-date">ФотоОтчет за 2019 Год</span>
-                    <span class="set-title">Тур по городам</span>
-                    <span class="set-more">Подробнее</span>
-                    <img th:src="@{/images/sets-1.png}">
-                </a>
-                <a href="#" class="Artist__info-set">
-                    <span class="set-date">ФотоОтчет за 2019 Год</span>
-                    <span class="set-title">Тур по городам</span>
-                    <span class="set-more">Подробнее</span>
-                    <img th:src="@{/images/sets-2.png}">
-                </a>
-                <a href="#" class="Artist__info-set">
-                    <span class="set-date">ФотоОтчет за 2019 Год</span>
-                    <span class="set-title">Тур по городам</span>
-                    <span class="set-more">Подробнее</span>
-                    <img th:src="@{/images/sets-3.png}">
+            <h2 class="Artist__info-title">Фото-Альбомы</h2>
+
+            <form th:action="@{/artist/{id}/createAlbum(id=${artist.id})}" th:object="${albums}" method="post"
+                  enctype="multipart/form-data">
+
+                <label for="name">Название альбома:</label>
+                <input type="text" id="name" name="name" required style="background: white">
+
+                <label for="city">Город где побывал Артист</label>
+                <input type="text" id="city" name="city" required style="background: white">
+
+                <label for="year">Год:</label>
+                <textarea id="year" name="year" required></textarea>
+
+                <label for="file">Обложка фотоальбома:</label>
+                <input type="file" id="file" name="file" accept="image/*" required>
+
+                <button type="submit"
+                        style="border-radius: 13px; border: 1px solid var(--feolet); color: white; padding: 15px;">
+                    Создать альбом
+                </button>
+            </form>
+
+            <div class="Artist__info-sets" th:each="album : ${albums}">
+                <a th:href="@{/artist/{artistId}/album/{albumId}(artistId=${artist.id}, albumId=${album.id})}"
+                   class="Artist__info-set">
+                    <div class="admin-tools">
+                        <span class="set-date"
+                              th:text="'ФотоОтчет за ' + ${album.year} + ' Год'">ФотоОтчет за 2019 Год</span>
+                        <div class="editing-tools">
+                            <a th:href="@{'/artist/' + ${artist.id} + '/album/' + ${album.id} + '/editPhotoAlbumPage'}"><img
+                                    th:src="@{/images/admin/edit.svg}"></a>
+                            <a th:href="@{/artist/{artistId}/album/{albumId}/deleteAlbum(artistId=${artist.id}, albumId=${album.id})}"><img
+                                    th:src="@{/images/admin/delete.svg}"></a>
+                        </div>
+                    </div>
+                    <div class="set-info">
+                        <span class="set-title" th:text="${album.name}"></span>
+                        <span class="set-city" th:text="${album.city}"></span>
+                    </div>
+                    <div class="set-cover">
+                        <img th:src="@{'/uploads/' + ${album.getFilename()}}">
+                    </div>
+
                 </a>
             </div>
         </div>
@@ -248,7 +273,6 @@
 </section>
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script th:src="@{/js/main.js}"></script>
 
 </html>

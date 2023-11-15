@@ -27,4 +27,7 @@ public class Artist {
 
     @OneToMany(mappedBy = "artists", cascade = CascadeType.REMOVE)
     private List<Track> tracks;
+
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    private List<Album> albums;
 }

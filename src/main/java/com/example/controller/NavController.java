@@ -10,13 +10,9 @@ public class NavController {
         return "Subscribe";
     }
 
-    @GetMapping("/news")
-    public String newsPage() {
-        return "News";
-    }
-
     @GetMapping("/collection")
     public String collectionPage() {
         return "collection";
     }
+
 }

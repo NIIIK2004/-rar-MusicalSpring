@@ -39,19 +39,20 @@
     margin-top: 85px;
     color: var(--white);
     font-family: Nunito;
-    font-size: 64px;
+    font-size: 54px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
 }
 
 .Artist__info-bio {
-    margin-top: 50px;
-    color: var(--white);
-    font-family: Nunito;
+    max-width: 830px;
+    max-height: 216px;
+    margin-top: 40px;
     font-size: 18px;
-    font-weight: 400;
     line-height: 150%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .Artist__btns {
@@ -63,36 +64,34 @@
 
 .Artist__btns-subs {
     border-radius: 8px;
-    border: 1px solid transparent;
-    background: var(--feolet);
-    padding: 15px 45px;
+    border: 1px solid #686868;
+    background: rgba(81, 81, 81, 0.50);
+    padding: 18px 45px;
 
     color: var(--white);
     font-family: Nunito;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 400;
     line-height: normal;
 
     transition: all .4s;
 }
 
 .Artist__btns-subs:hover {
-    border: 1px solid var(--white);
-    background: transparent;
-    color: var(--white);
+    background: rgba(81, 81, 81, 0.750);
 }
 
 
 .Artist__btns-unsubs {
     border-radius: 8px;
-    border: 1px solid var(--white);
-    background: transparent;
-    padding: 15px 45px;
+    border: 1px solid #686868;
+    background: rgba(81, 81, 81, 0.50);
+    padding: 18px 45px;
 
-    color: var(--white);
+    color: #9d9d9d;
     font-family: Nunito;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 400;
     line-height: normal;
 }
 
@@ -101,7 +100,7 @@
     font-family: Nunito;
     font-size: 18px;
     font-weight: 600;
-    padding: 15px 45px;
+    padding: 18px 45px;
     border-radius: 8px;
     line-height: normal;
     background: linear-gradient(90deg, #2F1DE8 3.57%, #7534FF 51.64%, #F00994 106.26%);
@@ -116,7 +115,6 @@
 
 
 .statistics-wrapper {
-    /*margin-top: 110px;*/
     position: absolute;
     bottom: 13%;
     width: 100%;
@@ -225,6 +223,7 @@
 }
 
 .Artist__info-sets {
+    position: relative;
     margin-top: 40px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -235,34 +234,29 @@
     position: relative;
 }
 
-.Artist__info-set img {
+.set-cover img {
     border-radius: 13px;
-}
+    width: 546px;
+    height: 280px;
+    object-fit: cover;
 
-
-.Artist__info-set span {
+    top: 0;
+    left: 0;
+    z-index: -5;
     position: absolute;
-    color: var(--white);
-    font-size: 28px;
-    font-weight: 500;
-    line-height: normal;
 }
 
-.set-date {
-    left: 30px;
-    top: 30px;
-}
+/*.set-cover::after {*/
+/*    border-radius: 13px;*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    background: rgba(0, 0, 0, 0.3);*/
+/*}*/
 
-.set-title {
-    left: 30px;
-    bottom: 30px;
-}
 
-.set-more {
-    color: var(--gray);
-    font-family: Nunito;
-    font-size: 16px !important;
-    border-radius: 13px;
-    bottom: 30px;
-    right: 30px;
-}
+

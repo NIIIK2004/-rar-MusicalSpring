@@ -5,6 +5,7 @@ import com.example.model.Artist;
 import com.example.repo.ArtistRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,7 @@ public class ArtistImpl implements ArtistDao {
 
     @Override
     public Artist add(Artist artist) {
+        artist.setAlbums(new ArrayList<>());
         return this.artistRepo.save(artist);
     }
 

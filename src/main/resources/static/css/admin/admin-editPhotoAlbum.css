@@ -1,0 +1,100 @@
+.admin__wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin__panel {
+    max-width: 1255px;
+    width: 100%;
+}
+
+.edit-photo-album {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.edit-photo-album__cover {
+    position: relative;
+}
+
+.edit-photo-album__cover img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    height: 470px;
+}
+
+.edit-photo-album__cover label {
+    position: absolute;
+    cursor: pointer;
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: normal;
+    padding: 10px 30px;
+    border-radius: 50px;
+    border: 1px solid #5B5B5B;
+    background: rgba(248, 248, 248, 0.07);
+    backdrop-filter: blur(15px);
+    bottom: 7.6%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all .3s;
+}
+
+.edit-photo-album__cover label:hover {
+    backdrop-filter: blur(1px);
+}
+
+.edit-photo-album__cover input {
+    position: absolute;
+    visibility: hidden;
+}
+
+.edit-photo-album__cityAndYear {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.edit-photo-album__title,
+.edit-photo-album__cityAndYear input {
+    width: 100%;
+    color: var(--white);
+    font-family: Nunito, serif;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 140%;
+    border-radius: 13px;
+    background: #1A1A1A;
+    padding: 17px 30px;
+    max-height: 60px;
+    border: transparent;
+    outline: none;
+    transition: all .3s;
+}
+
+.edit-photo-album__title:focus,
+.edit-photo-album__cityAndYear input:focus {
+    border: 1px solid var(--feolet);
+    background: transparent;
+}
+
+.edit-photo-album__save {
+    width: 100%;
+    padding: 21px 30px;
+    border-radius: 13px;
+    background: var(--feolet);
+    color: var(--white);
+    font-family: Nunito, serif;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 140%;
+
+    transition: all .3s;
+}
+
+.edit-photo-album__save:hover {
+    background: #392CBB;
+}

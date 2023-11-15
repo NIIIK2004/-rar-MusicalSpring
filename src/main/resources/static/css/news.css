@@ -28,6 +28,8 @@
 }
 
 .news_date {
+    height: 100%;
+    white-space: nowrap;
     padding: 10px 23px;
     color: var(--black);
     font-size: 17px;
@@ -51,6 +53,7 @@
 }
 
 .news_photo {
+    object-fit: cover;
     position: absolute;
     bottom: 40px;
     right: -102px;
@@ -71,12 +74,13 @@
     min-height: 624px;
     border-radius: 13px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     padding: 25px;
 }
 
 .event__wrapper-video {
+    top: 0;
     left: 0;
     position: absolute;
     opacity: 1;

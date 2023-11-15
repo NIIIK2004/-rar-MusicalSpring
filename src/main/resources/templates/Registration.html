@@ -6,12 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/registration.css">
-    <link rel="stylesheet" href="../css/setting.css">
-    <link rel="icon" href="../images/logo.svg">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/registration.css}">
+    <link rel="stylesheet" th:href="@{/css/setting.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
     <title>Регистрация</title>
 </head>
 
@@ -23,17 +22,21 @@
     <section class="autorizated__page" id="registration-form">
         <div class="container__autorizated">
             <img th:src="@{/images/registrationLogo.svg}" alt="logo-new"
-                 style="margin: 0 auto; display: block; margin-bottom: 100px;">
+                 style="margin: 0 auto 100px; display: block;">
             <img th:src="@{/images/logo-background.svg}" class="logotype-background">
             <h1 class="autorizated__title">Привет зарегистрируемся?</h1>
 
-            <form th:action="@{/registration/save}" method="POST" th:object="${user}" enctype="multipart/form-data">
+            <form th:object="${user}" th:action="@{/registration/save}" method="POST" enctype="multipart/form-data" novalidate>
 
                 <div class="autorizated__wrapper">
                     <h3 class="autorizated__wrapper-title">Бесконечный поток музыки - Это когда пароль и логин хорошо
                         защищены</h3>
-                    <input type="text" placeholder="Логин" required th:field="*{username}">
-                    <input type="password" placeholder="Пароль" required th:field="*{password}">
+                    <input type="text" placeholder="Придумайте логин" required th:field="*{username}">
+                    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+
+                    <input type="password" placeholder="Придумайте надежный пароль" required th:field="*{password}">
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+
                     <a th:href="@{/login}" class="autorizated__wrapper-check">Есть аккаунт? Давай авторизуемся!</a>
                     <a href="" class="autorizated__wrapper-next">Дальше</a>
                 </div>
@@ -41,9 +44,15 @@
                 <div class="autorizated__wrapper hidden">
                     <h3 class="autorizated__wrapper-title">Ваше имя это стиль вашего профиля</h3>
                     <input type="text" placeholder="Имя" required th:field="*{name}">
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
                     <input type="text" placeholder="Фамилия" required th:field="*{surname}">
+                    <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+
                     <input type="email" placeholder="Почта" required th:field="*{mail}">
+                    <span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span>
                     <a href="" class="autorizated__wrapper-next">Дальше</a>
+                    <a href="#" class="autorizated__wrapper-back">Назад</a>
                 </div>
 
                 <div class="autorizated__wrapper hidden">
@@ -53,9 +62,11 @@
                             <img th:src="@{/images/li_camera.svg}">
                         </label>
                         <input id="avatar" type="file" name="file" accept="image/*" onchange="previewFile()">
+                        <span th:if="${#fields.hasErrors('avatar')}" th:errors="*{avatar}"></span>
                         <img class="setting-ava-img" th:src="@{'/uploads/' + ${user.avatar}}" id="preview">
                     </div>
                     <button class="autorizated__wrapper-senddData" type="submit">Зарегистрироваться</button>
+                    <a href="#" class="autorizated__wrapper-back">Назад</a>
                 </div>
 
             </form>

@@ -1,43 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/registration.css">
-    <link rel="icon" href="../images/logo.svg">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/registration.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
     <title>Вход в систему</title>
 </head>
 
 <body>
-<section class="vhod__page">
-    <div class="container__vhod">
-        <img src="../images/header/logotype.svg" alt=""
-             style="margin: 0 auto; display: block; margin-bottom: 70px;">
-        <h1 class="vhod__title">Войдем в историю!</h1>
-        <div class="vhod__wrapper">
-            <form th:action="@{/login}" method="post">
+<section class="autorizated__page" id="authorization-form">
+    <div class="container__autorizated">
+        <img th:src="@{/images/registrationLogo.svg}" alt="logo-new"
+             style="margin: 0 auto 100px; display: block;">
+        <img th:src="@{/images/logo-background.svg}" class="logotype-background">
+        <h1 class="autorizated__title">Войдем в историю!</h1>
+
+        <form th:action="@{/login}" method="post">
+            <div class="autorizated__wrapper">
+                <h3 class="autorizated__wrapper-title" th:text="${randomMessage}"></h3>
                 <input type="text" id="username" name="username" placeholder="Логин" required>
                 <input type="password" id="password" name="password" placeholder="Пароль" required>
-                <p>Это поле здесь просто так потому что с двумя полями было бы не очень красиво, а
-                    когда три блока тогда прикольно и смотрится наполнено
-                    <br>
-                    <br>
-                    Потом я придумаю что можно сюда вставить
-                    <br>
-                    А пока так
-                </p>
-                <p>
-                    Аккаунт имеется? <a th:href="@{/registration}"> Может зарегистрируемся?</a>
-                </p>
-                <button class="vhod-btn" type="submit">Войти</button>
-            </form>
-        </div>
+                <a th:href="@{/registration}" class="autorizated__wrapper-check">Нет аккаунта? Давай
+                    зарегистрируемся!</a>
+                <button class="autorizated__wrapper-senddData" type="submit">Войти</button>
+            </div>
+        </form>
     </div>
 </section>
 </body>

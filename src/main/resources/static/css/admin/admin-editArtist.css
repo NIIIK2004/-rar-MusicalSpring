@@ -1,0 +1,10 @@
+.admin-tools {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.editing-tools {
+    display: flex;
+    gap: 12px;
+}

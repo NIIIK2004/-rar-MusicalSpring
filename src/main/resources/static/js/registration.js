@@ -1,6 +1,7 @@
+const user = {};
 window.addEventListener('DOMContentLoaded', function () {
-    var video = document.getElementById('welcome-video');
-    var registrationForm = document.getElementById('registration-form');
+    let video = document.getElementById('welcome-video');
+    let registrationForm = document.getElementById('registration-form');
 
     document.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
@@ -12,33 +13,53 @@ window.addEventListener('DOMContentLoaded', function () {
         showRegistrationForm();
     });
 
+    const hasVisited = localStorage.getItem('hasVisited');
+
+    if (!hasVisited) {
+        localStorage.setItem('hasVisited', 'true');
+    } else {
+        showRegistrationForm();
+    }
+
     function showRegistrationForm() {
         video.style.display = 'none';
         registrationForm.style.opacity = '1';
         registrationForm.style.pointerEvents = 'auto';
+
+        const inputs = registrationForm.querySelectorAll('input, textarea');
+        inputs.forEach((input) => {
+            user[input.name] = input.value;
+        });
+
+        currentIndex = 0;
+        forms[currentIndex].classList.remove('hidden');
     }
 });
-
 
 const forms = document.querySelectorAll('.autorizated__wrapper');
 let currentIndex = 0;
 
 function showNextForm() {
-    forms[currentIndex].classList.add('hidden');
+    const currentForm = forms[currentIndex];
+    const inputs = currentForm.querySelectorAll('input, textarea');
+    inputs.forEach((input) => {
+        user[input.name] = input.value;
+    });
+
     currentIndex = (currentIndex + 1) % forms.length;
-    forms[currentIndex].classList.remove('hidden');
+    const nextForm = forms[currentIndex];
+    nextForm.classList.remove('hidden');
+    currentForm.classList.add('hidden');
 }
 
 document.querySelectorAll('.autorizated__wrapper-next').forEach((button) => {
     button.addEventListener('click', (event) => {
-        event.preventDefault()
+        event.preventDefault();
         showNextForm();
     });
 })
 
 forms[currentIndex].classList.remove('hidden');
-
-
 
 function previewFile() {
     const preview = document.getElementById('preview');
@@ -54,4 +75,23 @@ function previewFile() {
     if (file) {
         reader.readAsDataURL(file);
     }
+}
+document.querySelectorAll('.autorizated__wrapper-back').forEach((button) => {
+    button.addEventListener('click', (event) => {
+        event.preventDefault()
+        showPreviousForm();
+    });
+})
+
+function showPreviousForm() {
+    const currentForm = forms[currentIndex];
+    const inputs = currentForm.querySelectorAll('input, textarea');
+    inputs.forEach((input) => {
+        user[input.name] = input.value;
+    });
+
+    currentIndex = (currentIndex - 1 + forms.length) % forms.length;
+    const previousForm = forms[currentIndex];
+    previousForm.classList.remove('hidden');
+    currentForm.classList.add('hidden');
 }

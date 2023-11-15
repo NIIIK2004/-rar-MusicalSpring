@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:util="urn:java.util">
 
 <head>
     <meta charset="UTF-8">
@@ -21,18 +21,37 @@
 <section class="section-news">
     <div class="container">
         <h1 class="title">Новости</h1>
+
+        <form th:action="@{/news/save}" method="post" enctype="multipart/form-data">
+            <label for="title">Заголовок:</label>
+            <input type="text" id="title" name="title" required style="background: white">
+
+            <label for="file">Изображение:</label>
+            <input type="file" id="file" name="file" accept="image/*" required>
+
+            <label for="content">Содержание:</label>
+            <textarea id="content" name="content" required></textarea>
+
+            <button type="submit"
+                    style="border-radius: 13px; border: 1px solid var(--feolet); color: white; padding: 15px;">Добавить
+                новость
+            </button>
+        </form>
+
+
         <div class="news__wrapper">
-            <div class="news__block">
+            <div class="news__block" th:each="news : ${newsList}">
+                <a th:href="@{/news/delete/{id}(id = ${news.id})}" class="delete-test"
+                   style="background: #c13737; border: transparent; border-radius: 7px; padding: 8px">Удалить</a>
                 <div class="news_titleAndDate">
-                    <h2 class="news_title">Добавлено - Профиль</h2>
-                    <span class="news_date">Сегодня</span>
+                    <h2 class="news_title" th:text="${news.title}"></h2>
+                    <!--                    <span class="news_date" th:text="${#temporals.format(news.date, 'dd.MM.yy')}"></span>-->
+                    <span class="news_date"
+                          th:text="${#temporals.format(news.date, 'd MMMM', new java.util.Locale('ru'))}"></span>
                 </div>
                 <div class="news_descAndPhoto">
-                    <p class="news_description">В профиле вас ждут много интересного:
-                        Редактирование сервиса под себя
-                        Статистику подписок, лайков и прослушиваний
-                        Тесты на любимых</p>
-                    <img class="news_photo" th:src="@{images/news-test.png}">
+                    <p class="news_description" th:text="${news.content}"></p>
+                    <img class="news_photo" th:src="@{'/uploads/' + ${news.getImageNews()}}">
                 </div>
             </div>
         </div>
@@ -45,7 +64,10 @@
             <video th:src="@{/video/VideoForNews.mp4}" muted autoplay loop class="event__wrapper-video"></video>
             <div class="Blackout"></div>
             <div class="event_info">
-                <span class="event_filter">Событие</span>
+                <div class="events" style="display: flex; gap: 15px">
+                    <span class="event_filter">Событие</span>
+                    <span class="event_filter">Большое обновление 2.0</span>
+                </div>
                 <h3 class="event_title">Глобальные изменения нашего сайта</h3>
                 <p class="event_description">В марте 2023 года появилась идея создать наш музыкальный сервис. Уже в мае
                     был анонсирован первый макет. А в июне и вовсе запущен. Сегодня 2024 год и за этот период было
@@ -155,7 +177,5 @@
 </section>
 
 </body>
-
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
 </html>
