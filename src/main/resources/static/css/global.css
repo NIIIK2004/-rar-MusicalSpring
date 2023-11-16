@@ -27,6 +27,7 @@ html, body {
 body {
     background: var(--black);
     font-family: 'Nunito', sans-serif;
+    /*font-display: optional;*/
     font-weight: 300;
     line-height: 140%;
     color: var(--white);

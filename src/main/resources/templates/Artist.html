@@ -245,12 +245,9 @@
                 </button>
             </form>
 
-            <div class="Artist__info-sets" th:each="album : ${albums}">
-                <a th:href="@{/artist/{artistId}/album/{albumId}(artistId=${artist.id}, albumId=${album.id})}"
-                   class="Artist__info-set">
+            <div class="Artist__info-sets" >
+                <div class="Artist__info-sets-wrapper" th:each="album : ${albums}">
                     <div class="admin-tools">
-                        <span class="set-date"
-                              th:text="'ФотоОтчет за ' + ${album.year} + ' Год'">ФотоОтчет за 2019 Год</span>
                         <div class="editing-tools">
                             <a th:href="@{'/artist/' + ${artist.id} + '/album/' + ${album.id} + '/editPhotoAlbumPage'}"><img
                                     th:src="@{/images/admin/edit.svg}"></a>
@@ -258,15 +255,19 @@
                                     th:src="@{/images/admin/delete.svg}"></a>
                         </div>
                     </div>
-                    <div class="set-info">
-                        <span class="set-title" th:text="${album.name}"></span>
-                        <span class="set-city" th:text="${album.city}"></span>
-                    </div>
-                    <div class="set-cover">
-                        <img th:src="@{'/uploads/' + ${album.getFilename()}}">
-                    </div>
-
-                </a>
+                    <a th:href="@{/artist/{artistId}/album/{albumId}(artistId=${artist.id}, albumId=${album.id})}"
+                       class="Artist__info-set">
+                        <div class="set-cover">
+                            <img th:src="@{'/uploads/' + ${album.getFilename()}}">
+                        </div>
+                        <span class="set-date"
+                              th:text="'ФотоОтчет за ' + ${album.year} + ' Год'">ФотоОтчет за 2019 Год</span>
+                        <div class="set-info">
+                            <span class="set-title" th:text="${album.city}"></span>
+                            <span class="set-city" th:text="${album.name}"></span>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

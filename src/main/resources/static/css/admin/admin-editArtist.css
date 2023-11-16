@@ -1,10 +1,14 @@
-.admin-tools {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+/*.admin-tools {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: space-between;*/
+/*}*/
 
 .editing-tools {
+    padding: 30px;
+    position: absolute;
     display: flex;
     gap: 12px;
+    z-index: 5;
+    right: 0;
 }
