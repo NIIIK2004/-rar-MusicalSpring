@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/admin/admin-header.css}">
+    <link rel="stylesheet" th:href="@{/css/news.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/admin-createNews.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <title>Новости</title>
+</head>
+
+<body>
+<div class="admin">
+    <div class="container">
+        <div class="header__top">
+            <div class="header__top-logo">
+                <img th:src="@{/images/admin/logotype.svg}">
+            </div>
+            <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
+            <span class="header__top-nameAdmin">Администратор Никитаыыы</span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="admin__wrapper">
+            <header class="header" th:include="admin/components/Admin-Header :: header"></header>
+            <div class="admin__panel">
+                <form th:action="@{/news/save}" method="post" enctype="multipart/form-data">
+                    <div class="data-news">
+                        <div class="news-cover">
+                            <label for="file">
+                                <img id="preview" th:src="@{/}" alt="plus" onerror="this.src='/images/default-download-img.png';">
+                            </label>
+                            <input type="file" id="file" name="file" accept="image/*" required onchange="previewFile()">
+                        </div>
+                        <div class="news-info">
+                            <input type="text" id="title" name="title" required placeholder="Название новости">
+                            <textarea id="content" name="content" required
+                                      placeholder="Краткое описание новости"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="button_save">Добавить новость</button>
+                </form>
+
+                <div class="news__wrapper">
+                    <div class="news__block" th:each="news : ${newsList}">
+                        <a th:href="@{/news/delete/{id}(id = ${news.id})}" class="delete-test">
+                            <img th:src="@{/images/admin/delete.svg}" alt="">
+                        </a>
+                        <div class="news_titleAndDate">
+                            <h2 class="news_title" th:text="${news.title}"></h2>
+                            <span class="news_date"
+                                  th:text="${#temporals.format(news.date, 'd MMMM', new java.util.Locale('ru'))}"></span>
+                        </div>
+                        <div class="news_descAndPhoto">
+                            <p class="news_description" th:text="${news.content}"></p>
+                            <img class="news_photo" th:src="@{'/uploads/' + ${news.getImageNews()}}">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script th:src="@{/js/registration.js}"></script>
+
+</html>

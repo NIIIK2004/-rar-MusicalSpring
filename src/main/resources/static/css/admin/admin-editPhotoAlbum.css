@@ -1,13 +1,3 @@
-.admin__wrapper {
-    display: flex;
-    justify-content: space-between;
-}
-
-.admin__panel {
-    max-width: 1255px;
-    width: 100%;
-}
-
 .edit-photo-album {
     display: flex;
     flex-direction: column;
@@ -79,22 +69,4 @@
 .edit-photo-album__cityAndYear input:focus {
     border: 1px solid var(--feolet);
     background: transparent;
-}
-
-.edit-photo-album__save {
-    width: 100%;
-    padding: 21px 30px;
-    border-radius: 13px;
-    background: var(--feolet);
-    color: var(--white);
-    font-family: Nunito, serif;
-    font-size: 19px;
-    font-weight: 400;
-    line-height: 140%;
-
-    transition: all .3s;
-}
-
-.edit-photo-album__save:hover {
-    background: #392CBB;
 }

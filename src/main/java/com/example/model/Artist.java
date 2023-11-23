@@ -23,6 +23,10 @@ public class Artist {
     private String description;
     private String genre;
     private String listeners;
+
+    private String country;
+
+    private String liking;
     private String filename;
 
     @OneToMany(mappedBy = "artists", cascade = CascadeType.REMOVE)

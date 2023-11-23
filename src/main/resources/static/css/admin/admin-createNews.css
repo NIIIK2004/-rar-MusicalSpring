@@ -1,0 +1,100 @@
+.delete-test {
+    position: absolute;
+    bottom: 12px;
+    display: flex;
+}
+
+.news__wrapper {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.admin__panel {
+    max-width: 1111px;
+}
+
+.button_save {
+    padding: 13px 30px;
+    margin-top: 20px;
+}
+
+.data-news {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.news-cover {
+    position: relative;
+    width: 436px;
+    height: 246px;
+    border-radius: 13px;
+}
+
+.news-cover label {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: pointer;
+    border: 1px dashed var(--white);
+    background: transparent;
+    border-radius: 13px;
+    transition: all .4s;
+}
+
+.news-cover label:hover {
+    background: #1A1A1A;
+}
+
+.news-cover input {
+    display: none;
+}
+
+.news-cover img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    width: 96%;
+    border-radius: 13px;
+    height: 93%;
+}
+
+.news-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 660px;
+    width: 100%;
+}
+
+.news-info textarea,
+.news-info input {
+    border-radius: 13px;
+    background: #1A1A1A;
+    border: 1px solid transparent;
+    padding: 17px 31px;
+    width: 100%;
+    color: var(--white);
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 140%;
+
+    outline: none;
+    transition: all .4s;
+}
+
+.news-info textarea {
+    min-height: 170px;
+    height: 100%;
+    resize: none;
+}
+
+
+
+
+
+
+
+
+

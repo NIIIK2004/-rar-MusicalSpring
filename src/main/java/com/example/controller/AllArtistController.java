@@ -4,13 +4,11 @@ import com.example.dao.SubscriptionDao;
 import com.example.impl.ArtistImpl;
 import com.example.impl.TrackImpl;
 import com.example.impl.UserImpl;
-import com.example.model.Artist;
-import com.example.model.Track;
-import com.example.model.User;
-import com.example.repo.AlbumRepo;
+import com.example.model.*;
 import com.example.repo.ArtistRepo;
-import com.example.repo.PhotoAlbumRepo;
+import com.example.repo.SubscriptionRepo;
 import com.example.repo.TrackRepo;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +34,9 @@ public class AllArtistController {
     private UserImpl userImpl;
 
     @Autowired
+    private SubscriptionRepo subscriptionRepo;
+
+    @Autowired
     private SubscriptionDao subscriptionDao;
     @Value("${upload.path}")
     private String uploadPath;
@@ -44,66 +45,86 @@ public class AllArtistController {
 
     private final TrackImpl trackImpl;
     private final TrackRepo trackRepo;
-    @Autowired
-    private final PhotoAlbumRepo photoAlbumRepo;
-    @Autowired
-    private final AlbumRepo albumRepo;
-
     private Track track;
 
-    @GetMapping("/allartist")
-    public String artistMainPage(Model model) {
+    @GetMapping(value = {"/allartist", "/Admin-All-Artist"})
+    public String artistMainPage(Model model, HttpServletRequest request) {
         List<Artist> artists = artistRepo.findAll();
         model.addAttribute("artists", artists);
-        return "allartist";
-    }
 
-    @PostMapping("allartist/save")
-    public String save(@ModelAttribute("artist") Artist artist, @RequestParam("photo") MultipartFile file) throws IOException {
-        if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
-            String filename = UUID.randomUUID() + "." + file.getOriginalFilename();
-            file.transferTo(new File(uploadPath + "/" + filename));
-            artist.setFilename(filename);
+        if (request.getRequestURI().equals("/Admin-All-Artist")) {
+            return "/admin/AdminAllArtist";
+        } else {
+            return "allartist";
         }
-        artistImpl.add(artist);
-        System.out.print("Запрос отправлен!");
-        return "redirect:/allartist";
     }
 
-    @PostMapping("allartist/edit")
-    public String edit(@ModelAttribute("artist") Artist artist,
-                       @RequestParam(value = "photo", required = false) MultipartFile file,
-                       RedirectAttributes redirectAttributes) throws IOException {
+    @GetMapping("/artist/createOrEditArtistPage")
+    public String createOrEditArtistPage(Model model, @RequestParam(name = "artistId", required = false) Long artistId) {
+
+        if (artistId != null) {
+            Artist artist = artistRepo.findById(artistId).orElseThrow(() -> new IllegalThreadStateException("Не найден id Артиста:" + artistId));
+            model.addAttribute("artist", artist);
+        } else {
+            model.addAttribute("artist", new Artist());
+        }
+        return "admin/CreateOrEditArtist";
+    }
+
+    @PostMapping("/artist/createOrEditArtist")
+    public String createOrEditArtist(@RequestParam(name = "artistId", required = false) Long artistId,
+                                     @RequestParam(name = "file", required = false) MultipartFile file,
+                                     @RequestParam String name,
+                                     @RequestParam String description,
+                                     @RequestParam String genre,
+                                     @RequestParam String listeners,
+                                     @RequestParam String country,
+                                     @RequestParam String liking) throws IOException {
+
+        Artist artist = (artistId != null) ? artistImpl.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Не найден id Артиста:" + artistId)) :
+                new Artist();
+
+        artist.setName(name);
+        artist.setDescription(description);
+        artist.setGenre(genre);
+        artist.setListeners(listeners);
+        artist.setCountry(country);
+        artist.setLiking(liking);
+
+
         if (file != null && !file.isEmpty()) {
             String filename = UUID.randomUUID() + "." + file.getOriginalFilename();
             file.transferTo(new File(uploadPath + "/" + filename));
             artist.setFilename(filename);
 
-            Optional<Artist> optionalArtist = artistRepo.findById(artist.getId());
-            if (optionalArtist.isPresent()) {
-                Artist existingArtist = optionalArtist.get();
-                String oldFile = existingArtist.getFilename();
-                if (oldFile != null) {
-                    String oldFilePath = uploadPath + "/" + oldFile;
-                    File oldFilename = new File(oldFilePath);
-                    if (oldFilename.exists()) {
-                        oldFilename.delete();
+            System.out.println("File saved successfully: " + filename);
+            System.out.println("File path: " + uploadPath + "/" + filename);
+            System.out.println("Artist: " + artist);
+            System.out.println("Artist Filename: " + artist.getFilename());
+
+            if (artistId != null) {
+                Optional<Artist> optionalArtist = artistRepo.findById(artistId);
+                if (optionalArtist.isPresent()) {
+                    Artist existingArtist = optionalArtist.get();
+                    String oldFile = existingArtist.getFilename();
+                    if (oldFile != null) {
+                        String oldFilePath = uploadPath + "/" + oldFile;
+                        File oldFilename = new File(oldFilePath);
+                        if (oldFilename.exists()) {
+                            oldFilename.delete();
+                        }
                     }
                 }
             }
-        } else {
-            Optional<Artist> optionalArtist = artistRepo.findById(artist.getId());
+        } else if (artistId != null) {
+            Optional<Artist> optionalArtist = artistRepo.findById(artistId);
             if (optionalArtist.isPresent()) {
                 Artist existingArtist = optionalArtist.get();
                 artist.setFilename(existingArtist.getFilename());
             }
         }
-
-        artistImpl.editFields(artist.getId(), artist.getName(), artist.getDescription(),
-                artist.getGenre(), artist.getListeners(), artist.getFilename());
-
-        redirectAttributes.addFlashAttribute("success", "Успешное редактирование! Артист - " + artist.getName());
-        return "redirect:/allartist";
+        artistImpl.add(artist);
+        return "redirect:/Admin-All-Artist";
     }
 
     @GetMapping("/allartist/delete/{id}")
@@ -120,7 +141,7 @@ public class AllArtistController {
                 file.delete();
             }
         }
-        artistImpl.delete(artist.getId());
+
 
         List<Track> tracks = artist.getTracks();
         if (tracks != null) {
@@ -129,10 +150,13 @@ public class AllArtistController {
             }
         }
 
+        List<Subscription> subscriptions = subscriptionRepo.findByArtistId(artist.getId());
+        subscriptionRepo.deleteAll(subscriptions);
 
+        artistImpl.delete(artist.getId());
         redirectAttributes.addFlashAttribute("success", "Успешное удаление артиста " + artist.getName());
 
-        return "redirect:/allartist";
+        return "redirect:/Admin-All-Artist";
     }
 
     @GetMapping("/artist/{id}/details")

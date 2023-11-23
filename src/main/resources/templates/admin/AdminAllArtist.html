@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/admin/admin-header.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/admin-allArtist.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <title>Все артисты</title>
+</head>
+
+<body>
+<div class="admin">
+    <div class="container">
+        <div class="header__top">
+            <div class="header__top-logo">
+                <img th:src="@{/images/admin/logotype.svg}">
+            </div>
+            <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
+            <span class="header__top-nameAdmin">Администратор Никитаыыы</span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="admin__wrapper">
+            <header class="header" th:include="admin/components/Admin-Header :: header"></header>
+            <div class="admin__panel">
+                <div class="admin__panel-artists">
+                    <ul th:each="artist : ${artists}">
+                        <li>
+                            <a th:href="@{/artist/{id}/details(id = ${artist.id})}">
+                                <img class="admin__panel-artists-ava" th:src="@{'/uploads/' + ${artist.filename}}" alt="Артист">
+                            </a>
+                            <div class="admin__panel-artists-tools">
+                                <a th:href="@{'/artist/createOrEditArtistPage?artistId=' + ${artist.id}}"><img th:src="@{/images/admin/edit.svg}" alt="Редактирование"></a>
+                                <a th:href="@{'/allartist/delete/' + ${artist.id}}"><img th:src="@{/images/admin/delete.svg}" alt="Удаление"></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <a class="admin-add" th:href="@{'/artist/createOrEditArtistPage'}">Добавить</a>
+    </div>
+</div>
+
+
+</body>
+<script th:src="@{/js/registration.js}"></script>
+
+</html>

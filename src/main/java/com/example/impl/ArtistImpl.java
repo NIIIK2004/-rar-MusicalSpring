@@ -44,7 +44,7 @@ public class ArtistImpl implements ArtistDao {
     }
 
     @Override
-    public Artist editFields(Long id, String name, String description, String genre, String listeners, String filename) {
+    public Artist editFields(Long id, String name, String description, String genre, String listeners, String country, String liking, String filename) {
         Optional<Artist> optionalArtist = artistRepo.findById(id);
 
         if (optionalArtist.isPresent()) {
@@ -53,6 +53,8 @@ public class ArtistImpl implements ArtistDao {
             existingArtist.setDescription(description);
             existingArtist.setGenre(genre);
             existingArtist.setListeners(listeners);
+            existingArtist.setCountry(country);
+            existingArtist.setLiking(liking);
             existingArtist.setFilename(filename);
             return artistRepo.save(existingArtist);
         }

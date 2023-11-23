@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
@@ -26,7 +29,8 @@
             <div class="view">
                 <span>Вид:</span>
                 <a href="#" data-view="one-view">
-                    <svg id="icon-one" class="icon-one" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg id="icon-one" class="icon-one" width="29" height="29" viewBox="0 0 29 29" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
                         <rect width="29" height="29" rx="14.5" fill="#F8F8F8"/>
                         <circle cx="14.5" cy="14.5" r="8.5" stroke="black" stroke-width="2"/>
                     </svg>
@@ -78,7 +82,7 @@
             <th:block th:if="${artists.isEmpty()}">
                 <p>Артистов пока нет</p>
             </th:block>
-            <th:block th:each="artist: ${artists}">
+            <th:block th:each="artist : ${artists}">
                 <div class="artist">
                     <a th:href="@{/artist/{id}/details(id=${artist.id})}">
                         <div class="img-blackout">
@@ -104,10 +108,11 @@
                                  style="border-radius: 50%">
                         </div>
 
-                    <div class="artist-info-view-two">
-                    <p class="artist-name-view-two" th:text="${artist.name}"></p>
-                    <p class="artist-listen-view-two" th:text="'Артист | ' + ${artist.listeners} + ' слушателей'"></p>
-                    </div>
+                        <div class="artist-info-view-two">
+                            <p class="artist-name-view-two" th:text="${artist.name}"></p>
+                            <p class="artist-listen-view-two"
+                               th:text="'Артист | ' + ${artist.listeners} + ' слушателей'"></p>
+                        </div>
                     </a>
                 </div>
             </th:block>

@@ -1,0 +1,38 @@
+.admin__panel-artists {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 22px;
+    align-items: center;
+}
+
+.admin__panel-artists ul {
+    position: relative;
+}
+.admin__panel-artists-ava {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 119px;
+    height: 119px;
+    transition: all .3s;
+}
+
+.admin__panel-artists-ava:hover {
+    transform: scale(.95);
+}
+
+.admin__panel-artists-tools {
+    transition: all .3s;
+    opacity: 0;
+    pointer-events: none;
+
+    display: flex;
+    gap: 39px;
+    align-items: center;
+    position: absolute;
+    bottom: -12px;
+}
+
+.admin__panel-artists ul li:hover .admin__panel-artists-tools {
+    opacity: 1;
+    pointer-events: unset;
+}

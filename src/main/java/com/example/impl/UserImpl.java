@@ -29,6 +29,13 @@ public class UserImpl implements UserDao {
     }
 
     @Override
+    public User saveAdmin(User user) {
+        user.setRoles(Collections.singleton(Role.ADMIN));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepo.save(user);
+    }
+
+    @Override
     public void delete(Long id) {
         this.userRepo.deleteById(id);
     }

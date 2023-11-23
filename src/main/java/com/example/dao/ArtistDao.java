@@ -16,5 +16,5 @@ public interface ArtistDao {
 
     public Optional<Artist> findById(Long id);
 
-    Artist editFields(Long id, String name, String description, String filename, String genre, String listeners);
+    Artist editFields(Long id, String name, String description, String genre, String listeners, String country, String liking, String filename);
 }

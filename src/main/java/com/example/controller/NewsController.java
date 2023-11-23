@@ -1,8 +1,11 @@
 package com.example.controller;
 
+import com.example.model.Artist;
 import com.example.model.News;
+import com.example.model.PhotoArtists;
 import com.example.repo.NewsRepo;
 import jakarta.persistence.PostRemove;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,8 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,11 +31,18 @@ public class NewsController {
 
     private final NewsRepo newsRepo;
 
-    @GetMapping("/news")
-    public String newsPage(Model model) {
+    @GetMapping(value = {"/news", "/Admin-News"})
+    public String newsPage(Model model, HttpServletRequest request) {
         List<News> news = newsRepo.findAll();
+        news = news.stream().sorted(Comparator.comparing(News::getId).reversed()).toList();
+
         model.addAttribute("newsList", news);
-        return "News";
+
+        if(request.getRequestURI().equals("/Admin-News")) {
+            return "/admin/CreateOrDeleteNews";
+        } else {
+            return "News";
+        }
     }
 
     @PostMapping("/news/save")
@@ -43,7 +55,7 @@ public class NewsController {
         if (result.hasErrors()) {
             List<News> newsList = newsRepo.findAll();
             model.addAttribute("newsList", newsList);
-            return "News";
+            return "/Admin-News";
         }
 
 
@@ -60,12 +72,12 @@ public class NewsController {
         news.setDate(LocalDateTime.now());
 
         newsRepo.save(news);
-        return "redirect:/news";
+        return "redirect:/Admin-News";
     }
 
     @GetMapping("/news/delete/{id}")
     public String delete(@PathVariable Long id) {
         newsRepo.deleteById(id);
-        return "redirect:/news";
+        return "redirect:/Admin-News";
     }
 }

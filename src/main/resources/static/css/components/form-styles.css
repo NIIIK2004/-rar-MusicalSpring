@@ -38,13 +38,13 @@ input:focus {
     display: block;
 }
 
-.textarea {
+textarea {
     transition: all .4s;
     min-height: 200px;
     max-height: 400px;
     resize: vertical;
 
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 22px;
@@ -52,7 +52,7 @@ input:focus {
     border: 1px solid transparent;
 }
 
-.textarea:focus {
+textarea:focus {
     background: transparent;
     border: 1px solid var(--feolet);
 }

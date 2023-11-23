@@ -1,3 +1,7 @@
+body {
+    height: unset !important;
+}
+
 .header__top {
     margin: 50px auto 35px;
     display: flex;
@@ -62,6 +66,7 @@
     font-weight: 600;
     line-height: normal;
 }
+
 .header__left ul {
     display: flex;
     flex-direction: column;
@@ -85,10 +90,99 @@
     height: 28px;
 }
 
+.admin__wrapper {
+    display: flex;
+    justify-content: space-between;
+}
 
+.admin__panel {
+    max-width: 1255px;
+    width: 100%;
+}
 
+.admin-add {
+    position: fixed;
+    color: var(--white);
+    font-family: SF Pro Display, serif;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: normal;
+    padding-left: 47px;
+    bottom: 95px;
+}
 
+.admin-add:before {
+    position: absolute;
+    content: "";
+    background: url("../../images/admin/plus.svg");
+    top: 50%;
+    left: -3px;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+}
 
+.button_save {
+    width: 100%;
+    padding: 21px 30px;
+    border-radius: 13px;
+    background: var(--feolet);
+    color: var(--white);
+    font-family: Nunito, serif;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 140%;
+
+    transition: all .3s;
+}
+
+.button_save:hover {
+    background: #392CBB;
+}
+
+.user-data-message {
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+    padding: 20px;
+    border-radius: 13px;
+    background: var(--feolet);
+    width: 390px;
+    transition: all .4s;
+}
+.user-data-message p,
+.user-data-message h2 {
+    color: #FFF;
+
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-wrap: balance;
+}
+
+.user-data-message p {
+    margin-top: 10px;
+}
+
+.user-data-message a {
+    margin-top: 15px;
+    border-radius: 99px;
+    border: 1px solid var(--white);
+    padding: 8px 20px;
+    background: transparent;
+    color: var(--white);
+    font-size: 17px;
+    font-weight: 400;
+    line-height: normal;
+    display: inline-block;
+    float: right;
+}
+
+.hide {
+    opacity: 0;
+    pointer-events: none;
+}
 
 
 

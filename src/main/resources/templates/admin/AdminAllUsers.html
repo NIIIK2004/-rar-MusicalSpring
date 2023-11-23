@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/admin/admin-header.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/admin-allUsers.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <title>Все пользователи</title>
+</head>
+
+<body>
+<div class="admin">
+    <div class="container">
+        <div class="header__top">
+            <div class="header__top-logo">
+                <img th:src="@{/images/admin/logotype.svg}">
+            </div>
+            <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
+            <span class="header__top-nameAdmin">Администратор Никитаыыы</span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="admin__wrapper">
+            <header class="header" th:include="admin/components/Admin-Header :: header"></header>
+            <div class="admin__panel">
+                <div class="admin__panel-users">
+                    <ul>
+                        <li th:each="user : ${users}">
+                            <div class="user-top">
+                                <div class="user-top-left">
+                                    <img class="user_avatar" th:src="@{'/uploads/' + ${user.avatar}}" alt="ava-users" onerror="this.src = '/images/admin/admin-ava.svg';">
+                                    <div class="user-data-name">
+                                        <h2 th:text="${user.name}"></h2>
+                                        <span th:text="${user.surname}"></span>
+                                    </div>
+                                </div>
+                                <div class="user-top-right">
+                                    <span th:text="${user.roles}"></span>
+                                    <span th:text="'ID:' + ${user.id}"></span>
+                                </div>
+                            </div>
+                            <div class="user-bottom">
+                                <div class="user-bottom-left">
+                                    <h2 th:text="${user.username}"></h2>
+                                    <h2 th:text="${user.mail}"></h2>
+                                </div>
+                                <div class="user-bottom-right">
+                                    <a th:href="@{/Admin/users/delete/{id}(id = ${user.id})}">
+                                        <img th:src="@{/images/admin/delete.svg}" alt="Delete User">
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <a class="admin-add" th:href="@{'/Admin/users/add/administrators'}">Добавить Администратора</a>
+    </div>
+</div>
+<div class="user-data-message" id="user-data-message" th:if="${errors}" style="background: #b44646">
+    <h2>Произошла Ошибка</h2>
+    <p>Технические неполадки, попробуйте чуть позже или сообщите вышестоящему Администратору для решения проблемы</p>
+    <a href="#" id="close-link">Хорошо</a>
+</div>
+
+<div class="user-data-message" id="user-data-message" th:if="${success}">
+    <h2>Новый Администратор</h2>
+    <p>Успешно создан, теперь еще один Администратор управляет данным сайтом, всех поздравляем</p>
+    <a href="#" id="close-link">Отлично</a>
+</div>
+
+</body>
+<script th:src="@{/js/registration.js}"></script>
+<script th:src="@{/js/alert.js}"></script>
+
+</html>

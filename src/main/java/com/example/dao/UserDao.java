@@ -7,6 +7,8 @@ import java.util.Optional;
 public interface UserDao {
     public User save(User user);
 
+    User saveAdmin(User user);
+
     public void delete(Long id);
 
     public List<User> findAll();

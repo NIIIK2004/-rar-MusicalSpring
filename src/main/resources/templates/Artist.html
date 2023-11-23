@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
@@ -106,10 +109,10 @@
                             <div class="statistics-block-data">
                                 <span>Симпатий</span>
                                 <h2 class="statistics__card-main"
-                                    th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
-                                    th:text="${artist.listeners}"></h2>
+                                    th:if="${artist.liking != null && artist.liking.trim() != ''}"
+                                    th:text="${artist.liking}"></h2>
                                 <h2 class="statistics__card-main"
-                                    th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">0</h2>
+                                    th:unless="${artist.liking != null && artist.liking.trim() != ''}">0</h2>
                             </div>
                         </div>
 
@@ -137,19 +140,19 @@
                             <div class="statistics-block-data">
                                 <span>Страна</span>
                                 <h2 class="statistics__card-main"
-                                    th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
-                                    th:text="${artist.listeners}"></h2>
+                                    th:if="${artist.country != null && artist.country.trim() != ''}"
+                                    th:text="${artist.country}"></h2>
                                 <h2 class="statistics__card-main"
-                                    th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">0</h2>
+                                    th:unless="${artist.country != null && artist.country.trim() != ''}">Не определенно</h2>
                             </div>
                         </div>
 
                         <span class="line-separator">
-                        <svg width="2" height="32" viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1 1L0.999999 31" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round"/>
-</svg>
-
-                    </span>
+                            <svg width="2" height="32" viewBox="0 0 2 32" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1L0.999999 31" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </span>
 
                         <div class="statistics-block">
                         <span>
@@ -224,32 +227,11 @@
         <div class="Artist__info-block">
             <h2 class="Artist__info-title">Фото-Альбомы</h2>
 
-            <form th:action="@{/artist/{id}/createAlbum(id=${artist.id})}" th:object="${albums}" method="post"
-                  enctype="multipart/form-data">
-
-                <label for="name">Название альбома:</label>
-                <input type="text" id="name" name="name" required style="background: white">
-
-                <label for="city">Город где побывал Артист</label>
-                <input type="text" id="city" name="city" required style="background: white">
-
-                <label for="year">Год:</label>
-                <textarea id="year" name="year" required></textarea>
-
-                <label for="file">Обложка фотоальбома:</label>
-                <input type="file" id="file" name="file" accept="image/*" required>
-
-                <button type="submit"
-                        style="border-radius: 13px; border: 1px solid var(--feolet); color: white; padding: 15px;">
-                    Создать альбом
-                </button>
-            </form>
-
-            <div class="Artist__info-sets" >
+            <div class="Artist__info-sets" id="ArtistAlbums">
                 <div class="Artist__info-sets-wrapper" th:each="album : ${albums}">
                     <div class="admin-tools">
                         <div class="editing-tools">
-                            <a th:href="@{'/artist/' + ${artist.id} + '/album/' + ${album.id} + '/editPhotoAlbumPage'}"><img
+                            <a th:href="@{'/artist/' + ${artist.id} + '/createOrEditAlbumPage?albumId=' + ${album.id}}"><img
                                     th:src="@{/images/admin/edit.svg}"></a>
                             <a th:href="@{/artist/{artistId}/album/{albumId}/deleteAlbum(artistId=${artist.id}, albumId=${album.id})}"><img
                                     th:src="@{/images/admin/delete.svg}"></a>
@@ -268,6 +250,18 @@
                         </div>
                     </a>
                 </div>
+                <div class="admin-tools-add-album">
+                    <a th:href="@{/artist/{artistId}/createOrEditAlbumPage(artistId = ${artist.id})}">
+                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M21 7C21.9665 7 22.75 7.7835 22.75 8.75V33.25C22.75 34.2165 21.9665 35 21 35C20.0335 35 19.25 34.2165 19.25 33.25V8.75C19.25 7.7835 20.0335 7 21 7Z"
+                                  fill="#F8F8F8"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M7 21C7 20.0335 7.7835 19.25 8.75 19.25H33.25C34.2165 19.25 35 20.0335 35 21C35 21.9665 34.2165 22.75 33.25 22.75H8.75C7.7835 22.75 7 21.9665 7 21Z"
+                                  fill="#F8F8F8"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -275,5 +269,6 @@
 
 </body>
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/basic-tools.js}"></script>
 
 </html>

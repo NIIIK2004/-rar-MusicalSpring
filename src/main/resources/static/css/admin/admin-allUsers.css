@@ -1,0 +1,80 @@
+.admin__panel-users ul{
+    display: grid;
+    gap: 21px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.admin__panel-users ul li {
+    padding: 40px;
+    background: #0F0F0F;
+    border-radius: 13px;
+}
+
+.user-bottom,
+.user-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-bottom {
+    margin-top: 20px;
+}
+
+.user-top-left {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.user_avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.user-data-name h2 {
+    color: var(--white);
+    font-family: SF Pro Display, serif;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.user-data-name span {
+    color: var(--gray);
+    font-family: SF Pro Display, serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.user-top-right {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.user-top-right span{
+    color: var(--gray);
+    font-family: SF Pro Display, serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+    text-align: right;
+}
+
+.user-bottom-left {
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-bottom-left h2 {
+    color: var(--white);
+    font-family: SF Pro Display, serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: normal;
+}

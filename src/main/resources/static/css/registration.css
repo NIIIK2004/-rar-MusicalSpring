@@ -102,7 +102,7 @@
     text-align: center;
     margin: 20px auto 0;
     color: var(--white);
-    font-family: Nunito;
+    font-family: Nunito, serif;
     font-size: 18px;
     font-weight: 500;
     line-height: normal;
@@ -112,6 +112,13 @@
 
     transition: all .6s;
 }
+
+.autorizated__wrapper-senddData:hover,
+.autorizated__wrapper-next:hover {
+    border: 1px solid transparent;
+    background: var(--feolet);
+}
+
 
 .autorizated__wrapper-back {
     position: absolute;

@@ -4,12 +4,28 @@
     justify-content: space-between;
 }
 
+.album-title a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all .3s;
+}
+
+.album-title a:hover {
+    transform: translateX(-10px);
+}
+
 .album__wrapper {
+    position: relative;
     margin-top: 40px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 21px;
 
+}
+
+.album__photo {
+    position: relative;
 }
 
 .album__photo img {
@@ -19,52 +35,3 @@
     border-radius: 15px;
 }
 
-.album-title-addPhotos {
-    color: var(--white);
-    font-family: Nunito, serif;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: normal;
-    border-radius: 8px;
-    border: 1px solid #686868;
-    background: rgba(81, 81, 81, 0.50);
-    padding: 10px 28px;
-    transition: all .4s;
-}
-
-.album-title-addPhotos:active {
-    transform: scale(.98);
-}
-
-.album__photo--add {
-    position: relative;
-    width: 545px;
-    height: 385px;
-    border: 1px dashed var(--gray);
-    border-radius: 15px;
-}
-
-.icon-uploads-file {
-    border-radius: 15px;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    cursor: pointer;
-    transition: all .2s;
-}
-
-.icon-uploads-file:hover {
-    background: #1A1A1A;
-}
-
-.icon-uploads-file svg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -55%);
-}
-
-.icon-uploads-file input {
-    display: none;
-}

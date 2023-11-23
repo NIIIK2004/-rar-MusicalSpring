@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,71 +49,65 @@ public class PhotoAlbumController {
         return "PhotoAlbum";
     }
 
-    @PostMapping("/artist/{id}/createAlbum") //Создаем Альбом
-    public String createAlbum(@PathVariable("id") Long id, @ModelAttribute("album") Album album, @RequestParam("file") MultipartFile file) throws IOException {
-        if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
-            String filename = UUID.randomUUID() + "." + file.getOriginalFilename();
-            file.transferTo(new File(uploadPath + "/" + filename));
-            album.setFilename(filename);
-        }
-        Artist artist = artistImpl.findById(id).orElseThrow(() -> new IllegalArgumentException("Не найден id Артиста:" + id));
-        album.setArtist(artist);
-        artist.getAlbums().add(album);
-        artistRepo.save(artist);
-        return "redirect:/artist/{id}/details";
-    }
+    @GetMapping("/artist/{artistId}/createOrEditAlbumPage") //Видим редактирование Альбома
+    public String createOrEditAlbumPage(Model model, @PathVariable Long artistId, @RequestParam(name = "albumId", required = false) Long albumId) {
+        Artist artist = artistRepo.findById(artistId)
+                .orElseThrow(() -> new IllegalArgumentException("Не найден id Артиста:" + artistId));
 
-    @GetMapping("/artist/{artistId}/album/{albumId}/editPhotoAlbumPage") //Видим редактирование Альбома
-    public String editPhotoAlbumPage(Model model, @PathVariable Long artistId, @PathVariable Long albumId) {
-        Optional<Artist> artistOptional = artistRepo.findById(artistId);
-        Optional<Album> albumOptional = albumRepo.findById(albumId);
-        if (artistOptional.isPresent() && albumOptional.isPresent()) {
-            Artist artist = artistOptional.get();
-            Album album = albumOptional.get();
-
-            model.addAttribute("artist", artist);
+        if (albumId != null) {
+            Album album = artist.getAlbums().stream()
+                    .filter(a -> a.getId().equals(albumId))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid album Id:" + albumId));
             model.addAttribute("album", album);
-            return "admin/EditPhotoAlbum";
         } else {
-            return "error";
+            model.addAttribute("album", new Album());
         }
+        model.addAttribute("artist", artist);
+        return "admin/CreateOrEditPhotoAlbum";
     }
 
-    @PostMapping("/artist/{artistId}/album/{albumId}/editPhotoAlbum") //Редактируем Альбом
-    public String editPhotoAlbum(Model model, @PathVariable Long artistId, @PathVariable Long albumId,
-                                 @RequestParam("name") String name,
-                                 @RequestParam("city") String city,
-                                 @RequestParam("year") int year,
-                                 @RequestParam("file") MultipartFile file) throws IOException {
-        Artist artist = artistImpl.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Invalid artist Id:" + artistId));
+    @PostMapping("artist/{artistId}/createOrEditAlbum") //Редактируем или создаём новый Альбом
+    public String createOrEditAlbum(@PathVariable("artistId") Long artistId,
+                                    @ModelAttribute("album") Album album,
+                                    @RequestParam(name = "file", required = false)
+                                    MultipartFile file,
+                                    RedirectAttributes redirectAttributes) throws IOException {
+        Artist artist = artistImpl.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Не найден id Артиста:" + artistId));
 
-        Album album = artist.getAlbums().stream().filter(a -> a.getId().equals(albumId)).findFirst().orElseThrow(() -> new IllegalArgumentException("Invalid album Id:" + albumId));
-
-        album.setName(name);
-        album.setCity(city);
-        album.setYear(year);
-
-        if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
-            String filename = UUID.randomUUID() + "." + file.getOriginalFilename();
-            file.transferTo(new File(uploadPath + "/" + filename));
-
-            if (album.getFilename() != null) {
-                String oldCoverPath = uploadPath + "/" + album.getFilename();
-                File oldCoverFile = new File(oldCoverPath);
-                if (oldCoverFile.exists()) {
-                    oldCoverFile.delete();
-                }
+        if (album.getId() == null || album.getId() <= 0) {
+            if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
+                String filename = UUID.randomUUID() + "." + file.getOriginalFilename();
+                file.transferTo(new File(uploadPath + "/" + filename));
+                album.setFilename(filename);
             }
+            album.setArtist(artist);
+            artist.getAlbums().add(album);
+        } else {
+            Album existingAlbum = artist.getAlbums().stream().filter(a -> a.getId().equals(album.getId())).findFirst().orElseThrow(() -> new IllegalArgumentException("Invalid album Id:" + album.getId()));
 
-            model.addAttribute("artist", artist);
-            model.addAttribute("album", album);
+            existingAlbum.setName(album.getName());
+            existingAlbum.setCity(album.getCity());
+            existingAlbum.setYear(album.getYear());
 
-            album.setFilename(filename);
+            if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
+                String filename = UUID.randomUUID() + "." + file.getOriginalFilename();
+                file.transferTo(new File(uploadPath + "/" + filename));
+                album.setFilename(filename);
+
+                if (existingAlbum.getFilename() != null) {
+                    String oldFilePath = uploadPath + "/" + existingAlbum.getFilename();
+                    File oldCoverFile = new File(oldFilePath);
+                    if (oldCoverFile.exists()) {
+                        oldCoverFile.delete();
+                    }
+                }
+                existingAlbum.setFilename(filename);
+            }
         }
-
         artistRepo.save(artist);
-
-        return "redirect:/artist/" + artistId + "/details";
+        redirectAttributes.addFlashAttribute("saveSuccess", true);
+        return "redirect:/artist/{artistId}/details#ArtistAlbums";
     }
 
     @GetMapping("/artist/{artistId}/album/{albumId}/deleteAlbum") //Удаляем Альбом
@@ -159,7 +154,6 @@ public class PhotoAlbumController {
 
         return "redirect:/artist/{artistId}/album/{albumId}";
     }
-
 
 
 }

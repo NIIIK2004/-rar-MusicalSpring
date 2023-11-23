@@ -110,6 +110,11 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    transition: all .3s;
+}
+
+.artist-view-two a:hover {
+    background: #252525;
 }
 
 .artist-name-view-two {
