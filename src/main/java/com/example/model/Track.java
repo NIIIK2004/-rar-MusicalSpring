@@ -20,13 +20,11 @@ public class Track {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String description;
     private String lyrics;
     private String genre;
     private String releaseyear;
     private String audiofilename;
     private String coverfilename;
-    private String clipfilename;
 
     @ManyToOne
     @JoinTable(

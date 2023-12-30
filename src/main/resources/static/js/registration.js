@@ -61,21 +61,6 @@ document.querySelectorAll('.autorizated__wrapper-next').forEach((button) => {
 
 forms[currentIndex].classList.remove('hidden');
 
-function previewFile() {
-    const preview = document.getElementById('preview');
-    const file = document.querySelector('input[type=file]').files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = function () {
-        if (file) {
-            preview.src = reader.result;
-        }
-    }
-
-    if (file) {
-        reader.readAsDataURL(file);
-    }
-}
 document.querySelectorAll('.autorizated__wrapper-back').forEach((button) => {
     button.addEventListener('click', (event) => {
         event.preventDefault()

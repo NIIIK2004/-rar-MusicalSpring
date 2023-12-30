@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/admin/admin-header.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/admin-addTrack.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <title>Треки</title>
+</head>
+
+<body>
+<div class="admin">
+    <div class="container">
+        <div class="header__top">
+            <div class="header__top-logo">
+                <img th:src="@{/images/admin/logotype.svg}">
+            </div>
+            <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
+            <span class="header__top-nameAdmin">Администратор Никита</span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="admin__wrapper">
+            <header class="header" th:include="admin/components/Admin-Header :: header"></header>
+            <div class="admin__panel">
+                <form action="alltrack/save" method="post" enctype="multipart/form-data">
+                    <label for="audio" class="audioFile__loading">
+                        <input type="file" id="audio" name="audio" accept="audio/*" onchange="updateFileName()">
+                        <span id="audioFileName">Загрузите файл</span>
+                    </label>
+                    <div class="addTrack__wrapper">
+                        <div class="addTrack-left">
+                            <div class="addTrack-basicInformation">
+                                <div class="addTrack-info">
+                                    <h1 class="addTrack-title">Основная информация</h1>
+                                    <ul class="basicInformation-inputs">
+                                        <li>
+                                            <label for="title">Название релиза</label>
+                                            <input type="text" id="title" name="title"
+                                                   placeholder="Введите название релиза">
+                                        </li>
+                                        <li>
+                                            <label for="artistId">Исполнитель</label>
+                                            <th:block th:if="${artists.isEmpty()}">
+                                                <p style="color: #da2424">Без артистов нельзя сделать трек</p>
+                                            </th:block>
+                                            <select class="select" id="artistId" name="artist_id">
+                                                <th:block th:each="artist : ${artists}">
+                                                    <option th:value="${artist.id}" th:text="${artist.name}"></option>
+                                                </th:block>
+                                            </select>
+                                        </li>
+                                        <li>
+                                            <label for="label">Название лейбла</label>
+                                            <input type="text" id="label" name="label"
+                                                   placeholder="Лицензия принадлежности">
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="addTrack-cover">
+                                    <h1 class="addTrack-title">Вставьте обложку релиза</h1>
+                                    <div class="cover-img">
+                                        <label for="cover">
+                                            <img id="preview" th:src="@{/}" alt="cover" onerror="this.src='/images/default-download-img.png';">
+                                        </label>
+                                        <input type="file" name="cover" id="cover" accept="image/*" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="addTrack-additionalInformation">
+                                <h1 class="addTrack-title">Дополнительная информация</h1>
+                                <ul class="additionalInformation-inputs">
+                                    <li>
+                                        <label for="genre">Жанр трека</label>
+                                        <input type="text" id="genre" name="genre"
+                                               placeholder="Введите название релиза">
+                                    </li>
+                                    <li>
+                                        <label for="year">Год выпуска</label>
+                                        <input type="text" id="year" name="year"
+                                               placeholder="Введите год выпуска">
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <button type="submit" class="button_save">Загрузить на площадку</button>
+                        </div>
+                        <div class="addTrack-right">
+                            <h1 class="addTrack-title">Напишите текст песни</h1>
+                            <div class="addTrack-lyric">
+                                <textarea name="lyric" id="lyric" placeholder="Введите текст"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script th:src="@{/js/custom-select.js}"></script>
+<script th:src="@{/js/custom-file.js}"></script>
+<script th:src="@{/js/basic-tools.js}"></script>
+</html>

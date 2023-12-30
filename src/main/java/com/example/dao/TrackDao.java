@@ -21,12 +21,10 @@ public interface TrackDao {
 
     Track editFileds(Long id,
                      String title,
-                     String description,
                      String lyrics,
                      String genre,
                      String releaseyear,
                      String audiofilename,
                      String coverfilename,
-                     String clipfilename,
                      Artist artists);
 }

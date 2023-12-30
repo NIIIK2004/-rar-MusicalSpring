@@ -15,5 +15,4 @@ public class NavController {
         return "collection";
     }
 
-
 }

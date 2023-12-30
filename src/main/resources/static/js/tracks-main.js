@@ -2,6 +2,7 @@ const showMore = document.querySelector('.tracks-main__more');
 const itemsLength = document.querySelectorAll('.tracks-main__item').length;
 const modalEditRelease = document.getElementById('modal-edit_release');
 const modalDeleteRelease = document.getElementById('modal-delete_release');
+const warnNotification  = document.querySelector(".warn__notification");
 const body = document.querySelector('.body');
 
 const fullscreenButton = document.getElementById("fullscreen-container");
@@ -55,6 +56,10 @@ fullscreenButton.addEventListener("click", function (event) {
         maximizeIcon.src = "../images/minimize-icon.svg";
         detailsTrack.classList.add("open");
         document.body.classList.add('body--active');
+        warnNotification.style.opacity = "1";
+        setTimeout(function () {
+            warnNotification.style.opacity = "0";
+        }, 2000);
     } else {
         maximizeIcon.src = "../images/maximize-icon.svg";
         detailsTrack.classList.remove("open");

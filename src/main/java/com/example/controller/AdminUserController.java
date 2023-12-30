@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import com.example.impl.UserImpl;
-import com.example.model.Role;
 import com.example.model.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,9 +53,5 @@ public class AdminUserController {
         redirectAttributes.addFlashAttribute("success", "Новый администратор добавлен успешно");
         return "redirect:/Admin/users";
     }
-
-
-
-
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
@@ -26,6 +27,61 @@
 
 <header class="header" th:include="components/header :: header"></header>
 
+<section class="control-panel" sec:authorize="isAuthenticated()">
+    <div class="container">
+        <h1 class="title">Добрый день <span class="control-panel-name" th:text="${name} + '!'"></span></h1>
+
+        <div class="control-panel__wrapper">
+
+            <div class="control-block" style="background: linear-gradient(90deg, #474EEF 0%, #6C56F3 100%);">
+                <div class="control-block-randTrack">
+                    <h2>Произвести рандомные треки</h2>
+                    <button class="control-block-randBtn">
+                        <img class="control-block-randBtn-img" src="../images/play-track-small.svg"
+                             alt="Воспроизвести">
+                    </button>
+                </div>
+            </div>
+
+            <div class="control-block">
+                <div class="control-block-volume">
+                    <img th:src="@{/images/sound-mute-icon.svg}">
+                    <div class="slider-container">
+                        <input class="range" type="range" id="volumeControl" min="0" max="1" step="0.1"
+                               value="${volume}"/>
+                        <div class="slider-track"></div>
+                    </div>
+                    <img th:src="@{/images/sound-active-icon.svg}" title="Увеличить громкость">
+                </div>
+            </div>
+
+            <div class="control-block">
+                <div class="control-block-device">
+                    <img th:src="@{/images/device-icon.svg}" title="Устройство воспроизведения">
+                    <h6>Играет на: </h6>
+                    <span id="osVersion">Определение</span>
+                </div>
+            </div>
+
+            <div class="control-block" style="cursor:pointer;">
+                <div class="control-block-genre">
+                    <div class="block-genre" style="background: #E7AD1A">
+                        <span>Альтернатива</span>
+                        <img src="../images/play-track-small.svg"
+                             alt="Воспроизвести">
+                    </div>
+
+                    <div class="block-genre" style="background: #E9ADCD">
+                        <span>Поп-Панк</span>
+                        <img src="../images/play-track-small.svg"
+                             alt="Воспроизвести">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="main">
     <div class="container">
         <div class="tracks-main">
@@ -38,46 +94,26 @@
             <th:block>
                 <ul class="tracks-main__list">
                     <li class="tracks-main__item" th:each="track: ${tracks}">
+                        <audio class="audioPlayer" controls style="display: none;">
+                            <source type="audio/mp3" th:src="@{'/uploads/' + ${track.getAudiofilename()}}">
+                            Ваш браузер не поддерживает воспроизведение аудио.
+                        </audio>
                         <div class="tracks-main__top">
                             <img class="tracks-main__img" th:src="@{'/uploads/' + ${track.getCoverfilename()}}"
                                  height="260">
-                            <button class="tracks-main__btn" onclick="toggleAudioSlider(event)"><img
-                                    id="playPauseIconSlider" src="../images/play-icon-for-slider.svg"
-                                    alt="Воспроизвести"></button>
-                            <ul class="card__admin">
-                                <li class="card__admin-item" onclick="modal_EditRelease(event)">
-                                    <button class="card__admin-btn" id="button-open-edit_release"
-                                            th:data-track-id="${track.id}"
-                                            th:data-track-title="${track.title}"
-                                            th:data-track-description="${track.description}"
-                                            th:data-track-lyrics="${track.lyrics}"
-                                            th:data-track-filenamecover="${track.coverfilename}"
-                                            th:data-track-filenameaudio="${track.audiofilename}"
-                                            th:data-track-genre="${track.getGenre() }"
-                                            th:data-track-releaseyear="${track.releaseyear}"
-                                            th:data-track-filenameclip="${track.clipfilename}"
-                                            th:data-track-artists="${track.artists}">
-                                        <img src="../images/admin-edit-entity.svg">
-                                    </button>
-                                </li>
-                                <li class="card__admin-item" onclick="modal_DeleteRelease(event)">
-                                    <button class="card__admin-btn" id="button-open-delete_release"
-                                            th:data-track-id="${track.id}" th:data-track-title="${track.title}">
-                                        <img src="../images/admin-delete-entity.svg">
-                                    </button>
-                                </li>
-                            </ul>
+                            <button class="tracks-main__btn" th:data-track-id="${track.id}">
+                                <img class="playPauseIconSlider" src="../images/play-track-small.svg"
+                                     alt="Воспроизвести">
+                            </button>
                         </div>
-                        <h3 class="tracks-main__name" th:text="${track.artists.name}"></h3>
-                        <span class="tracks-main__album" th:text="${track.getTitle()}"></span>
+                        <h3 class="tracks-main__name" th:text="${track.getTitle()}"></h3>
+                        <span class="tracks-main__album" th:text="${track.artists.name}"></span>
                     </li>
                 </ul>
             </th:block>
             <button class="tracks-main__more" type="button">Показать ещё</button>
         </div>
     </div>
-
-    <!-- //alert-subs -->
 
     <div class="subs__warn">
         <button class="subs__warn-close"><img src="../images/close.svg"></button>
@@ -95,10 +131,11 @@
                 <div class="audio-left-block">
 
                     <div class="audio__info-wrapper">
-                        <img src="../images/cover/Nirvana_album_cover.svg.webp" alt="Обложка аудио" width="50">
+                        <img class="coverImage" src="../images/cover/Nirvana_album_cover.svg.webp" alt="Обложка аудио"
+                             width="50">
                         <div class="track__info">
-                            <h3>Название аудио</h3>
-                            <p>Имя исполнителя</p>
+                            <h3 class="trackTitle">Название аудио</h3>
+                            <p class="artistsName">Имя исполнителя</p>
                         </div>
                     </div>
 
@@ -109,21 +146,21 @@
                         </div>
                         <div class="time">
                             <span class="current-time">00:00</span>
-                            <audio controls id="myAudio">
-                                <source src="../audio/dzhizus-manyak-mp3.mp3" type="audio/mp3">
-                                Ваш браузер не поддерживает воспроизведение аудио.
-                            </audio>
+                            <!--                            <audio controls id="myAudio">-->
+                            <!--                                <source src="../audio/dzhizus-manyak-mp3.mp3" type="audio/mp3">-->
+                            <!--                                Ваш браузер не поддерживает воспроизведение аудио.-->
+                            <!--                            </audio>-->
                             <span class="total-time">00:00</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="controls">
-                    <button onclick="previousTrack()"><img src="../images/prev_song-icon.svg"
-                                                           alt="Пред трек"></button>
-                    <button onclick="toggleAudio(event)"><img id="playPauseIcon" src="../images/play-icon.svg"
-                                                              alt="Воспроизвести"></button>
-                    <button onclick="nextTrack()"><img src="../images/next_song-icon.svg" alt="След трек"></button>
+                    <button id="prevButton"><img src="../images/prev_song-icon.svg" alt="Пред трек"></button>
+                    <button class="toggle-audio-button" id="playPauseButton"><img class="playPauseIcon"
+                                                                                  src="../images/play-icon.svg"
+                                                                                  alt="Воспроизвести"></button>
+                    <button id="nextButton"><img src="../images/next_song-icon.svg" alt="След трек"></button>
                 </div>
                 <div class="audio-action_btn">
                     <button onclick="toggleMute()">
@@ -146,13 +183,40 @@
             </div>
         </div>
     </div>
+
+    <div class="warn__notification">
+        <p>Для более хорошего и красивого вида нажмите F11</p>
+    </div>
 </section>
+
+<section class="interesting-artist">
+    <div class="container">
+        <h1 class="title">Недавние Артисты</h1>
+        <div class="artists__wrapper">
+            <th:block th:if="${recentlyViewedArtists != null and not #lists.isEmpty(recentlyViewedArtists)}">
+                <th:block th:each="artist: ${recentlyViewedArtists}">
+                    <a th:href="@{'/artist/' + ${artist.id} + '/details'}">
+                        <div class="artist__block">
+                            <img th:src="@{'/uploads/' + ${artist.filename}}" alt="artist-image" class="artist-avatar">
+                            <h2 class="interesting-artist-name" th:text="${artist.name}">Исполнитель</h2>
+                            <span class="interesting-artist-genre" th:text="${artist.genre}">Альтернатива</span>
+                            <img class="interesting-artist-link" th:src="@{/images/link-artist.svg}" alt="decor-el"
+                                 style="">
+                        </div>
+                    </a>
+                </th:block>
+            </th:block>
+        </div>
+    </div>
+</section>
+
+<section style="margin: 200px;">Заглушка</section>
 
 <div class="details-track" style="background: url('/images/track-test-2.png');">
     <div class="container">
         <div class="details-track__inner">
             <div class="details-track__left">
-                <img class="details-track__img" th:src="@{/images/track-test-2.png}" alt="cover" width="690"
+                <img class="details-track__img coverImage" th:src="@{/images/track-test-2.png}" alt="cover" width="690"
                      height="690">
             </div>
             <div class="details-track__tabs">
@@ -163,11 +227,11 @@
                 </div>
                 <div class="details-track__content">
                     <div class="details-track__tab active" data-tab="quotes">
-                        <h3 class="details-track__artist">Хомяк</h3>
-                        <p class="details-track__title">Темным и Обманчивым</p>
+                        <h3 class="details-track__title trackTitle">Хомяк</h3>
+                        <p class="details-track__artist artistsName">Темным и Обманчивым</p>
                         <span class="details-track__genre">Русский Рок | 2023 Год</span>
                     </div>
-                    <div class="details-track__tab" data-tab="text">
+                    <div class="details-track__tab track__tab-lyric" data-tab="text">
                         <p class="details-track__lyrics">
                             Текст трека
                         </p>
@@ -187,132 +251,12 @@
     </div>
 </div>
 
-<div class="modal" id="modal-edit_release">
-    <button class="modal__close" onclick="modal_releaseClose()">
-        <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
-                  stroke-linejoin="round"/>
-            <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
-                  stroke-linejoin="round"/>
-        </svg>
-    </button>
-    <h2 class="modal__title" id="edit_modal__title">Добавление релиза</h2>
-    <form class="modal__form" enctype="multipart/form-data">
-        <ul class="modal__list">
-            <li class="modal__item">
-                <label class="label" for="title">Название релиза</label>
-                <input class="input" type="text" id="title" name="title" placeholder="Введите название релиза">
-                <span class="error">Тут надо написать ошибку</span>
-            </li>
-
-            <li class="modal__item">
-                <label class="label" for="artistId">Исполнитель</label>
-                <th:block th:if="${artists.isEmpty()}">
-                    <p style="color: #da2424">Без артистов нельзя сделать трек</p>
-                </th:block>
-                <select class="select" id="artistId" name="artist_id">
-                    <th:block th:each="artist : ${artists}">
-                        <option th:value="${artist.id}" th:text="${artist.name}"></option>
-                    </th:block>
-                </select>
-            </li>
-
-            <li class="modal__item">
-                <label class="label" for="lyrics">Текст трека</label>
-                <textarea class="input textarea" id="lyrics" name="lyrics" placeholder="Введите текст"
-                          value=""></textarea>
-            </li>
-
-            <li class="modal__item">
-                <label class="label" for="genre">Предпочитаемый жанр</label>
-                <input class="input" type="text" id="genre" name="genre"
-                       placeholder="В каком стиле был написан трек?">
-                <span class="error">Тут надо написать ошибку</span>
-            </li>
-
-            <li class="modal__item">
-                <label class="label" for="releaseyear">Год выпуска трека</label>
-                <input class="input" type="text" id="releaseyear" name="releaseyear"
-                       placeholder="Введите год выпуска трека">
-                <span class="error">Тут надо написать ошибку</span>
-            </li>
-
-            <li class="modal__item">
-                <label class="label" for="description">Описание трека или известные цитаты</label>
-                <textarea class="input textarea" id="description" name="description"
-                          placeholder="Как создавался трек? Может быть есть предистория или важные цитаты из трека?"
-                          value=""></textarea>
-            </li>
-
-            <li class="modal__item">
-                <span class="label">Загрузите аудиодорожку</span>
-                <div class="file-upload-container">
-                    <input type="file" id="audio" name="audio" onchange="updateFileAudio(event)">
-                    <label class="custom-file-upload" for="audio" id="file-upload-audio"
-                           style="background: linear-gradient(69.64deg, #119FEF 8.14%, #E03D8A 51.3%, #E03643 87.67%);">
-                        Загрузить трек
-                    </label>
-                </div>
-            </li>
-
-            <li class="modal__item">
-                <span class="label">Загрузите обложку трека</span>
-                <div class="file-upload-container">
-                    <input type="file" id="cover" name="cover" onchange="updateFilePhoto(event)">
-                    <label class="custom-file-upload" for="cover" id="file-upload-photo">
-                        Загрузить обложку
-                    </label>
-                </div>
-            </li>
-
-            <li class="modal__item">
-                <span class="label">Загрузите обложку клипа</span>
-                <div class="file-upload-container">
-                    <input type="file" id="clip" name="clip" onchange="updateFileClip(event)">
-                    <label class="custom-file-upload" for="clip" id="file-upload-clip" style="background: #d456ff;">
-                        Загрузить обложку клипа
-                    </label>
-                </div>
-            </li>
-        </ul>
-        <div class="modal__buttons">
-            <button class="modal__btn" type="button" onclick="modal_releaseClose()"
-                    style="background-color: #B44646;">Отменить
-            </button>
-            <button class="modal__btn" type="button" onclick="modal_saveRelease()"
-                    style="background-color: #46B451;">Сохранить
-            </button>
-        </div>
-    </form>
-</div>
-
-<div class="modal modal--delete" id="modal-delete_release">
-    <button class="modal__close" onclick="modal_DeleteReleaseClose()">
-        <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
-                  stroke-linejoin="round"/>
-            <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
-                  stroke-linejoin="round"/>
-        </svg>
-    </button>
-    <div class="modal__inner">
-        <p class="modal__text">
-            Вы действительно хотите удалить "<span id="track_name-delete"></span>?" Отменить это действие будет
-            невозможно.
-        </p>
-        <form class="modal__form-actions" action="">
-            <div class="modal__buttons">
-                <button class="modal__btn" type="button" onclick="deleteRelease()" style="background: #B44646;">Удалить
-                </button>
-                <button class="modal__btn" type="button" onclick="modal_DeleteReleaseClose()"
-                        style="background: #5B5858;">
-                    Отмена
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/platform/1.3.5/platform.min.js"></script>
+<script>
+    let os = platform.os;
+    document.getElementById("osVersion").innerText = "" + os.family + " " + os.version;
+</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script th:src="@{/js/tracks-main.js}"></script>
 <script th:src="@{/js/custom-select.js}"></script>
