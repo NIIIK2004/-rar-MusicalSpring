@@ -42,7 +42,7 @@
 }
 
 .news-cover label:hover {
-    background: #1A1A1A;
+    transform: scale(1.02);
 }
 
 .news-cover input {

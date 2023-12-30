@@ -49,13 +49,12 @@ public class TrackImpl implements TrackDao {
     }
 
     @Override
-    public Track editFileds(Long id, String title, String description, String lyrics, String genre, String releaseyear, String audiofilename, String coverfilename, String clipfilename, Artist artist) {
+    public Track editFileds(Long id, String title, String lyrics, String genre, String releaseyear, String audiofilename, String coverfilename, Artist artist) {
         Optional<Track> optionalTrack = trackRepo.findById(id);
 
         if (optionalTrack.isPresent()) {
             Track existingTrack = optionalTrack.get();
             existingTrack.setTitle(title);
-            existingTrack.setDescription(description);
             existingTrack.setLyrics(lyrics);
             existingTrack.setGenre(genre);
             existingTrack.setReleaseyear(releaseyear);

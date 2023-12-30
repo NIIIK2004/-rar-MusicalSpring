@@ -1,0 +1,150 @@
+.audioFile__loading {
+    display: block;
+    cursor: pointer;
+    border-radius: 13px;
+    background: linear-gradient(92deg, #5347CC 0.98%, #980FC8 49.17%, #960CC7 97.49%);
+    color: var(--white);
+    font-size: 19px;
+    font-weight: 400;
+    line-height: normal;
+    width: 100%;
+    text-align: center;
+    padding: 13px 30px;
+}
+
+.audioFile__loading input {
+    display: none;
+}
+
+.addTrack__wrapper {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 21px;
+}
+
+.addTrack-right,
+.addTrack-left {
+    border-radius: 13px;
+    padding: 30px;
+    background: #191919;
+    height: 620px;
+}
+
+.addTrack-left {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 688px;
+}
+
+.addTrack-basicInformation {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.addTrack-info ul {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.additionalInformation-inputs li,
+.addTrack-info ul li {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.additionalInformation-inputs li label,
+.addTrack-info ul li label{
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: normal;
+    width: 300px;
+}
+
+.custom-select__item,
+.custom-select,
+.additionalInformation-inputs input,
+.basicInformation-inputs input {
+    font-family: Nunito, serif;
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 140%;
+    border-radius: 10px;
+    background: #262626;
+    padding: 14px 20px;
+    border: 1px solid transparent;
+    transition: all .4s;
+    outline: none;
+}
+
+.addTrack-title {
+    color: var(--white);
+    font-size: 17px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.cover-img {
+    margin-top: 20px;
+    width: 262px;
+    height: 262px;
+
+}
+
+.cover-img label img {
+    width: 262px;
+    height: 262px;
+    object-fit: cover;
+    border: 1px dashed white;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: all .4s;
+}
+
+.cover-img label img:hover {
+    transform: scale(1.02);
+}
+
+
+
+.cover-img input {
+    display: none;
+}
+
+.additionalInformation-inputs {
+    display: flex;
+    margin-top: 25px;
+    justify-content: space-around;
+}
+
+.button_save {
+    padding: 17px 31px;
+    font-size: 17px;
+}
+
+.addTrack-right {
+    width: 546px;
+}
+
+.addTrack-lyric textarea {
+    margin-top: 20px;
+    min-height: 530px;
+    width: 100%;
+    overflow-y: scroll;
+    color: var(--gray);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    background: transparent;
+    border: transparent;
+    outline: none;
+    border-radius: 13px;
+    resize: none;
+}

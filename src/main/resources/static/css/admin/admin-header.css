@@ -74,6 +74,7 @@ body {
 }
 
 .header__left ul li a {
+    width: fit-content;
     display: flex;
     align-items: center;
     gap: 20px;
@@ -83,6 +84,11 @@ body {
     font-size: 28px;
     font-weight: 500;
     line-height: normal;
+    transition: all .3s;
+}
+
+.header__left ul li a:hover {
+    font-size: 32px;
 }
 
 .header__left ul li a img {

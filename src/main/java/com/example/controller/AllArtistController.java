@@ -9,6 +9,7 @@ import com.example.repo.ArtistRepo;
 import com.example.repo.SubscriptionRepo;
 import com.example.repo.TrackRepo;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,10 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -48,6 +46,7 @@ public class AllArtistController {
     private Track track;
 
     @GetMapping(value = {"/allartist", "/Admin-All-Artist"})
+    //Получение списка артистов для пользователя и администратора
     public String artistMainPage(Model model, HttpServletRequest request) {
         List<Artist> artists = artistRepo.findAll();
         model.addAttribute("artists", artists);
@@ -59,7 +58,7 @@ public class AllArtistController {
         }
     }
 
-    @GetMapping("/artist/createOrEditArtistPage")
+    @GetMapping("/artist/createOrEditArtistPage") //Вывод страницы о добавлении либо редактировании артиста
     public String createOrEditArtistPage(Model model, @RequestParam(name = "artistId", required = false) Long artistId) {
 
         if (artistId != null) {
@@ -71,7 +70,7 @@ public class AllArtistController {
         return "admin/CreateOrEditArtist";
     }
 
-    @PostMapping("/artist/createOrEditArtist")
+    @PostMapping("/artist/createOrEditArtist") //Отправка данных для добавления либо редактирования артиста
     public String createOrEditArtist(@RequestParam(name = "artistId", required = false) Long artistId,
                                      @RequestParam(name = "file", required = false) MultipartFile file,
                                      @RequestParam String name,
@@ -127,7 +126,7 @@ public class AllArtistController {
         return "redirect:/Admin-All-Artist";
     }
 
-    @GetMapping("/allartist/delete/{id}")
+    @GetMapping("/allartist/delete/{id}") //Удаление артиста
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Artist artist = artistImpl.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid artist Id:" + id));
@@ -159,10 +158,26 @@ public class AllArtistController {
         return "redirect:/Admin-All-Artist";
     }
 
-    @GetMapping("/artist/{id}/details")
-    public String ArtistDetails(@PathVariable("id") Long id, Model model, Principal principal) {
+    @GetMapping("/artist/{id}/details") //Детали артиста
+    public String ArtistDetails(@PathVariable("id") Long id, Model model, Principal principal, HttpSession session) {
         Artist artist = artistRepo.findById(id).orElseThrow(() -> new RuntimeException("Артист с ID : " + id + " не найден!"));
         model.addAttribute("artist", artist);
+
+        List<Artist> recentlyViewedArtists = (List<Artist>) session.getAttribute("recentlyViewedArtists");
+
+        if (recentlyViewedArtists == null) {
+            recentlyViewedArtists = new ArrayList<>();
+        }
+
+        if (!recentlyViewedArtists.contains(artist)) {
+            recentlyViewedArtists.add(artist);
+
+            if (recentlyViewedArtists.size() >= 6) {
+                recentlyViewedArtists = new ArrayList<>(recentlyViewedArtists.subList(recentlyViewedArtists.size() - 6, recentlyViewedArtists.size()));
+            }
+
+            session.setAttribute("recentlyViewedArtists", recentlyViewedArtists);
+        }
 
         Track latestTrack = trackImpl.findLatestTrackByArtistId(artist.getId());
         if (latestTrack == null) {
@@ -190,10 +205,13 @@ public class AllArtistController {
             User user = userImpl.findByUsername(username);
             model.addAttribute("user", user);
         }
-
+        Collections.reverse(recentlyViewedArtists);
         return "Artist";
     }
 }
+
+
+
 
 
 
