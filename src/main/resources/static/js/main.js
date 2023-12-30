@@ -1,8 +1,12 @@
+let audio = document.getElementById("myAudio");
 let progressBar = document.querySelector(".progress-bar");
 let progress = document.querySelector(".progress");
 let circle = document.querySelector(".circle");
 let currentTime = document.querySelector(".current-time");
 let totalTime = document.querySelector(".total-time");
+let playButton = document.querySelector("button img#playPauseIcon");
+let playButtonSlider = document.querySelector("button img#playPauseIconSlider");
+let muteButton = document.querySelector("button img#muteIcon");
 let volumeControl = document.getElementById("volumeControl");
 
 let currentAudioPlayer = null;
@@ -19,8 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentIndex = 0;
 
     playPauseButtons.forEach((button, index) => {
-        const audioPlayer = audioPlayers[currentIndex];
-        audioPlayer.currentTime = 0;
         button.addEventListener("click", () => {
             currentIndex = index;
             playTrack(index);
@@ -28,15 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     prevButton.addEventListener("click", () => {
-        const audioPlayer = audioPlayers[currentIndex];
-        audioPlayer.currentTime = 0;
         currentIndex = (currentIndex - 1 + playPauseButtons.length) % playPauseButtons.length;
         playTrack(currentIndex);
     });
 
     nextButton.addEventListener("click", () => {
-        const audioPlayer = audioPlayers[currentIndex];
-        audioPlayer.currentTime = 0;
         currentIndex = (currentIndex + 1) % playPauseButtons.length;
         playTrack(currentIndex);
     });
@@ -56,26 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    audioPlayers.forEach((audioPlayer, index) => {
-        audioPlayer.addEventListener("ended", () => {
-            const playPauseIcon = playPauseIcons[index];
-            playPauseIcon.src = "../images/play-track-small.svg";
-            playPauseIcon.parentElement.style.opacity = '0';
-            audioPlayer.currentTime = 0;
-
-            const nextIndex = (currentIndex + 1) % playPauseButtons.length;
-            currentIndex = nextIndex;
-            playTrack(nextIndex);
-            updateBottomPanel(playPauseButtons[nextIndex].getAttribute("data-track-id"));
-        });
-    });
-
-
     function playTrack(index) {
         audioPlayers.forEach((audioPlayer, i) => {
             const playPauseIcon = playPauseIcons[i];
             const button = playPauseButtons[i];
+
             if (i === index) {
+
                 audioPlayer.play();
                 playPauseIcon.src = "../images/pause-track-small.svg";
                 button.style.opacity = '1';
@@ -85,9 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 playPauseIcon.src = "../images/play-track-small.svg";
                 button.style.opacity = '0';
             }
-
-            const trackId = playPauseButtons[index].getAttribute("data-track-id");
-            localStorage.setItem("lastPlayedTrack", trackId);
         });
 
         progressBar.addEventListener("click", function (event) {
@@ -127,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 audioPlayer.pause();
                 playPauseIcon.src = "../images/play-track-small.svg";
-                playPauseButton.querySelector(".playPauseIcon").src = "../images/play-icon.svg";
                 button.style.opacity = '0';
                 currentAudioPlayer = null;
                 currentPlayPauseIcon = null;
@@ -135,13 +116,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    audioPlayers.forEach((audioPlayer) => {
+    audioPlayers.forEach((audioPlayer, index) => {
+        audioPlayer.addEventListener("ended", () => {
+            const playPauseIcon = playPauseIcons[index];
+            playPauseIcon.src = "../images/play-track-small.svg";
+            playPauseIcon.parentElement.style.opacity = '0';
+            currentAudioPlayer = null;
+            updateBottomPanel(audioPlayer.getAttribute("data-track-id"));
+        });
+    });
+
+    audioPlayers.forEach((audioPlayer, index) => {
         audioPlayer.addEventListener("timeupdate", function () {
             if (!isNaN(audioPlayer.duration)) {
                 let currentProgress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
                 progress.style.width = currentProgress + "%";
 
-                circle.style.opacity = '0';
+                circle.style.left = (currentProgress * progressBar.offsetWidth) / 103 + "px";
 
                 let currentMinutes = Math.floor(audioPlayer.currentTime / 60);
                 let currentSeconds = Math.floor(audioPlayer.currentTime % 60);
@@ -155,21 +146,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    function updateProgressBarAndCircle(event) {
+    progressBar.addEventListener("mousemove", function (event) {
         let rect = progressBar.getBoundingClientRect();
         let offsetX = event.clientX - rect.left;
         circle.style.left = offsetX - circle.offsetWidth / 2 + "px";
-        if (event.type === 'mousemove') {
-            circle.style.opacity = '1';
-            progressBar.style.backgroundColor = 'var(--white)';
-        } else {
-            circle.style.opacity = '0';
-            progressBar.style.backgroundColor = '#cdcdcd36';
-        }
-    }
-
-    progressBar.addEventListener("mousemove", updateProgressBarAndCircle);
-    progressBar.addEventListener("mouseleave", updateProgressBarAndCircle);
+    });
 
     function padDigits(number) {
         return (number < 10) ? "0" + number : number;
@@ -177,29 +158,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     volumeControl.addEventListener('input', function () {
         Array.from(audioPlayers).forEach(function (audio) {
-            audio.volume = volumeControl.value;
-        });
-
-        localStorage.setItem("userVolume", volumeControl.value);
-    });
-
-    volumeControl.addEventListener('wheel', function (event) {
-        event.preventDefault();
-        let delta = event.deltaY || event.detail || -event.wheelDelta;
-        let step = delta > 0 ? -0.1 : 0.1;
-        volumeControl.value = Math.max(0, Math.min(1, parseFloat(volumeControl.value) + step));
-        Array.from(audioPlayers).forEach(function (audio) {
-            audio.volume = volumeControl.value;
+           audio.volume = volumeControl.value;
         });
     });
-
-    const storedVolume = localStorage.getItem("userVolume");
-    if (storedVolume !== null) {
-        volumeControl.value = storedVolume;
-        Array.from(audioPlayers).forEach(function (audio) {
-            audio.volume = volumeControl.value;
-        });
-    }
 });
 
 function updateBottomPanel(trackId) {
@@ -212,7 +173,6 @@ function updateBottomPanel(trackId) {
         })
         .then(track => {
             displayTrackInfo(track);
-            console.log(track)
         })
         .catch(reportError => {
             console.error('Ошибка извлекания данных трека бро: ', reportError);
@@ -221,78 +181,47 @@ function updateBottomPanel(trackId) {
 
 function displayTrackInfo(track) {
     document.querySelectorAll('.trackTitle').forEach(trackTitle => trackTitle.innerText = track.title);
-    document.querySelectorAll('.artistsName').forEach(artistName => {
-        artistName.innerText = track.artistsName;
-        artistName.href = `/artist/${track.artistId}/details`;
-    });
+    document.querySelectorAll('.artistsName').forEach(artistName => artistName.innerText = track.artistsName);
     document.querySelectorAll('.coverImage').forEach(image => image.src = `/uploads/${track.coverFilename}`);
     document.querySelector('.details-track').style.background = `url('/uploads/${track.coverFilename}')`;
     document.querySelectorAll('.details-track__genre').forEach(trackGenre => trackGenre.innerText = track.genre);
     document.querySelectorAll('.details-track__lyrics').forEach(trackLyrics => trackLyrics.innerText = track.lyric);
 }
 
-function listenToTrack(button) {
-    let trackId = button.dataset.trackId;
 
-    fetch(`/listen/${trackId}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Ошибка HTTP запроса! Статус: ${response.status}`);
-            }
-            console.log("Track listened successfully");
-        })
-        .catch(error => {
-            console.error('Ошибка при прослушивании трека: ', error);
 
-        });
-}
+//
+// function toggleMute() {
+//     if (currentAudioPlayer) {
+//         currentAudioPlayer.muted = !currentAudioPlayer.muted;
+//         document.getElementById('muteIcon').src = currentAudioPlayer.muted
+//             ? "../images/sound-muted-icon.svg"
+//             : "../images/sound-active-icon.svg";
+//     }
+// }
 
-function updatePlayPauseButton(isPaused) {
-    const playPauseButton = document.querySelector(".control-block-randBtn");
-    const playPauseIcon = playPauseButton.querySelector(".control-block-randBtn-img");
 
-    if (isPaused) {
-        playPauseIcon.src = "../images/play-track-small.svg";
-    } else {
-        playPauseIcon.src = "../images/pause-track-small.svg";
-    }
-}
-
-function playRandomTrack() {
-    fetch("/random-track")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(track => {
-            displayTrackInfo(track);
-
-            if (currentAudioPlayer) {
-                if (currentAudioPlayer.paused || currentAudioPlayer.getAttribute("data-track-id") !== track.id) {
-                    playTrackById(track.id);
-                    updatePlayPauseButton(false);
-                } else {
-                    currentAudioPlayer.paused ? currentAudioPlayer.play() : currentAudioPlayer.pause();
-                    updatePlayPauseButton(!currentAudioPlayer.paused);
-                }
-            } else {
-                playTrackById(track.id);
-                updatePlayPauseButton(false);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching random track:', error);
-        });
-}
-
-function playTrackById(trackId) {
-    const playButton = document.querySelector(`.tracks-main__btn[data-track-id="${trackId}"]`);
-    playButton.click();
-}
+// ////////Slider/////////
+// var swiper = new Swiper('.swiper', {
+//     // Настройки Swiper
+//     slidesPerView: 4,
+//     spaceBetween: 20,
+//     navigation: {
+//         nextEl: '.main__AllTracks-slider-arrow-right',
+//         prevEl: '.main__AllTracks-slider-arrow-left'
+//     },
+//     mousewheel: false,
+//     loop: false
+// });
+//
+//
+// //////Размытие/////
+//
+// window.addEventListener("DOMContentLoaded", function (event) {
+//     var content = document.getElementById("content");
+//     setTimeout(function () {
+//         content.classList.remove("hidden");
+//         content.style.opacity = 1;
+//     }, 3000);
+// });
+//

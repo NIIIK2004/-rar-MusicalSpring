@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/admin/admin-header.css}">
     <link rel="stylesheet" th:href="@{/css/admin/admin-editArtist.css}">
@@ -23,58 +22,43 @@
     <div class="container">
         <div class="header__top">
             <div class="header__top-logo">
-                <a th:href="@{/Admin}"><img th:src="@{/images/admin/logotype.svg}" alt="logotype"></a>
+                <img th:src="@{/images/admin/logotype.svg}">
             </div>
             <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
-            <a class="header__top-nameAdmin" th:href="@{/}">Пользовательский интерфейс</a>
+            <span class="header__top-nameAdmin">Администратор Никитаыыы</span>
         </div>
     </div>
     <div class="container">
         <div class="admin__wrapper">
-            <header class="header" th:insert="~{admin/components/Admin-Header :: header}"></header>
+            <header class="header" th:include="admin/components/Admin-Header :: header"></header>
             <div class="admin__panel">
-                <form id="artistForm" th:object="${artist}" th:action="@{/artist/createOrEditArtist}" class="admin__panel-dataArtist"
-                      method="post" enctype="multipart/form-data">
+                <form th:object="${artist}"  th:action="@{/artist/createOrEditArtist}" class="admin__panel-dataArtist" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="artistId" th:value="${artist.id}">
                     <div class="dataArtist__wrapper">
                         <div class="dataArtist-img">
                             <label for="file">Изменить фото Артиста</label>
-                            <img id="preview"
-                                 th:src="${artist != null ? '/uploads/' + artist.filename : '/images/admin/uploads-for-images/cover-for-upload-artist.svg'}"
-                                 onerror="this.src='/images/admin/uploads-for-images/cover-for-upload-artist.svg';">
+                            <img id="preview" th:src="@{'/uploads/' + ${artist.filename}}" onerror="this.src='/images/default-download-img.png';">
                             <input type="file" id="file" name="file" accept="image/*" onchange="previewFile()">
                         </div>
-
                         <div class="dataArtist-fields">
-                            <input type="hidden" name="artistId" th:if="${artist != null}" th:value="${artist.id}">
-                            <input type="text" name="name" placeholder="*Введите имя Артиста"
-                                   th:value="${artist != null} ? ${artist.name} : ''">
-                            <input type="text" name="listeners" placeholder="Количество слушателей"
-                                   th:value="${artist != null} ? ${artist.listeners} : ''">
-                            <input type="text" name="liking" placeholder="Количество симпатий"
-                                   th:value="${artist != null} ? ${artist.liking} : ''">
-                            <input type="text" name="country" placeholder="*Страна Артиста"
-                                   th:value="${artist != null} ? ${artist.country} : ''">
-                            <input type="text" name="genre" placeholder="*Жанр в котором пишет Артист"
-                                   th:value="${artist != null} ? ${artist.genre} : ''">
-                            <textarea name="description" placeholder="*Короткое описание/биография"
-                                      th:text="${artist != null} ? ${artist.description} : ''"></textarea>
+                            <input type="hidden" name="artistId" th:value="${artist.id}">
+                            <input type="text" name="name" placeholder="Введите имя Артиста" th:value="${artist.name}">
+                            <input type="text" name="listeners" placeholder="Количество слушателей" th:value="${artist.listeners}">
+                            <input type="text" name="liking" placeholder="Количество симпатий" th:value="${artist.liking}">
+                            <input type="text" name="country" placeholder="Страна Артиста" th:value="${artist.country}">
+                            <input type="text" name="genre" placeholder="Жанр в котором пишет Артист" th:value="${artist.genre}">
+                            <textarea name="description" placeholder="Короткое описание/биография" th:text="${artist.description}"></textarea>
                         </div>
                     </div>
-<!--                    <div th:if="${error}" class="error-message">-->
-<!--                        <p th:text="${error}"></p>-->
-<!--                    </div>-->
-                    <button id="submitButton" type="submit" class="button_save">Создать нового артиста</button>
+                    <button type="submit" class="button_save">Создать нового артиста</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<div class="alert-delete dn" id="user-data-message"></div>
-
 
 </body>
 <script th:src="@{/js/basic-tools.js}"></script>
-<script th:src="@{/js/admin/createFetchObject.js}"></script>
 
 </html>
