@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
@@ -102,10 +101,6 @@
             <th:block>
                 <ul class="tracks-main__list">
                     <li class="tracks-main__item" th:each="track: ${tracks}">
-                        <audio class="audioPlayer" controls style="display: none;">
-                            <source type="audio/mp3" th:src="@{'/uploads/' + ${track.getAudiofilename()}}">
-                            Ваш браузер не поддерживает воспроизведение аудио.
-                        </audio>
                         <div class="tracks-main__top">
                             <img class="tracks-main__img" th:src="@{'/uploads/' + ${track.getCoverfilename()}}"
                                  height="225">
@@ -292,7 +287,6 @@
 <script th:src="@{/js/tracks-main.js}"></script>
 <script th:src="@{/js/custom-select.js}"></script>
 <script th:src="@{/js/custom-file.js}"></script>
-<script th:src="@{/js/greeting.js}"></script>
 <script th:src="@{/js/alert.js}"></script>
 <script th:src="@{/js/main.js}"></script>
 
