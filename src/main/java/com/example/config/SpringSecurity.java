@@ -35,19 +35,28 @@ public class SpringSecurity {
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/", true)
+                                .defaultSuccessUrl("/profile", true)
+                                .failureUrl("/login?error=true")
                                 .permitAll()
                                 .and()
                 )
+                .sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false)
+                .expiredUrl("/login?expired=true")
+                .and()
+                .and()
                 .rememberMe()
                 .key("my-super-secret-key")
-                .tokenValiditySeconds(15000)
+                .tokenValiditySeconds(604800)
                 .and()
                 .logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .permitAll()
-                );
+                )
+                .exceptionHandling()
+                .accessDeniedPage("/");
         return http.build();
     }
 }

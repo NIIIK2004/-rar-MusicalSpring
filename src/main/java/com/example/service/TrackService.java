@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class TrackService {
@@ -34,36 +36,6 @@ public class TrackService {
         }
     }
 
-//    public TrackDTO getPreviousTrack(Long trackId) throws IOException {
-//        Optional<Track> currentTrackOptional = trackRepository.findById(trackId);
-//
-//        if (currentTrackOptional.isPresent()) {
-//            Optional<Track> previousTrackOptional = trackRepository.findById(trackId - 1);
-//            if (previousTrackOptional.isPresent()) {
-//                return convertToDTO(previousTrackOptional.get());
-//            } else {
-//                throw new IOException("Предыдущий трек не найден");
-//            }
-//        } else {
-//            throw new IOException("Трек не найден");
-//        }
-//    }
-//
-//    public TrackDTO getNextTrack(Long trackId) throws IOException {
-//        Optional<Track> currentTrackOptional = trackRepository.findById(trackId);
-//
-//        if (currentTrackOptional.isPresent()) {
-//            Optional<Track> previousTrackOptional = trackRepository.findById(trackId + 1);
-//            if (previousTrackOptional.isPresent()) {
-//                return convertToDTO(previousTrackOptional.get());
-//            } else {
-//                throw new IOException("Следующий трек не найден");
-//            }
-//        } else {
-//            throw new IOException("Трек не найден");
-//        }
-//    }
-
     private TrackDTO convertToDTO(Track track) {
         TrackDTO trackDTO = new TrackDTO();
         trackDTO.setId(track.getId());
@@ -72,6 +44,21 @@ public class TrackService {
         trackDTO.setCoverFilename(track.getCoverfilename());
         return trackDTO;
     }
+
+    public TrackDTO getRandomTrack() {
+        List<Track> allTracks = trackRepository.findAll();
+
+        if(allTracks.isEmpty()) {
+            return null;
+        }
+        int randomIndex = new Random().nextInt(allTracks.size());
+        Track randomTrack = allTracks.get(randomIndex);
+        TrackDTO trackDTO = convertToDTO(randomTrack);
+
+        return trackDTO;
+    }
+
+
 }
 
 

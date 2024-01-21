@@ -14,5 +14,4 @@ public class NavController {
     public String collectionPage() {
         return "collection";
     }
-
 }

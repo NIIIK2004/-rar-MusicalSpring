@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/subscriptions.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <title>Musical - Ваши подписки</title>
+</head>
+
+<body class="body">
+<header class="header" th:include="components/header :: header"></header>
+
+<section class="section_subscriptions">
+    <div class="container">
+        <div class="subscriptions_titleAndSearch">
+            <h1 class="title">Ваши подписки</h1>
+            <input type="search" placeholder="Поиск">
+        </div>
+        <div class="subscriptions__wrapper">
+            <div th:each="subscription : ${subscriptions}">
+                <a th:href="@{'/artist/' + ${subscription.artist.id} + '/details'}" class="subscriptions_artist">
+                    <div class="subscriptions_artist-left">
+                        <img th:src="@{'/uploads/' + ${subscription.artist.getFilename()}}">
+                        <div class="subscriptions_artist-info">
+                            <h2 class="artist-name" th:text="${subscription.artist.name}"></h2>
+                            <div class="artist-genreAndListeners">
+                                <span th:text="${subscription.artist.listeners + ' слушателей | ' + subscription.artist.genre}"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="subscriptions_artist-right">
+                        <button>Отписаться</button>
+                    </div>
+                </a>
+            </div>
+            <div class="notHaveSubs" th:if="${#lists.isEmpty(subscriptions)}">
+                <p>Трындец Нет подписок</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

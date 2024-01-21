@@ -199,5 +199,11 @@ public class TrackController {
         return "Search";
     }
 
+    @GetMapping("/random-track")
+    public ResponseEntity<TrackDTO> getRandomTrack() {
+        TrackDTO randomTrack = trackService.getRandomTrack();
+        return ResponseEntity.ok(randomTrack);
+    }
+
 
 }

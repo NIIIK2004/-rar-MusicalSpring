@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -31,11 +32,16 @@
                 <input type="password" id="password" name="password" placeholder="Пароль" required>
                 <a th:href="@{/registration}" class="autorizated__wrapper-check">Нет аккаунта? Давай
                     зарегистрируемся!</a>
+                <p th:text="${errorMessage}" style="color: #ed5858; font-size: 16px; font-weight: 400;"></p>
                 <button class="autorizated__wrapper-senddData" type="submit">Войти</button>
             </div>
         </form>
+        <div th:if="${success}" class="success-message notification-message">
+            <p th:text="${success}"></p>
+        </div>
     </div>
 </section>
 </body>
+<script th:src="@{/js/registration.js}"></script>
 
 </html>

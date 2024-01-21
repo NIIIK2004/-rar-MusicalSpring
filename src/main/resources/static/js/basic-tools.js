@@ -38,6 +38,12 @@ function previewFile() {
         }
     }
 
+    reader.onloadend = function () {
+        if (file) {
+            preview.src = reader.result;
+        }
+    };
+
     if (file) {
         reader.readAsDataURL(file);
     }

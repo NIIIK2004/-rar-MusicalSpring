@@ -1,0 +1,109 @@
+.section_subscriptions {
+}
+
+
+.subscriptions_titleAndSearch {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.subscriptions_titleAndSearch input {
+    color: var(--white);
+    font-family: Nunito, serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 10px;
+    border: 1px solid #686868;
+    background: rgba(81, 81, 81, 0.50);
+    padding: 18px 30px;
+    width: 301px;
+    outline: none;
+    transition: all .3s;
+}
+
+
+.subscriptions__wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.subscriptions_artist {
+    padding: 15px 23px;
+    border-radius: 24px;
+    background: transparent;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /*max-width: 760px;*/
+    width: 100%;
+    cursor: pointer;
+}
+
+.subscriptions_artist:hover {
+    background: #121212;
+}
+
+.subscriptions_artist-left {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.subscriptions_artist-left img {
+    border-radius: 500px;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.subscriptions_artist-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 352px;
+    width: 100%;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.artist-name {
+    color: var(--white);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.artist-genreAndListeners {
+    display: flex;
+}
+
+.artist-genreAndListeners span {
+    display: block;
+    color: var(--gray);
+    font-size: 18px;
+    font-weight: 200;
+    line-height: normal;
+}
+
+.subscriptions_artist-right button {
+    font-family: Nunito, serif;
+    padding: 14px 32px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    color: var(--white);
+    border: 1px solid transparent;
+    border-radius: 500px;
+    background: rgb(34 34 34 / 50%);
+    transition: all .3s;
+}
+
+.subscriptions_artist-right button:hover {
+    background: rgb(34 34 34);
+}

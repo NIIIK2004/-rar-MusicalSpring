@@ -58,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
         audioPlayers.forEach((audioPlayer, i) => {
             const playPauseIcon = playPauseIcons[i];
             const button = playPauseButtons[i];
-
             if (i === index) {
 
                 audioPlayer.play();
@@ -158,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     volumeControl.addEventListener('input', function () {
         Array.from(audioPlayers).forEach(function (audio) {
-           audio.volume = volumeControl.value;
+            audio.volume = volumeControl.value;
         });
     });
 });
@@ -179,6 +178,51 @@ function updateBottomPanel(trackId) {
         })
 }
 
+function updatePlayPauseButton(isPaused) {
+    const playPauseButton = document.querySelector(".control-block-randBtn");
+    const playPauseIcon = playPauseButton.querySelector(".control-block-randBtn-img");
+
+    if (isPaused) {
+        playPauseIcon.src = "../images/play-track-small.svg";
+    } else {
+        playPauseIcon.src = "../images/pause-track-small.svg";
+    }
+}
+
+function playRandomTrack() {
+    fetch("/random-track")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(track => {
+            displayTrackInfo(track);
+
+            if (currentAudioPlayer) {
+                if (currentAudioPlayer.paused || currentAudioPlayer.getAttribute("data-track-id") !== track.id) {
+                    playTrackById(track.id);
+                    updatePlayPauseButton(false);
+                } else {
+                    currentAudioPlayer.paused ? currentAudioPlayer.play() : currentAudioPlayer.pause();
+                    updatePlayPauseButton(!currentAudioPlayer.paused);
+                }
+            } else {
+                playTrackById(track.id);
+                updatePlayPauseButton(false);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching random track:', error);
+        });
+}
+
+function playTrackById(trackId) {
+    const playButton = document.querySelector(`.tracks-main__btn[data-track-id="${trackId}"]`);
+    playButton.click();
+}
+
 function displayTrackInfo(track) {
     document.querySelectorAll('.trackTitle').forEach(trackTitle => trackTitle.innerText = track.title);
     document.querySelectorAll('.artistsName').forEach(artistName => artistName.innerText = track.artistsName);
@@ -187,7 +231,6 @@ function displayTrackInfo(track) {
     document.querySelectorAll('.details-track__genre').forEach(trackGenre => trackGenre.innerText = track.genre);
     document.querySelectorAll('.details-track__lyrics').forEach(trackLyrics => trackLyrics.innerText = track.lyric);
 }
-
 
 
 //

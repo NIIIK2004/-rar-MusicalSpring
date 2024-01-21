@@ -29,16 +29,15 @@
 
 <section class="control-panel" sec:authorize="isAuthenticated()">
     <div class="container">
-        <h1 class="title">Добрый день <span class="control-panel-name" th:text="${name} + '!'"></span></h1>
+        <h1 id="greeting" class="title"></h1><span class="control-panel-name" th:text="${name} + '!'"></span>
 
         <div class="control-panel__wrapper">
 
             <div class="control-block" style="background: linear-gradient(90deg, #474EEF 0%, #6C56F3 100%);">
                 <div class="control-block-randTrack">
                     <h2>Произвести рандомные треки</h2>
-                    <button class="control-block-randBtn">
-                        <img class="control-block-randBtn-img" src="../images/play-track-small.svg"
-                             alt="Воспроизвести">
+                    <button class="control-block-randBtn" onclick="playRandomTrack()">
+                        <img class="control-block-randBtn-img" src="../images/play-track-small.svg" alt="Воспроизвести">
                     </button>
                 </div>
             </div>
@@ -77,6 +76,15 @@
                              alt="Воспроизвести">
                     </div>
                 </div>
+                <div class="no-work__warn">
+                    <div class="no-work__warn_title">
+                        <h2>Пока недоступно</h2>
+                        <button class="subs__warn-close noWork-close"><img src="../images/close-for-warn.svg"></button>
+                    </div>
+                    <p>Функция находиться
+                        <br>на этапе разработки
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -100,28 +108,29 @@
                         </audio>
                         <div class="tracks-main__top">
                             <img class="tracks-main__img" th:src="@{'/uploads/' + ${track.getCoverfilename()}}"
-                                 height="260">
+                                 height="225">
                             <button class="tracks-main__btn" th:data-track-id="${track.id}">
                                 <img class="playPauseIconSlider" src="../images/play-track-small.svg"
                                      alt="Воспроизвести">
                             </button>
                         </div>
-                        <h3 class="tracks-main__name" th:text="${track.getTitle()}"></h3>
-                        <span class="tracks-main__album" th:text="${track.artists.name}"></span>
+                        <h3 class="tracks-main__album" th:text="${track.getTitle()}"></h3>
+                        <a class="tracks-main__artist" th:href="@{'/artist/' + ${track.artists.id} + '/details'}"><span
+                                th:text="${track.artists.name}"></span></a>
                     </li>
                 </ul>
             </th:block>
-            <button class="tracks-main__more" type="button">Показать ещё</button>
+            <button class="tracks-main__more" type="button">Ещё</button>
         </div>
     </div>
 
     <div class="subs__warn">
-        <button class="subs__warn-close"><img src="../images/close.svg"></button>
+        <button class="subs__warn-close"><img src="../images/close-for-warn.svg"></button>
         <p>Функция доступна только при подписке Меломан
             <br>
             Хотите преобрести?
         </p>
-        <a class="subs__warn-subs" th:href="@{subscribe}">И зачем вы проверяете эти функции?</a>
+        <a class="subs__warn-subs" th:href="@{subscribe}">Хочу</a>
     </div>
 
     <div class="bottom_panel">
@@ -185,13 +194,13 @@
     </div>
 
     <div class="warn__notification">
-        <p>Для более хорошего и красивого вида нажмите F11</p>
+        <p>Для полного восприятия вида нажмите F11</p>
     </div>
 </section>
 
 <section class="interesting-artist">
     <div class="container">
-        <h1 class="title">Недавние Артисты</h1>
+        <h1 class="title">Интересные артисты</h1>
         <div class="artists__wrapper">
             <th:block th:if="${recentlyViewedArtists != null and not #lists.isEmpty(recentlyViewedArtists)}">
                 <th:block th:each="artist: ${recentlyViewedArtists}">
@@ -210,6 +219,38 @@
     </div>
 </section>
 
+<section class="ads-banner">
+    <div class="container">
+        <div class="banner">
+            <div class="banner-gradient">
+                <img th:src="@{/images/banner-gr-1.svg}">
+            </div>
+            <div class="banner-wrapper">
+                <div class="banner-title-wrapper">
+                    <h1 class="banner-title">Хочешь попасть в секретный
+                        Телеграм канал нашего сервиса?</h1>
+                    <a href="#"><img th:src="@{/images/close.svg}"></a>
+                </div>
+                <p class="banner-description">Чтобы узнавать быстрее всех об обновлениях или выпусках новых треков,
+                    артистов и подкастов! Может ты хочешь испытать новые фишки? Оформляй подписку “Эклектик” и получай
+                    приватное приглашение в наш канал</p>
+                <a th:href="@{/subscribe}" class="banner-link">Приобрести</a>
+            </div>
+            <div class="banner-gradient-2">
+                <img th:src="@{/images/banner-gr-2.svg}">
+            </div>
+            <div class="banner-gradient-decor">
+                <div>
+                    <img th:src="@{/images/banner-circle.svg}">
+                    <img th:src="@{/images/banner-circle.svg}">
+                </div>
+                <img class="gradient-decor-img" th:src="@{/images/banner-circle.svg}">
+            </div>
+
+        </div>
+    </div>
+</section>
+
 <section style="margin: 200px;">Заглушка</section>
 
 <div class="details-track" style="background: url('/images/track-test-2.png');">
@@ -223,7 +264,6 @@
                 <div class="details-track__top">
                     <button class="details-track__btn active" data-tab="quotes">Подробное</button>
                     <button class="details-track__btn" data-tab="text">Текст</button>
-                    <button class="details-track__btn" data-tab="video">Цитаты</button>
                 </div>
                 <div class="details-track__content">
                     <div class="details-track__tab active" data-tab="quotes">
@@ -235,15 +275,6 @@
                         <p class="details-track__lyrics">
                             Текст трека
                         </p>
-                    </div>
-                    <div class="details-track__tab" data-tab="video">
-                        <div class="details-track__video">
-                            <img class="details-track__img" src="../images/cover/track-test-2.webp" alt=""
-                                 height="390">
-                            <button class="details-track__play">
-                                <img src="../images/play-icon-for-slider.svg" alt="" width="80" height="80">
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -261,6 +292,7 @@
 <script th:src="@{/js/tracks-main.js}"></script>
 <script th:src="@{/js/custom-select.js}"></script>
 <script th:src="@{/js/custom-file.js}"></script>
+<script th:src="@{/js/greeting.js}"></script>
 <script th:src="@{/js/alert.js}"></script>
 <script th:src="@{/js/main.js}"></script>
 

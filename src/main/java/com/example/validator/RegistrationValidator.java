@@ -2,6 +2,7 @@ package com.example.validator;
 
 import com.example.impl.UserImpl;
 import com.example.model.User;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import org.apache.tika.Tika;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,8 @@ import java.io.IOException;
 public class RegistrationValidator {
     public final UserImpl userImpl;
     private final Tika tika = new Tika();
-    public void validate(User user, BindingResult result, MultipartFile file) {
+
+    public void validate(@Size(max = 30) User user, BindingResult result, MultipartFile file) {
 
         User existingUser = userImpl.findByUsername(user.getUsername());
 
@@ -24,11 +26,19 @@ public class RegistrationValidator {
         }
 
         if (user.getUsername().isEmpty()) {
-            result.rejectValue("name", null, "Поле 'Логин' не может быть пустым!");
+            result.rejectValue("username", null, "Поле 'Логин' не может быть пустым!");
+        }
+
+        if (user.getUsername().length() > 30) {
+            result.rejectValue("username", null, "Поле 'Логин' не может превышать более 30 символов!");
         }
 
         if (user.getPassword().length() < 6) {
             result.rejectValue("password", null, "Пароль должен содержать не менее 6 символов!");
+        }
+
+        if (user.getName().length() > 30) {
+            result.rejectValue("name", null, "Поле 'Имя' не может превышать более 30 символов!");
         }
 
         if (user.getName().isEmpty()) {
@@ -39,24 +49,23 @@ public class RegistrationValidator {
             result.rejectValue("name", null, "Поле 'Имя' не может содержать в себе цифры");
         }
 
+        if (user.getSurname().length() > 30) {
+            result.rejectValue("surname", null, "Поле 'Фамилия' не может превышать более 30 символов!");
+        }
+
         if (user.getSurname().isEmpty()) {
             result.rejectValue("surname", null, "Поле 'Фамилия' не может быть пустым!");
         }
 
         if (user.getSurname().matches(".*\\d.*")) {
-            result.rejectValue("name", null, "Поле 'Фамилия' не может содержать в себе цифры");
+            result.rejectValue("surname", null, "Поле 'Фамилия' не может содержать в себе цифры");
         }
 
         if (user.getMail().isEmpty()) {
             result.rejectValue("mail", null, "Поле 'Почта' не может быть пустым!");
         }
 
-//        if (file.isEmpty()) {
-//            result.rejectValue("avatar", null, "Выберите пожалуйста любую фотографию!");
-//        }
-
         validateFileType(file, result);
-
     }
 
     private void validateFileType(MultipartFile file, BindingResult result) {

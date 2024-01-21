@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
@@ -28,31 +29,71 @@
             <div class="profile-setting-wrapper">
                 <form class="setting-form" th:object="${user}" th:action="@{/setting/save}" method="post"
                       enctype="multipart/form-data">
-                    <div class="setting-ava">
-                        <label for="avatar" class="avatar-file">
-                            <img th:src="@{/images/li_camera.svg}">
-                        </label>
-                        <input id="avatar" type="file" name="file" accept="image/*" onchange="previewFile()">
-                        <img class="setting-ava-img" th:src="@{'/uploads/' + ${user.avatar}}" alt="Avatar" id="preview">
+                    <div class="setting-top-page">
+                        <div class="setting-ava">
+                            <label for="avatar" class="avatar-file">
+                                <img th:src="@{/images/li_camera.svg}">
+                            </label>
+                            <input id="avatar" type="file" name="file" accept="image/*" onchange="previewFile()">
+                            <img class="setting-ava-img" th:src="@{'/uploads/' + ${user.avatar}}" alt="Avatar"
+                                 id="preview">
+                            <img class="profile_info-user-ava-cap" th:src="@{'/uploads/' + ${user.avatar}}"
+                                 alt="Avatar">
+                        </div>
                     </div>
+
                     <div class="setting-info">
-                        <input th:field="*{id}" type="hidden" class="setting-info-input" placeholder="Ваш id"
-                               name="id" required>
-                        <input th:field="*{name}" type="text" class="setting-info-input" placeholder="Ваше имя"
-                               name="name" required>
-                        <input th:field="*{surname}" type="text" class="setting-info-input" placeholder="Ваша фамилия"
-                               name="surname" required>
+                        <div class="setting-info_wrapper">
+                            <input th:field="*{id}" type="hidden" class="setting-info-input" name="id" required>
 
-                        <input th:field="*{mail}" type="hidden" class="setting-info-input" placeholder="Ваша фамилия"
-                               name="mail" required>
+                            <label for="name">Отображаемое имя
+                                <input th:field="*{name}" type="text" class="setting-info-input" name="name" id="name"
+                                       required>
+                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                            </label>
 
-                        <input th:field="*{username}" type="text" class="setting-info-input" placeholder="Логин"
-                               name="username" required>
+                            <label for="surname">Отображаемая фамилия
+                                <input th:field="*{surname}" type="text" id="surname" class="setting-info-input"
+                                       name="surname" required></label>
+                        </div>
 
-                        <input th:field="*{password}" type="hidden" class="setting-info-input" placeholder="Пароль"
-                               name="password" required>
+                        <div class="setting-info_wrapper">
+                            <label for="username">Логин при входе
+                                <input th:field="*{username}" class="setting-info-input"
+                                       name="username" id="username" required>
+                            </label>
+
+                            <label for="mail">Электронная почта
+                                <input th:field="*{mail}" type="text" class="setting-info-input"
+                                       name="mail" id="mail" required>
+                            </label>
+
+                            <input th:field="*{password}" type="hidden" class="setting-info-input"
+                                   name="password" required>
+                        </div>
+
+                        <div class="setting-info_wrapper">
+                            <label for="mail">Ваша подписка:
+                                <div class="setting-info-viewSubscribe">
+                                    <img th:src="@{/images/viewSubscribe.png}">
+                                    <div class="viewSubscribe_wrapper">
+                                        <div class="viewSubscribe_title">
+                                            <h3>Слушатель</h3>
+                                            <a th:href="@{/subscribe}">Изменить план подписки</a>
+                                        </div>
+                                        <img th:src="@{/images/icon-subs-plan-1.svg}">
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
                     </div>
-                    <button class="profile-setting-save" type="submit">Сохранить</button>
+                    <div class="setting-send-data">
+                        <p>Важно: при смене логина вы автоматически выйдите из системы</p>
+                        <div class="send-data-btn">
+                            <button class="profile-setting-save" type="submit">Отмена</button>
+                            <button class="profile-setting-save" type="submit">Сохранить</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

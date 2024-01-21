@@ -29,7 +29,7 @@
             <img th:src="@{/images/logo-background.svg}" class="logotype-background">
             <h1 class="autorizated__title">Привет зарегистрируемся?</h1>
 
-            <form th:object="${user}" th:action="@{/registration/save}" method="POST" enctype="multipart/form-data" novalidate>
+            <form th:object="${user}" th:action="@{/registration/save}" method="POST" enctype="multipart/form-data" novalidate id="registrationForm">
 
                 <div class="autorizated__wrapper">
                     <h3 class="autorizated__wrapper-title">Бесконечный поток музыки - Это когда пароль и логин хорошо
@@ -65,16 +65,21 @@
                             <img th:src="@{/images/li_camera.svg}">
                         </label>
                         <input id="avatar" type="file" name="file" accept="image/*" onchange="previewFile()">
-                        <span th:if="${#fields.hasErrors('avatar')}" th:errors="*{avatar}"></span>
-                        <img class="setting-ava-img" th:src="@{'/uploads/' + ${user.avatar}}" id="preview">
+                        <img class="setting-ava-img" th:src="@{'/uploads/' + ${user.avatar}}" id="preview" onerror="this.src='/images/pasteImg.png';">
                     </div>
+                    <span th:if="${#fields.hasErrors('avatar')}" th:errors="*{avatar}"></span>
                     <button class="autorizated__wrapper-senddData" type="submit">Зарегистрироваться</button>
                     <a href="#" class="autorizated__wrapper-back">Назад</a>
                 </div>
-
             </form>
         </div>
     </section>
+    <div th:if="${errors}" class="error-message notification-message">
+        <h2>Есть ошибки при регистрации:</h2>
+        <ul>
+            <li th:each="error : ${errors}" th:text="${error.defaultMessage}"></li>
+        </ul>
+    </div>
 </div>
 </body>
 <script th:src="@{/js/registration.js}"></script>

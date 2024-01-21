@@ -9,6 +9,9 @@
     font-size: 28px;
     font-weight: 500;
     color: var(--white);
+
+    width: fit-content;
+    display: contents;
 }
 
 .text {
@@ -93,7 +96,7 @@ audio {
 .audio__info-wrapper {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 15px;
 }
 
 .audio-action_btn {
@@ -128,8 +131,12 @@ audio {
     margin-top: 4px;
 }
 
+.track__info {
+    width: 160px;
+}
+
 .track__info h3 {
-    font-weight: 600;
+    font-weight: 400;
     font-size: 14px;
     line-height: 140%;
     color: var(--gray);
@@ -137,7 +144,7 @@ audio {
 }
 
 .track__info p {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
     line-height: 140%;
     color: var(--white);
@@ -425,13 +432,13 @@ body.slide-out {
 
 /* alert */
 
+.no-work__warn,
 .subs__warn {
-    z-index: 500;
+    z-index: 1;
     position: fixed;
     padding: 20px;
     border-radius: 13px;
     border: 1px solid transparent;
-    transition: all .5s;
     min-width: 300px;
     min-height: 200px;
     bottom: 12.7%;
@@ -444,10 +451,33 @@ body.slide-out {
     transition: opacity 0.3s ease, transform 0.3s ease, border .5s;
 }
 
+.no-work__warn {
+    opacity: 0;
+    position: absolute;
+    bottom: unset;
+    right: unset;
+    left: -15%;
+    top: 95%;
+    min-height: inherit;
+}
+
+.no-work__warn_title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 13px;
+}
+
+.no-work__warn_title h2 {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.no-work__warn:hover,
 .subs__warn:hover {
     border: 1px solid var(--feolet);
 }
 
+.no-work__warn.visible,
 .subs__warn.visible {
     opacity: 1;
     transform: translateY(0);
@@ -457,7 +487,7 @@ body.slide-out {
 .subs__warn p {
     max-width: 260px;
     margin-top: 11px;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 18px;
     line-height: 25px;
     color: var(--white);
@@ -514,6 +544,7 @@ body.slide-out {
 }
 
 .control-block {
+    position: relative;
     border-radius: 20px;
     padding: 15px;
     background: linear-gradient(90deg, #3F3E41 0%, #333 100%);
@@ -521,7 +552,7 @@ body.slide-out {
 }
 
 .control-block-randBtn-img {
-    width: 45px;
+    width: 42px;
 }
 
 .control-block-randTrack {
@@ -533,7 +564,7 @@ body.slide-out {
 
 .control-block-randTrack h2 {
     color: var(--white);
-    font-size: 24px;
+    font-size: 21px;
     font-weight: 500;
     line-height: normal;
     max-width: 232px;
@@ -559,7 +590,7 @@ body.slide-out {
 
 .control-block-device h6 {
     color: var(--white);
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .control-block-device {
@@ -641,13 +672,14 @@ input[type=range]::-webkit-slider-thumb {
 
 .artists__wrapper {
     display: grid;
-    margin-top: 140px;
+    margin-top: 130px;
     align-items: center;
     gap: 40px;
     grid-template-columns: repeat(6, 1fr);
 }
 
 .artist__block {
+    padding: 20px;
     position: relative;
     width: 245px;
     height: 245px;
@@ -657,6 +689,7 @@ input[type=range]::-webkit-slider-thumb {
     border-radius: 20px;
     text-align: center;
     background: #1A1A1A;
+    transition: all .4s;
 }
 
 .artist-avatar {
@@ -668,16 +701,27 @@ input[type=range]::-webkit-slider-thumb {
     width: 150px;
     object-fit: cover;
     border-radius: 50%;
+    transition: all .4s;
+}
+
+.artist__block:hover .artist-avatar {
+    top: -80px;
+}
+
+.artist__block:hover {
+    transform: scale(1.01);
 }
 
 .interesting-artist-name {
-    margin-top: 105px;
-
+    margin-top: 86px;
     color: var(--white);
     text-align: center;
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .interesting-artist-genre {
@@ -687,4 +731,124 @@ input[type=range]::-webkit-slider-thumb {
 .interesting-artist-link {
     margin: 0 auto;
     width: fit-content;
+}
+
+.ads-banner {
+    margin-top: 70px;
+}
+
+.banner {
+    overflow: hidden;
+    width: 100%;
+    padding: 50px;
+    background: #0F0F0F;
+    border-radius: 30px;
+    position: relative;
+}
+
+.banner-gradient {
+    position: absolute;
+    top: -400px;
+    left: -400px;
+}
+
+.banner-wrapper {
+    z-index: 6;
+    position: relative;
+}
+
+.banner-title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.banner-title {
+    color: var(--white);
+    font-size: 40px;
+    font-weight: 400;
+    line-height: normal;
+    max-width: 630px;
+    width: 100%;
+}
+
+.banner-description {
+    margin-top: 20px;
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 300;
+    line-height: normal;
+    max-width: 630px;
+    width: 100%;
+}
+
+.banner-link {
+    margin-top: 37px;
+    color: var(--white);
+    font-family: Nunito, serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 120px;
+    background: #C829E2;
+    padding: 16px 41px;
+    cursor: pointer;
+    display: inline-block;
+    transition: all .3s;
+}
+
+.banner-link:hover {
+    transform: scale(1.05);
+}
+
+.banner-gradient-2 {
+    position: absolute;
+    top: -75%;
+    right: -20%;
+
+    animation-duration: 7s;
+    animation-iteration-count: infinite;
+    animation-name: rotateGradient;
+}
+
+@keyframes rotateGradient {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(15deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(-15deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.banner-gradient-decor {
+    position: absolute;
+    top: -42%;
+    right: 9%;
+}
+
+.banner-gradient-decor div {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+
+.gradient-decor-img {
+    position: absolute;
+    top: 30%;
+    right: -87%;
+}
+
+.fade-out {
+    opacity: 0;
+    margin-left: 100px;
+    transition: all 0.3s ease-out;
 }

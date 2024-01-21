@@ -88,13 +88,13 @@
                 <div class="search__artist-left">
                     <a th:href="@{/artist/{id}/details(id=${artist.id})}">
                         <img th:src="@{'/uploads/' + ${artist.filename}}" width="100px" height="100px"
-                             style="border-radius: 12px; object-fit: cover">
+                             style="border-radius: 500px; object-fit: cover">
                         <div class="search__artist-left-info">
                             <p th:text="${artist.name}"></p>
                         </div>
                     </a>
                 </div>
-                <a th:href="@{/artist/{id}/details(id=${artist.id})}" class="search__artist-btn">Перейти</a>
+                <a th:href="@{/artist/{id}/details(id=${artist.id})}" class="search__artist-btn">Подробнее</a>
             </div>
             <div class="line"></div>
         </div>
@@ -116,7 +116,7 @@
                     </div>
                     <div class="search__track-track-info">
                         <h3 class="track-info-title" th:text="${track.title}"></h3>
-                        <p class="track-info-artist" th:text="${track.artists.name}"></p>
+                        <a th:href="@{'/artist/' + ${track.artists.id} + '/details'}"><p class="track-info-artist" th:text="${track.artists.name}"></p></a>
                         <span class="track-info-genre" th:text="${track.genre}"></span>
                     </div>
                 </li>

@@ -45,10 +45,20 @@ body {
 }
 
 .user-info-name {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.user-info-name h1{
     color: var(--white);
-    font-size: 40px;
-    font-weight: 500;
+    font-size: 35px;
+    font-weight: 400;
     line-height: normal;
+}
+
+.user-info-name img {
+    object-fit: cover;
 }
 
 .user-info-surnameAndRole {
@@ -58,8 +68,8 @@ body {
 .user-info-surnameAndRole,
 .user-info-surname {
     color: var(--gray);
-    font-size: 24px;
-    font-weight: 400;
+    font-size: 22px;
+    font-weight: 300;
     line-height: normal;
 }
 
@@ -67,56 +77,74 @@ body {
     margin-top: 10px;
     color: var(--gray);
     font-size: 18px;
-    font-weight: 300;
+    font-weight: 200;
     line-height: normal;
 }
 
 .user-info-edit {
     margin-top: 15px;
-    padding: 13px 25px;
-    border-radius: 15px;
-    background: var(--feolet);
+    padding: 16px 25px;
+    border-radius: 28px;
+    background: #242424;
     text-align: center;
     color: var(--white);
-    font-family: Nunito;
-    font-size: 18px;
-    font-weight: 500;
+    font-family: Nunito, serif;
+    font-size: 16px;
+    font-weight: 400;
     line-height: normal;
+    transition: all .2s;
+}
+
+.user-info-edit:hover {
+    background: #323232;
 }
 
 .profile_info-user-right {
     display: flex;
     align-items: center;
-    gap: 100px;
+    gap: 18px;
 }
 
 .info-user-counting {
-    max-width: 215px;
+    /*background: #212121;*/
+    background: #24242469;
+    padding: 20px;
+    border-radius: 15px;
+    width: 255px;
+    height: 126px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    border: 1px solid transparent;
+    transition: all .2s;
+}
+
+.info-user-counting:hover {
+    background: #212121;
+    border: 1px solid #383838;
 }
 
 .info-user-counting span {
+    display: inline-block;
     color: var(--gray);
     font-size: 20px;
-    font-weight: 400;
+    font-weight: 300;
     line-height: normal;
     width: 24px;
     height: 24px;
-    margin-top: 6px;
+    margin-top: 9px;
 }
 
 .user-counting {
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 20px;
 }
 
 .user-counting h3 {
     color: var(--white);
     font-size: 32px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: normal;
     max-width: 215px;
     white-space: nowrap;

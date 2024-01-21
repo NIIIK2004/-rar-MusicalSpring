@@ -8,22 +8,24 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -34,7 +36,6 @@ public class AuthController {
     @Value("${upload.path}")
     private String uploadPath;
     private final UserImpl userImpl;
-
     private final RegistrationValidator registrationValidator;
 
     @GetMapping("/registration")
@@ -57,11 +58,13 @@ public class AuthController {
         }
 
         if (result.hasErrors()) {
+            model.addAttribute("errors", result.getAllErrors());
             model.addAttribute("user", user);
             return "Registration";
         }
+
         userImpl.save(user);
-        redirectAttributes.addFlashAttribute("success", "Вы успешно зарегистрировали!");
+        redirectAttributes.addFlashAttribute("success", "Регистрация прошла успешно!");
         return "redirect:/login";
     }
 
@@ -69,14 +72,17 @@ public class AuthController {
             "Не забудь только пароль, а то придется создавать новый аккаунт =)",
             "Малоизвестный факт, но в нашем сервисе нету альбомов, потому что я понятия не имею как их реализовывать",
             "Мы скоро доделаем Коллекцию... Наверное... Если будет время... Точнее если все получится)))",
-            "Да, у нас нет промокодов на бесплатные подписки, итак трудно жить, какие подписки",
+            "Да, у нас нет промокодов на бесплатные подписки, итак трудно жить, какие промокоды",
             "Интересное в разделе \"профиль\" никогда не обновляется (",
-            "В полной странице артиста нельзя посмотреть все треки артиста, да вот так вот",
-            "Хорошо, что многие не видели Musical v1.0 кроме Александра Витальевича, это был полный провал"
+            "В полной странице артиста нельзя посмотреть все треки артиста, да вот так вот, или уже можно?",
+            "Хорошо, что многие не видели Musical v1.0 кроме некоторых определенных лиц, это был полный провал"
     };
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String loginPage(@RequestParam(name = "error", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("errorMessage", "Неправильно введен логин или пароль!");
+        }
         model.addAttribute("randomMessage", getRandomMessage());
         return "SignIn";
     }

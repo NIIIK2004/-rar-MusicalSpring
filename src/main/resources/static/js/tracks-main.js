@@ -11,10 +11,10 @@ const detailsTrack = document.querySelector(".details-track");
 const bottomPanel = document.querySelector(".bottom_panel");
 
 let curr_track_id = -1;
-let items = 6;
+let items = 7;
 
 showMore.addEventListener('click', () => {
-    items += 6;
+    items += 7;
     const array = Array.from(document.querySelector('.tracks-main__list').children);
     const visibleItems = array.slice(0, items);
 
