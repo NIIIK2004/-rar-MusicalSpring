@@ -9,11 +9,13 @@ import com.example.model.User;
 import com.example.repo.ArtistRepo;
 import com.example.repo.TrackRepo;
 import com.example.service.TrackService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,8 +48,9 @@ public class TrackController {
         return ResponseEntity.ok(track);
     }
 
-    @GetMapping("/")
-    public String TrackMainPage(Model model, Principal principal, HttpSession session) {
+    @GetMapping(value = {"/", "/Admin-All-Tracks"})
+    //Получение списка всех треков для пользователя и администратора
+    public String TrackMainPage(Model model, Principal principal, HttpSession session, HttpServletRequest request) {
         List<Track> tracks = trackRepo.findAll();
         List<Artist> artists = artistRepo.findAll();
         model.addAttribute("artists", artists);
@@ -68,18 +71,36 @@ public class TrackController {
             Collections.shuffle(artists);
             model.addAttribute("recentlyViewedArtists", artists.subList(0, Math.min(6, artists.size())));
         }
-
-        return "AllTracks";
+        if (request.getRequestURI().equals("/Admin-All-Tracks")) {
+            return "/admin/AdminAllTracks";
+        } else {
+            return "AllTracks";
+        }
     }
 
-    @GetMapping("/addTrack")
-    public String CreateOrEditTrack(@ModelAttribute("track") Track track, Model model) throws IOException {
+//    @GetMapping("/addTrack")
+//    public String CreateOrEditTrack(@ModelAttribute("track") Track track, Model model) throws IOException {
+//        List<Artist> artists = artistRepo.findAll();
+//        model.addAttribute("artists", artists);
+//        return "admin/CreateOrEditTrack";
+//    }
+
+    @GetMapping("/track/createOrEditTrackPage")
+    public String createOrEditTrackPage(Model model, @RequestParam(name = "trackId", required = false) Long trackId) {
+        if (trackId != null) {
+            Track track = trackRepo.findById(trackId)
+                    .orElseThrow(() -> new IllegalArgumentException("Не найден трек с id: " + trackId));
+            model.addAttribute("track", track);
+        } else {
+            Track track = new Track();
+            model.addAttribute("track", track);
+        }
         List<Artist> artists = artistRepo.findAll();
         model.addAttribute("artists", artists);
         return "admin/CreateOrEditTrack";
     }
 
-    @PostMapping("alltrack/save")
+/*    @PostMapping("alltrack/save")
     public String save(@ModelAttribute("track") Track track,
                        @RequestParam("audio") MultipartFile audio,
                        @RequestParam("cover") MultipartFile cover,
@@ -103,7 +124,7 @@ public class TrackController {
             System.out.println("Запрос каким то образом отправлен магия не более!");
         }
         System.out.println("artistId: " + artistId);
-        return "redirect:/";
+        return "redirect:/Admin-All-Tracks";
     }
 
     @PostMapping("alltrack/edit")
@@ -145,7 +166,57 @@ public class TrackController {
                 track.getCoverfilename(), track.getArtists());
         redirectAttributes.addFlashAttribute("success", "Ура качевый трек исправлен бро");
         return "redirect:/";
+    }*/
+
+    @PostMapping("/alltrack/saveOrUpdate")
+    public String saveOrUpdateTrack(@ModelAttribute("track") Track track,
+                                    @RequestParam(value = "cover", required = false) MultipartFile imgfile,
+                                    @RequestParam(value = "audio", required = false) MultipartFile audiofile,
+                                    @RequestParam("artist_id") Long artistId,
+                                    RedirectAttributes redirectAttributes) throws IOException {
+
+        Artist artist = artistRepo.findById(artistId).orElse(null);
+        if (artist != null) {
+            track.setArtists(artist);
+
+            if (imgfile != null && !imgfile.isEmpty()) {
+                String filenameimg = UUID.randomUUID() + "." + imgfile.getOriginalFilename();
+                imgfile.transferTo(new File(uploadPath + "/" + filenameimg));
+                track.setCoverfilename(filenameimg);
+            } else if (track.getId() != null && track.getCoverfilename() == null) {
+                Track existingTrack = trackRepo.findById(track.getId()).orElse(null);
+                if (existingTrack != null) {
+                    track.setCoverfilename(existingTrack.getCoverfilename());
+                }
+            }
+
+            if (audiofile != null && !audiofile.isEmpty()) {
+                String filenameaudio = UUID.randomUUID() + "." + audiofile.getOriginalFilename();
+                audiofile.transferTo(new File(uploadPath + "/" + filenameaudio));
+                track.setAudiofilename(filenameaudio);
+            } else if (track.getId() != null && track.getAudiofilename() == null) {
+                // Если аудиозапись не была изменена, сохраняем старое значение
+                Track existingTrack = trackRepo.findById(track.getId()).orElse(null);
+                if (existingTrack != null) {
+                    track.setAudiofilename(existingTrack.getAudiofilename());
+                }
+            }
+
+            boolean isNewTrack = track.getId() == null;
+            if (isNewTrack) {
+                trackRepo.save(track);
+                System.out.println("Новый трек успешно сохранен!");
+            } else {
+                trackRepo.save(track); // Сохраняем изменения в существующем треке
+                System.out.println("Трек успешно обновлен!");
+            }
+
+            redirectAttributes.addFlashAttribute("success", isNewTrack ? "Новый трек успешно добавлен!" : "Трек успешно обновлен!");
+        }
+
+        return "redirect:/Admin-All-Tracks";
     }
+
 
     @GetMapping("/delete/{id}")
     public String Delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
@@ -172,7 +243,7 @@ public class TrackController {
         trackImpl.delete(track.getId());
         redirectAttributes.addFlashAttribute("success", "Эх мы удалили какой то хороший трек грусть..." + track.getTitle());
 
-        return "redirect:/";
+        return "redirect:/Admin-All-Tracks";
     }
 
     @GetMapping("/search")

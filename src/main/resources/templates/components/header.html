@@ -1,4 +1,4 @@
-<header id="myHeader" class="header">
+<header id="myHeader" class="header" xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="container">
         <div class="header__menu-top">
             <a th:href="@{/}"><img th:src="@{/images/header/logotype-update.svg}" alt="лого" class="header_logo"></a>
@@ -35,17 +35,17 @@
                     </ul>
 
                     <div class="user-menu-themes">
-                        <a th:href="@{/}">
+                        <a href="#" class="theme_sun">
                             <img th:src="@{/images/header/theme_sun.svg}">
                             <span>Светлая</span>
                         </a>
 
-                        <a th:href="@{/}">
+                        <a href="#" class="theme_moon">
                             <img th:src="@{/images/header/theme_moon.svg}">
                             <span>Темная</span>
                         </a>
 
-                        <a th:href="@{/}">
+                        <a href="#" class="theme_classic">
                             <img th:src="@{/images/header/theme_classic.svg}">
                             <span>Классика</span>
                         </a>
@@ -61,4 +61,5 @@
         </div>
     </div>
     <script th:src="@{/js/header-user-menu.js}"></script>
+    <script th:src="@{/js/themeChange.js}"></script>
 </header>

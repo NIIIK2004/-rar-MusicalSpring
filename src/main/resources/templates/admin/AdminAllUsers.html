@@ -69,17 +69,21 @@
         <a class="admin-add" th:href="@{'/Admin/users/add/administrators'}">Добавить Администратора</a>
     </div>
 </div>
-<div class="user-data-message" id="user-data-message" th:if="${errors}" style="background: #b44646">
-    <h2>Произошла Ошибка</h2>
-    <p>Технические неполадки, попробуйте чуть позже или сообщите вышестоящему Администратору для решения проблемы</p>
-    <a href="#" id="close-link">Хорошо</a>
-</div>
+
+<!--<div class="user-data-message" id="user-data-message" th:if="${errors}" style="background: #b44646">-->
+<!--    <h2>Произошла Ошибка</h2>-->
+<!--    <p>Технические неполадки, попробуйте чуть позже или сообщите вышестоящему Администратору для решения проблемы</p>-->
+<!--    <a href="#" id="close-link">Хорошо</a>-->
+<!--</div>-->
 
 <div class="user-data-message" id="user-data-message" th:if="${success}">
     <h2>Новый Администратор</h2>
     <p>Успешно создан, теперь еще один Администратор управляет данным сайтом, всех поздравляем</p>
     <a href="#" id="close-link">Отлично</a>
 </div>
+
+<div id="error-message" th:if="${errors}" th:text="${errors}"></div>
+
 
 </body>
 <script th:src="@{/js/alert.js}"></script>

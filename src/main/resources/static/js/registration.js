@@ -4,8 +4,13 @@ window.addEventListener('DOMContentLoaded', function () {
     let registrationForm = document.getElementById('registration-form');
 
     document.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            showRegistrationForm();
+        if (event.key === 'Enter' && event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA') {
+            event.preventDefault(); // Предотвращаем действие по умолчанию, чтобы не срабатывал Enter дважды
+            if (currentIndex === 0) {
+                showRegistrationForm();
+            } else {
+                showNextForm();
+            }
         }
     });
 

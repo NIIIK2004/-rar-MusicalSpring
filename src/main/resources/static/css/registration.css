@@ -21,6 +21,7 @@
     left: 50%;
     transform: translate(-50%, -60%);
     transition: opacity 1s ease-in-out;
+
 }
 
 #welcome-video {
@@ -47,10 +48,9 @@
 
 .autorizated__title {
     text-align: center;
-    margin-top: 135px;
     color: var(--white);
     font-size: 48px;
-    font-weight: 500;
+    font-weight: 400;
     line-height: normal;
 }
 
@@ -89,7 +89,7 @@ input:focus {
 .autorizated__wrapper-title {
     color: var(--white);
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 300;
     line-height: normal;
     margin-bottom: 25px;
 }

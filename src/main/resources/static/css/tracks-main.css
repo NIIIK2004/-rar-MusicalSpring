@@ -42,6 +42,10 @@
 .tracks-main__name,
 .tracks-main__album {
     font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 220px;
+    overflow: hidden;
 }
 
 .tracks-main__album {

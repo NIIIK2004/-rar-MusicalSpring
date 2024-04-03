@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
@@ -49,9 +50,9 @@
                         <button class="Artist__btns-unsubs" type="submit">Отписаться</button>
                     </form>
 
+
                     <button class="Artist__btns-similar">Найти похожих</button>
                 </div>
-
                 <!--<div class="Artist__info-social">
                     <a th:href="@{https://open.spotify.com/artist/72lYxQHj6k4H3u18ErEWhH}"><img
                             th:src="@{/images/spotify.svg}" alt="link"></a>
@@ -61,12 +62,12 @@
                     <a th:href="@{https://www.youtube.com/channel/UCNZnF-bicYstScveDsd648A}"><img
                             th:src="@{/images/Youtube.svg}" alt="link"></a>
                 </div>-->
+            </div>
+            <div class="statistics-wrapper">
+                <h1 class="statistics-title title">Статистика артиста</h1>
 
-                <div class="statistics-wrapper">
-                    <h1 class="statistics-title title">Статистика артиста</h1>
-
-                    <div class="statistics-blocks">
-                        <div class="statistics-block">
+                <div class="statistics-blocks">
+                    <div class="statistics-block">
                         <span>
                             <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -81,24 +82,24 @@
                                   fill="#F8F8F8"/>
                             </svg>
                         </span>
-                            <div class="statistics-block-data">
-                                <span>Слушателей</span>
-                                <h2 class="statistics__card-main"
-                                    th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
-                                    th:text="${artist.listeners}"></h2>
-                                <h2 class="statistics__card-main"
-                                    th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">0</h2>
-                            </div>
+                        <div class="statistics-block-data">
+                            <span>Слушателей</span>
+                            <h2 class="statistics__card-main"
+                                th:if="${artist.listeners != null && artist.listeners.trim() != ''}"
+                                th:text="${artist.listeners}"></h2>
+                            <h2 class="statistics__card-main"
+                                th:unless="${artist.listeners != null && artist.listeners.trim() != ''}">0</h2>
                         </div>
+                    </div>
 
-                        <span class="line-separator">
+                    <span class="line-separator">
                         <svg width="2" height="32" viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 1L0.999999 31" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round"/>
 </svg>
 
                     </span>
 
-                        <div class="statistics-block">
+                    <div class="statistics-block">
                          <span>
                          <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
                               xmlns="http://www.w3.org/2000/svg">
@@ -106,23 +107,23 @@
                                fill="#F8F8F8"/>
                          </svg>
                         </span>
-                            <div class="statistics-block-data">
-                                <span>Симпатий</span>
-                                <h2 class="statistics__card-main"
-                                    th:if="${artist.liking != null && artist.liking.trim() != ''}"
-                                    th:text="${artist.liking}"></h2>
-                                <h2 class="statistics__card-main"
-                                    th:unless="${artist.liking != null && artist.liking.trim() != ''}">0</h2>
-                            </div>
+                        <div class="statistics-block-data">
+                            <span>Симпатий</span>
+                            <h2 class="statistics__card-main"
+                                th:if="${artist.liking != null && artist.liking.trim() != ''}"
+                                th:text="${artist.liking}"></h2>
+                            <h2 class="statistics__card-main"
+                                th:unless="${artist.liking != null && artist.liking.trim() != ''}">0</h2>
                         </div>
+                    </div>
 
-                        <span class="line-separator">
+                    <span class="line-separator">
                         <svg width="2" height="32" viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L0.999999 31" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </span>
 
-                        <div class="statistics-block">
+                    <div class="statistics-block">
                         <span>
                             <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -137,24 +138,25 @@
                         </defs>
                             </svg>
                         </span>
-                            <div class="statistics-block-data">
-                                <span>Страна</span>
-                                <h2 class="statistics__card-main"
-                                    th:if="${artist.country != null && artist.country.trim() != ''}"
-                                    th:text="${artist.country}"></h2>
-                                <h2 class="statistics__card-main"
-                                    th:unless="${artist.country != null && artist.country.trim() != ''}">Не определенно</h2>
-                            </div>
+                        <div class="statistics-block-data">
+                            <span>Страна</span>
+                            <h2 class="statistics__card-main"
+                                th:if="${artist.country != null && artist.country.trim() != ''}"
+                                th:text="${artist.country}"></h2>
+                            <h2 class="statistics__card-main"
+                                th:unless="${artist.country != null && artist.country.trim() != ''}">Не
+                                определенно</h2>
                         </div>
+                    </div>
 
-                        <span class="line-separator">
+                    <span class="line-separator">
                             <svg width="2" height="32" viewBox="0 0 2 32" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 1L0.999999 31" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round"/>
                             </svg>
                         </span>
 
-                        <div class="statistics-block">
+                    <div class="statistics-block">
                         <span>
                             <svg width="50" height="46" viewBox="0 0 50 46" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -164,14 +166,13 @@
                                   fill="#F8F8F8"/>
                             </svg>
                         </span>
-                            <div class="statistics-block-data">
-                                <span>Жанр Артиста</span>
-                                <h2 class="statistics__card-main"
-                                    th:if="${artist.genre != null && artist.genre.trim() != ''}"
-                                    th:text="${artist.genre}"></h2>
-                                <h2 class="statistics__card-main"
-                                    th:unless="${artist.genre != null && artist.genre.trim() != ''}">Неизвестно</h2>
-                            </div>
+                        <div class="statistics-block-data">
+                            <span>Жанр Артиста</span>
+                            <h2 class="statistics__card-main"
+                                th:if="${artist.genre != null && artist.genre.trim() != ''}"
+                                th:text="${artist.genre}"></h2>
+                            <h2 class="statistics__card-main"
+                                th:unless="${artist.genre != null && artist.genre.trim() != ''}">Неизвестно</h2>
                         </div>
                     </div>
                 </div>

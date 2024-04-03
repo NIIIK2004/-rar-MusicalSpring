@@ -57,7 +57,7 @@
     line-height: 1;
     transition: color .3s, opacity .3s;
     padding: 0 0 6px;
-    color: var(--gray);
+    color: var(--grayNotEdit);
 }
 
 .details-track__btn::after {
@@ -81,8 +81,8 @@
 }
 
 .details-track__title {
-    color: var(--white);
-    font-size: 64px;
+    color: var(--white-text);
+    font-size: 52px;
     font-weight: 400;
     line-height: 140%;
     margin-top: 200px;
@@ -90,7 +90,7 @@
 
 .details-track__artist {
     margin-top: 20px;
-    color: var(--white);
+    color: var(--white-text);
     font-size: 32px;
     font-weight: 400;
     line-height: 140%;
@@ -99,7 +99,7 @@
 .details-track__genre {
     display: block;
     margin-top: 20px;
-    color: var(--gray);
+    color: var(--grayNotEdit);
     font-size: 20px;
     font-weight: 300;
     line-height: 140%;
@@ -108,7 +108,7 @@
 
 .details-track__lyrics {
     text-wrap: balance;
-    color: var(--white);
+    color: var(--white-text);
     font-size: 38px;
     font-style: normal;
     font-weight: 400;
@@ -203,4 +203,11 @@
     font-size: 17px;
     font-weight: 500;
     line-height: normal;
+}
+
+
+@media screen and (min-height: 1080px) {
+    .details-track__inner {
+        margin-top: 160px;
+    }
 }

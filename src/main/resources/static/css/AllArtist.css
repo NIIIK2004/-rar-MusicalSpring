@@ -5,14 +5,16 @@
 .AllArtist__wrapper {
     margin-top: 40px;
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 18px;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 15px;
 }
 
 .artist {
     border-radius: 500px;
     position: relative;
     cursor: pointer;
+    width: 130px;
+    height: 130px;
 }
 
 .artist img {
@@ -55,7 +57,7 @@
     margin: 0;
     padding: 0;
     line-height: 1;
-    color: var(--white);
+    color: var(--white-text);
     transform: translate(-50%, -50%);
 
     overflow: hidden;
@@ -87,9 +89,9 @@
 
 .view span {
     color: var(--gray);
-    font-family: Nunito;
+    font-family: Nunito, serif;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 
@@ -105,7 +107,8 @@
     width: 100%;
     padding: 15px 36px 15px 22px;
     border-radius: 13px;
-    background: #121212;
+    /*background: #121212;*/
+    background: var(--black-layer);
 
     display: flex;
     align-items: center;
@@ -119,15 +122,15 @@
 
 .artist-name-view-two {
     color: var(--white);
-    font-family: Nunito;
+    font-family: Nunito, serif;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
     line-height: normal;
 }
 
 .artist-listen-view-two {
     color: var(--gray);
-    font-family: Nunito;
+    font-family: Nunito, serif;
     font-size: 15px;
     font-weight: 300;
 }
@@ -150,7 +153,7 @@
 .artist-view-two a {
     width: 100%;
     border-radius: 13px;
-    background: #121212;
+    background: var(--black-layer);
     display: flex;
     align-items: center;
     gap: 20px;
@@ -158,9 +161,27 @@
 }
 
 
+/*animation for load*/
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 
+.AllArtist__wrapper {
+    animation: fadeIn 0.5s ease-in-out;
+}
 
+.view-icon {
+    transition: opacity 0.5s ease-in-out;
+}
 
+.view-icon:hover {
+    opacity: 0.7;
+}
 
 
 

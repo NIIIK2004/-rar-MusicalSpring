@@ -21,7 +21,7 @@
     <title>Musical - Эксклюзив</title>
 </head>
 
-<body>
+<body style="overflow-y: hidden">
 
 <header class="header" th:include="components/header :: header"></header>
 
@@ -53,14 +53,18 @@
     <div class="container">
         <div class="subscribe-details-wrapper" data-aos="fade-up" data-aos-delay="1000" data-aos-duration="900">
             <div class="subscribe-details-header">
-                <div class="subscribe-details-header-img" data-aos="fade-up" data-aos-delay="1200" data-aos-duration="900">
+                <div class="subscribe-details-header-img" data-aos="fade-up" data-aos-delay="1200"
+                     data-aos-duration="900">
                     <img th:src="@{images/subscribe-details-header-img.png}" alt="decor">
                 </div>
                 <div class="subscribe-details-header-wrapper">
-                    <h1 class="details-header-wrapper-title" data-aos="fade-up" data-aos-delay="1300" data-aos-duration="900">Музыка без ограничений</h1>
-                    <p class="details-header-wrapper-description" data-aos="fade-up" data-aos-delay="1400" data-aos-duration="900">Ваша музыка путь к истории и вашему душевному
+                    <h1 class="details-header-wrapper-title" data-aos="fade-up" data-aos-delay="1300"
+                        data-aos-duration="900">Музыка без ограничений</h1>
+                    <p class="details-header-wrapper-description" data-aos="fade-up" data-aos-delay="1400"
+                       data-aos-duration="900">Ваша музыка путь к истории и вашему душевному
                         состоянию</p>
-                    <div class="details-header-wrapper-list" data-aos="fade-up" data-aos-delay="1600" data-aos-duration="1600">
+                    <div class="details-header-wrapper-list" data-aos="fade-up" data-aos-delay="1600"
+                         data-aos-duration="1600">
                         <ul>
                             <li>Прослушивание Треков / Подкастов / Книг</li>
                             <li>Новости, доступ к будущим планам</li>
@@ -206,7 +210,7 @@
                             </li>
                         </ul>
                     </div>
-                </div >
+                </div>
             </div>
         </div>
     </div>
@@ -279,26 +283,26 @@
                 </div>
             </div>
 
-            <div class="plan-block">
-                <div class="plan-title">
-                    <h2>Слушатель</h2>
-                    <img src="/images/icon-subs-plan-new.svg" alt="decor-plan">
-                </div>
-                <p class="plan-description">Для семьи - для всех!</p>
-                <div class="line"></div>
-                <ul class="plan-advantages">
-                    <li>Создание персональных плейлистов</li>
-                    <li>Доступен радио-контент</li>
-                    <li>Возможность слушать музыку на нескольких устройствах сразу</li>
-                    <li>Синхронизированный режим</li>
-                    <li>Поддержка Apple CarPlay и Android Auto</li>
-                </ul>
-                <div class="line"></div>
-                <div class="plan-buy">
-                    <span class="plan-buy-cost">599.99 Рублей  / Месяц</span>
-                    <button class="plan-buy-btn" style="background: #E6E95B; color: #0C0C0C">Купить</button>
-                </div>
-            </div>
+            <!--            <div class="plan-block">-->
+            <!--                <div class="plan-title">-->
+            <!--                    <h2>Слушатель</h2>-->
+            <!--                    <img src="/images/icon-subs-plan-new.svg" alt="decor-plan">-->
+            <!--                </div>-->
+            <!--                <p class="plan-description">Для семьи - для всех!</p>-->
+            <!--                <div class="line"></div>-->
+            <!--                <ul class="plan-advantages">-->
+            <!--                    <li>Создание персональных плейлистов</li>-->
+            <!--                    <li>Доступен радио-контент</li>-->
+            <!--                    <li>Возможность слушать музыку на нескольких устройствах сразу</li>-->
+            <!--                    <li>Синхронизированный режим</li>-->
+            <!--                    <li>Поддержка Apple CarPlay и Android Auto</li>-->
+            <!--                </ul>-->
+            <!--                <div class="line"></div>-->
+            <!--                <div class="plan-buy">-->
+            <!--                    <span class="plan-buy-cost">599.99 Рублей  / Месяц</span>-->
+            <!--                    <button class="plan-buy-btn" style="background: #E6E95B; color: #0C0C0C">Купить</button>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </div>
     </div>
 </section>
@@ -307,7 +311,8 @@
     <div class="container">
         <h2 class="title">Преимущества в отличие от других сервисов</h2>
         <div class="advantages-wrapper">
-            <div class="advantage-block" style="background: #00A542;" data-aos="fade" data-aos-delay="600" data-aos-duration="600">
+            <div class="advantage-block" style="background: #00A542;" data-aos="fade" data-aos-delay="600"
+                 data-aos-duration="600">
                 <div class="advantage-title">
                     <h3>Простота</h3>
                     <img th:src="@{/images/li_hand-1.svg}" alt="decor">
@@ -320,7 +325,8 @@
                 <button class="advantage-btn">Послушать треки</button>
             </div>
 
-            <div class="advantage-block" style="background: #4A39F2;" data-aos="fade" data-aos-delay="800" data-aos-duration="800">
+            <div class="advantage-block" style="background: #4A39F2;" data-aos="fade" data-aos-delay="800"
+                 data-aos-duration="800">
                 <div class="advantage-title">
                     <h3>Скорость</h3>
                     <img th:src="@{/images/li_gauge-2.svg}" alt="decor">
@@ -334,7 +340,8 @@
                 <button class="advantage-btn">Узнать скорость?</button>
             </div>
 
-            <div class="advantage-block" style="background: #C330AB;" data-aos="fade" data-aos-delay="1200" data-aos-duration="1000">
+            <div class="advantage-block" style="background: #C330AB;" data-aos="fade" data-aos-delay="1200"
+                 data-aos-duration="1000">
                 <div class="advantage-title">
                     <h3>Качество</h3>
                     <img th:src="@{/images/li_grab-3.svg}" alt="decor">
@@ -347,7 +354,8 @@
                 <button class="advantage-btn">Удостоверится в качестве</button>
             </div>
 
-            <div class="advantage-block" style="background: #CE9032;" data-aos="fade" data-aos-delay="1400" data-aos-duration="1200">
+            <div class="advantage-block" style="background: #CE9032;" data-aos="fade" data-aos-delay="1400"
+                 data-aos-duration="1200">
                 <div class="advantage-title">
                     <h3>Современность</h3>
                     <img th:src="@{/images/li_hand-metal-4.svg}" alt="decor">
@@ -368,10 +376,73 @@
     <div class="container">
         <h2 class="title">Наши достижения</h2>
         <div class="progress__wrapper">
+            <div class="progress_inner">
+                <div class="progress-block">
+                    <div class="progress-block-left">
+                        <h5>Всего пользователей:</h5>
+                        <p>Количество пользователей всего</p>
+                    </div>
+                    <div class="progress-block-right">
+                        <img th:src="@{/images/subscribe/progress-block-1.svg}" alt="image">
+                    </div>
+                </div>
+
+                <div class="progress-block">
+                    <div class="progress-block-left">
+                        <h5>Всего Прибыль сервиса за месяц</h5>
+                        <p>-128 рублей</p>
+                    </div>
+                    <div class="progress-block-right">
+                        <img th:src="@{/images/subscribe/progress-block-2.svg}" alt="image">
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress_inner">
+                <div class="progress-block">
+                    <div class="progress-block-left">
+                        <h5>Количество артистов:</h5>
+                        <p>Количество артистов всего</p>
+                    </div>
+                    <div class="progress-block-right">
+                        <img th:src="@{/images/subscribe/progress-block-3.svg}" alt="image">
+                    </div>
+                </div>
+
+                <div class="progress-block">
+                    <div class="progress-block-left">
+                        <h5>Новые пользователи в месяц</h5>
+                        <p>584 Человека</p>
+                    </div>
+                    <div class="progress-block-right">
+                        <img th:src="@{/images/subscribe/progress-block-4.svg}" alt="image">
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress_inner">
+                <div class="progress-block-big">
+                    <h5>Популярная страна прослушивания</h5>
+                    <div class="progress-block-bottom">
+                        <img th:src="@{/images/subscribe/progress-block-5.svg}" alt="image">
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress_inner">
+                <div class="progress-block-small">
+                    <h5>Придумаем потом что здесь будет</h5>
+                    <div class="progress-block-bottom">
+                        <img th:src="@{/images/subscribe/progress-block-6.svg}" alt="image">
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
 </section>
+
+<section style="margin: 100px;"></section>
 
 </body>
 

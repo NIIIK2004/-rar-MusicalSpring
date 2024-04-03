@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentIndex = 0;
 
     playPauseButtons.forEach((button, index) => {
+        const audioPlayer = audioPlayers[currentIndex];
+        audioPlayer.currentTime = 0;
         button.addEventListener("click", () => {
             currentIndex = index;
             playTrack(index);
@@ -30,11 +32,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     prevButton.addEventListener("click", () => {
+        const audioPlayer = audioPlayers[currentIndex];
+        audioPlayer.currentTime = 0;
         currentIndex = (currentIndex - 1 + playPauseButtons.length) % playPauseButtons.length;
         playTrack(currentIndex);
     });
 
     nextButton.addEventListener("click", () => {
+        const audioPlayer = audioPlayers[currentIndex];
+        audioPlayer.currentTime = 0;
         currentIndex = (currentIndex + 1) % playPauseButtons.length;
         playTrack(currentIndex);
     });
@@ -54,12 +60,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    audioPlayers.forEach((audioPlayer, index) => {
+        audioPlayer.addEventListener("ended", () => {
+            const playPauseIcon = playPauseIcons[index];
+            playPauseIcon.src = "../images/play-track-small.svg";
+            playPauseIcon.parentElement.style.opacity = '0';
+            audioPlayer.currentTime = 0;
+
+            const nextIndex = (currentIndex + 1) % playPauseButtons.length;
+            currentIndex = nextIndex;
+            playTrack(nextIndex);
+            updateBottomPanel(playPauseButtons[nextIndex].getAttribute("data-track-id"));
+        });
+    });
+
+
     function playTrack(index) {
         audioPlayers.forEach((audioPlayer, i) => {
             const playPauseIcon = playPauseIcons[i];
             const button = playPauseButtons[i];
             if (i === index) {
-
                 audioPlayer.play();
                 playPauseIcon.src = "../images/pause-track-small.svg";
                 button.style.opacity = '1';
@@ -69,6 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 playPauseIcon.src = "../images/play-track-small.svg";
                 button.style.opacity = '0';
             }
+
+            const trackId = playPauseButtons[index].getAttribute("data-track-id");
+            localStorage.setItem("lastPlayedTrack", trackId);
         });
 
         progressBar.addEventListener("click", function (event) {
@@ -108,20 +131,11 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 audioPlayer.pause();
                 playPauseIcon.src = "../images/play-track-small.svg";
+                playPauseButton.querySelector(".playPauseIcon").src = "../images/play-icon.svg";
                 button.style.opacity = '0';
                 currentAudioPlayer = null;
                 currentPlayPauseIcon = null;
             }
-        });
-    });
-
-    audioPlayers.forEach((audioPlayer, index) => {
-        audioPlayer.addEventListener("ended", () => {
-            const playPauseIcon = playPauseIcons[index];
-            playPauseIcon.src = "../images/play-track-small.svg";
-            playPauseIcon.parentElement.style.opacity = '0';
-            currentAudioPlayer = null;
-            updateBottomPanel(audioPlayer.getAttribute("data-track-id"));
         });
     });
 
@@ -159,7 +173,27 @@ document.addEventListener("DOMContentLoaded", () => {
         Array.from(audioPlayers).forEach(function (audio) {
             audio.volume = volumeControl.value;
         });
+
+        localStorage.setItem("userVolume", volumeControl.value);
     });
+
+    volumeControl.addEventListener('wheel', function (event) {
+        event.preventDefault();
+        let delta = event.deltaY || event.detail || -event.wheelDelta;
+        let step = delta > 0 ? -0.1 : 0.1; // Определение направления прокрутки
+        volumeControl.value = Math.max(0, Math.min(1, parseFloat(volumeControl.value) + step));
+        Array.from(audioPlayers).forEach(function (audio) {
+            audio.volume = volumeControl.value;
+        });
+    });
+
+    const storedVolume = localStorage.getItem("userVolume");
+    if (storedVolume !== null) {
+        volumeControl.value = storedVolume;
+        Array.from(audioPlayers).forEach(function (audio) {
+            audio.volume = volumeControl.value;
+        });
+    }
 });
 
 function updateBottomPanel(trackId) {
@@ -172,6 +206,7 @@ function updateBottomPanel(trackId) {
         })
         .then(track => {
             displayTrackInfo(track);
+            console.log(track)
         })
         .catch(reportError => {
             console.error('Ошибка извлекания данных трека бро: ', reportError);

@@ -67,26 +67,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    let adsBanner = document.querySelector('.ads-banner');
+document.addEventListener("DOMContentLoaded", function() {
+    const banner = document.querySelector(".ads-banner");
+    const closeButton = document.querySelector(".close-button");
 
-    let closeButton = adsBanner.querySelector('.banner-title-wrapper a');
-
-    let isBannerClosed = localStorage.getItem('isBannerClosed');
-
-    if (isBannerClosed) {
-        adsBanner.style.display = 'none';
-    }
-
-    closeButton.addEventListener('click', function (event) {
+    closeButton.addEventListener("click", function(event) {
         event.preventDefault();
-        adsBanner.classList.add('fade-out');
+        banner.classList.add('fade-out');
+        // banner.style.display = "none";
 
-        localStorage.setItem('isBannerClosed', 'true');
-
-        setTimeout(function () {
-            adsBanner.style.display = 'none';
-            adsBanner.classList.remove('fade-out');
+        setTimeout(function() {
+            banner.style.display = "none";
+            banner.classList.remove('fade-out');
         }, 500);
     });
 });

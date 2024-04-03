@@ -25,7 +25,7 @@
     <div class="container">
         <div class="subscriptions_titleAndSearch">
             <h1 class="title">Ваши подписки</h1>
-            <input type="search" placeholder="Поиск">
+            <input type="search" id="searchInput" placeholder="Поиск">
         </div>
         <div class="subscriptions__wrapper">
             <div th:each="subscription : ${subscriptions}">
@@ -40,9 +40,16 @@
 
                         </div>
                     </div>
-                    <div class="subscriptions_artist-right">
-                        <button>Отписаться</button>
-                    </div>
+
+<!--                    <div class="subscriptions_artist-right">-->
+<!--                        <button>Отписаться</button>-->
+<!--                    </div>-->
+
+                    <form class="subscriptions_artist-right" th:if="${isUserRegistered && isSubscribed}" th:action="@{/unsubscribe}" method="post">
+                        <input type="hidden" name="artistId" th:value="${subscription.artist.id}"/>
+                        <input type="hidden" name="userId" th:value="${user.id}"/>
+                        <button class="Artist__btns-unsubs" type="submit" name="unsubscribe">Отписаться</button>
+                    </form>
                 </a>
             </div>
             <div class="notHaveSubs" th:if="${#lists.isEmpty(subscriptions)}">
@@ -53,4 +60,6 @@
 </section>
 
 </body>
+
+
 </html>

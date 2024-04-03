@@ -14,11 +14,11 @@
     font-size: 18px;
     font-weight: 400;
     line-height: normal;
-    border-radius: 10px;
+    border-radius: 63px;
     border: 1px solid #686868;
     background: rgba(81, 81, 81, 0.50);
-    padding: 18px 30px;
-    width: 301px;
+    padding: 13px 27px;
+    width: 268px;
     outline: none;
     transition: all .3s;
 }

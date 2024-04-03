@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/admin/admin-header.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/admin-allTracks.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <title>Все треки</title>
+</head>
+
+<body>
+<div class="admin">
+    <div class="container">
+        <div class="header__top">
+            <div class="header__top-logo">
+                <img th:src="@{/images/admin/logotype.svg}">
+            </div>
+            <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
+            <span class="header__top-nameAdmin">Администратор Никита</span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="admin__wrapper">
+            <header class="header" th:include="admin/components/Admin-Header :: header"></header>
+            <div class="admin__panel">
+                <th:block th:if="${tracks.isEmpty()}">
+                    <p>Релизов пока нет (странно конечно что на музыкальном сервисе нет музыки) XD</p>
+                </th:block>
+                <th:block>
+                    <ul class="admin-all-track">
+                        <li th:each="track: ${tracks}">
+                            <div class="admin-tools-top">
+                                <a class="admin-tools-delete" th:href="@{'/track/createOrEditTrackPage?trackId=' + ${track.id}}">
+                                    <img th:src="@{../images/admin/edit.svg}" alt="Редактировать">
+                                </a>
+                                <a class="admin-tools-delete" th:href="@{'/delete/' + ${track.id}}">
+                                    <img th:src="@{../images/admin/delete.svg}" alt="Удалить">
+                                </a>
+                            </div>
+                            <audio class="audioPlayer" controls style="display: none;">
+                                <source type="audio/mp3" th:src="@{'/uploads/' + ${track.getAudiofilename()}}">
+                                Ваш браузер не поддерживает воспроизведение аудио.
+                            </audio>
+                            <div class="tracks-main__top">
+                                <img class="tracks-main__img" th:src="@{'/uploads/' + ${track.getCoverfilename()}}"
+                                     height="225">
+                            </div>
+                            <div class="admin-tracks-main__bottom">
+                                <div class="admin-tracks-main__bottom-left">
+                                    <h3 th:text="${track.getTitle()}"></h3>
+                                    <a th:href="@{'/artist/' + ${track.artists.id} + '/details'}">
+                                        <span th:text="${track.artists.name}"></span>
+                                    </a>
+                                </div>
+                                <button class="tracks-main__btn" th:data-track-id="${track.id}">
+                                    <img class="playPauseIconSlider" src="../images/play-track-small.svg"
+                                         alt="Воспроизвести">
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </th:block>
+            </div>
+        </div>
+
+        <a class="admin-add" th:href="@{'/track/createOrEditTrackPage'}">Добавить</a>
+    </div>
+</div>
+
+
+</body>
+<script th:src="@{/js/basic-tools.js}"></script>
+<script th:src="@{/js/adminPlayTracks.js}"></script>
+
+</html>

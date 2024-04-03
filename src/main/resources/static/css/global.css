@@ -18,10 +18,13 @@ ul {
     --white: #F8F8F8;
     --black: #0B0B0B;
     --gray: #CDCDCD;
+    --black-layer: #1A1A1A;
+    --white-text: #F8F8F8;
+    --grayNotEdit: #CDCDCD;
 }
-
+/*#e6e6e6*/
 html, body {
-    height: 100%;
+    overflow-y: scroll;
     scroll-behavior: smooth;
 }
 
@@ -31,8 +34,9 @@ body {
     font-weight: 300;
     line-height: 140%;
     color: var(--white);
-    transition: opacity 1s ease-out;
-    position: relative;
+    /*transition: opacity 1s ease-out;*/
+    /*position: relative;*/
+    transition: all .3s;
 }
 
 body::before {

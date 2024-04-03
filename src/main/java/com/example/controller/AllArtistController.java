@@ -70,7 +70,7 @@ public class AllArtistController {
         return "admin/CreateOrEditArtist";
     }
 
-    @PostMapping("/artist/createOrEditArtist") //Отправка данных для добавления либо редактирования артиста
+    @PostMapping("/artist/createOrEditArtist") // Обработка создания и редактирования артиста
     public String createOrEditArtist(@RequestParam(name = "artistId", required = false) Long artistId,
                                      @RequestParam(name = "file", required = false) MultipartFile file,
                                      @RequestParam String name,
@@ -80,8 +80,13 @@ public class AllArtistController {
                                      @RequestParam String country,
                                      @RequestParam String liking) throws IOException {
 
-        Artist artist = (artistId != null) ? artistImpl.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Не найден id Артиста:" + artistId)) :
-                new Artist();
+        Artist artist;
+        if (artistId != null) {
+            artist = artistRepo.findById(artistId)
+                    .orElseThrow(() -> new IllegalArgumentException("Артист с ID " + artistId + " не найден"));
+        } else {
+            artist = new Artist();
+        }
 
         artist.setName(name);
         artist.setDescription(description);
@@ -90,41 +95,17 @@ public class AllArtistController {
         artist.setCountry(country);
         artist.setLiking(liking);
 
-
         if (file != null && !file.isEmpty()) {
             String filename = UUID.randomUUID() + "." + file.getOriginalFilename();
             file.transferTo(new File(uploadPath + "/" + filename));
             artist.setFilename(filename);
-
-            System.out.println("File saved successfully: " + filename);
-            System.out.println("File path: " + uploadPath + "/" + filename);
-            System.out.println("Artist: " + artist);
-            System.out.println("Artist Filename: " + artist.getFilename());
-
-            if (artistId != null) {
-                Optional<Artist> optionalArtist = artistRepo.findById(artistId);
-                if (optionalArtist.isPresent()) {
-                    Artist existingArtist = optionalArtist.get();
-                    String oldFile = existingArtist.getFilename();
-                    if (oldFile != null) {
-                        String oldFilePath = uploadPath + "/" + oldFile;
-                        File oldFilename = new File(oldFilePath);
-                        if (oldFilename.exists()) {
-                            oldFilename.delete();
-                        }
-                    }
-                }
-            }
-        } else if (artistId != null) {
-            Optional<Artist> optionalArtist = artistRepo.findById(artistId);
-            if (optionalArtist.isPresent()) {
-                Artist existingArtist = optionalArtist.get();
-                artist.setFilename(existingArtist.getFilename());
-            }
         }
+
         artistImpl.add(artist);
         return "redirect:/Admin-All-Artist";
     }
+
+
 
     @GetMapping("/allartist/delete/{id}") //Удаление артиста
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {

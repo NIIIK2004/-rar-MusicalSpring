@@ -20,6 +20,12 @@
 
 }
 
+.Artist__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
 .Artist__wrapper-top {
     position: relative;
 }
@@ -36,30 +42,35 @@
 }
 
 .Artist-name {
-    margin-top: 85px;
-    color: var(--white);
+    color: var(--white-text);
     font-family: Nunito, serif;
     font-size: 54px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 1405px;
+    overflow: hidden;
+    display: block;
 }
 
 .Artist__info-bio {
+    color: var(--white-text);
     max-width: 830px;
-    max-height: 216px;
-    margin-top: 40px;
+    height: 200px;
     font-size: 18px;
     line-height: 150%;
-    overflow: hidden;
+    overflow: overlay;
     text-overflow: ellipsis;
+    scrollbar-width: none;
+    mask-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 102.1), rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), rgba(0, 0, 0, 2.5), rgba(0, 0, 0, 0.2));
 }
 
 .Artist__btns {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-top: 40px;
 }
 
 .Artist__btns-subs {
@@ -68,7 +79,7 @@
     background: rgba(81, 81, 81, 0.50);
     padding: 18px 45px;
 
-    color: var(--white);
+    color: var(--white-text);
     font-family: Nunito, serif;
     font-size: 18px;
     font-weight: 400;
@@ -96,17 +107,17 @@
 }
 
 .Artist__btns-similar {
-    color: var(--white);
+    color: var(--white-text);
     font-family: Nunito, serif;
     font-size: 18px;
     font-weight: 600;
     padding: 18px 45px;
     border-radius: 8px;
     line-height: normal;
-    background: linear-gradient(90deg, #3426c6 8.57%, #5a29c2 41.64%, #ad1370 106.26%);}
+    background: linear-gradient(90deg, #3426c6 8.57%, #5a29c2 41.64%, #ad1370 106.26%);
+}
 
 .Artist__info-social {
-    margin-top: 40px;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -114,13 +125,14 @@
 
 
 .statistics-wrapper {
-    position: absolute;
-    bottom: 13%;
+    /*position: absolute;*/
+    /*bottom: -39%;*/
     width: 100%;
+    margin-top: 75px;
 }
 
 .statistics-title {
-    color: var(--white);
+    color: var(--white-text);
     font-family: Nunito, serif;
     font-size: 28px;
     font-weight: 500;
@@ -133,13 +145,13 @@
     gap: 97px;
     justify-content: space-between;
     max-width: 1680px;
+    margin-bottom: 42px;
 }
 
 .statistics-block {
     display: flex;
     align-items: center;
     gap: 20px;
-
 }
 
 .statistics-block-data {
@@ -149,7 +161,7 @@
 }
 
 .statistics-block span {
-    color: var(--gray);
+    color: var(--grayNotEdit);
     font-family: Nunito, serif;
     font-size: 21px;
     font-weight: 400;
@@ -161,7 +173,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 400px;
-    color: var(--white);
+    color: var(--white-text);
     font-family: Nunito, serif;
     font-size: 36px;
     font-weight: 500;
@@ -186,7 +198,7 @@
 
 .Artist__info-playlist h3 {
     margin: 18px;
-    color: var(--white);
+    color: var(--white-text);
     font-size: 21px;
     font-weight: 500;
     line-height: normal;
@@ -218,6 +230,7 @@
 
 .Artist__info-block {
     margin-top: 85px;
+    display: inline-block;
 }
 
 .Artist__info-sets {
@@ -245,11 +258,12 @@
 
 .set-date,
 .set-title {
-    color: var(--white);
+    color: var(--white-text);
     font-size: 24px;
     font-weight: 500;
     line-height: normal;
 }
+
 .set-date {
     position: absolute;
     top: 0;
@@ -267,18 +281,21 @@
 }
 
 .set-city {
-    color: var(--white);
+    color: var(--white-text);
     font-size: 16px;
     font-weight: 500;
     line-height: normal;
 }
 
+@media screen and (min-height: 1080px) {
+    .Artist__info-bio {
+        height: 300px;
+    }
 
-
-
-
-
-
+    .statistics-wrapper {
+        margin-top: 115px;
+    }
+}
 
 /*.set-cover::after {*/
 /*    border-radius: 13px;*/

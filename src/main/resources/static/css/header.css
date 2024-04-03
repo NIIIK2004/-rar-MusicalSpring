@@ -1,13 +1,23 @@
 a {
-    color: var(--white) !important;
+    color: var(--white-text) !important;
 }
 
 .header__links a {
+    opacity: 0.8;
     position: relative;
     font-weight: 400;
     display: flex;
     align-items: center;
     gap: 10px;
+    transition: all .3s;
+}
+
+.header__links a:hover {
+    opacity: 1;
+}
+
+.header_logo {
+    display: block;
 }
 
 .header {
@@ -17,6 +27,10 @@ a {
 .header__menu-top {
     display: flex;
     align-items: center;
+    background: transparent;
+    padding: 21px 26px;
+    border-radius: 20px;
+    transition: all .3s;
 }
 
 .header__links {
@@ -125,6 +139,7 @@ a {
     gap: 15px;
     align-items: center;
     white-space: nowrap;
+    line-height: 140%;
 }
 
 .user-menu-themes {

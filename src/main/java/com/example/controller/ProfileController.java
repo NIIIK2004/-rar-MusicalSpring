@@ -6,22 +6,24 @@ import com.example.model.User;
 import com.example.repo.SubscriptionRepo;
 import com.example.repo.UserRepo;
 import com.example.validator.RegistrationValidator;
+import com.example.validator.UserValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,6 +36,13 @@ public class ProfileController {
     private final UserImpl userImpl;
     private final UserRepo userRepo;
     private final SubscriptionRepo subscriptionRepo;
+
+    private final UserValidator userValidator;
+
+    @InitBinder("user")
+    protected void initBinder(WebDataBinder binder) {
+        binder.addValidators(userValidator);
+    }
 
     @GetMapping("/profile")
     public String profilePage(Model model, Principal principal) {
@@ -63,7 +72,10 @@ public class ProfileController {
     }
 
     @PostMapping("/setting/save")
-    public String settingUserSave(@ModelAttribute("user") User user, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    public String settingUserSave(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "Setting";
+        }
 
         Optional<User> optionalUser = userRepo.findById(user.getId());
         if (optionalUser.isPresent()) {
@@ -82,10 +94,26 @@ public class ProfileController {
                     }
                 }
             }
+
+            userImpl.updateFields(user.getId(), user.getName(), user.getSurname(), user.getMail(), user.getUsername(), user.getPassword(), user.getAvatar());
+            redirectAttributes.addFlashAttribute("message", "Данные пользователя изменены");
+            return "redirect:/profile";
+        } else {
+            return "redirect:/error";
         }
-        userImpl.updateFields(user.getId(), user.getName(), user.getSurname(), user.getMail(), user.getUsername(), user.getPassword(), user.getAvatar());
-        redirectAttributes.addFlashAttribute("message", "Данные пользователя изменены");
-        return "redirect:/profile";
+    }
+
+    @PostMapping("/setting/validate")
+    @ResponseBody
+    public List<String> validateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        List<String> errors = new ArrayList<>();
+        userValidator.validate(user, bindingResult);
+        if (bindingResult.hasErrors()) {
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errors.add(error.getDefaultMessage());
+            }
+        }
+        return errors;
     }
 
 }

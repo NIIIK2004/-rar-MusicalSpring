@@ -2,6 +2,16 @@ function goBack() {
     window.history.back();
 }
 
+function updateFileName() {
+    let input = document.getElementById('audioFile');
+    let fileNameSpan = document.getElementById('audioFileName');
+
+    if (input.files.length > 0) {
+        fileNameSpan.textContent = input.files[0].name;
+    } else {
+        fileNameSpan.textContent = 'Загрузите файл';
+    }
+}
 
 let inputElement = document.getElementById("photosFile");
 let fileCountElement = document.getElementById("fileNameOrCount");
@@ -46,17 +56,6 @@ function previewFile() {
 
     if (file) {
         reader.readAsDataURL(file);
-    }
-}
-
-function updateFileName() {
-    let input = document.getElementById('audioFile');
-    let fileNameSpan = document.getElementById('audioFileName');
-
-    if (input.files.length > 0) {
-        fileNameSpan.textContent = input.files[0].name;
-    } else {
-        fileNameSpan.textContent = 'Загрузите файл';
     }
 }
 

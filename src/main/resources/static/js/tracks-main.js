@@ -13,6 +13,8 @@ const bottomPanel = document.querySelector(".bottom_panel");
 let curr_track_id = -1;
 let items = 7;
 
+
+
 showMore.addEventListener('click', () => {
     items += 7;
     const array = Array.from(document.querySelector('.tracks-main__list').children);
@@ -41,10 +43,24 @@ showMore.addEventListener('click', () => {
 
 
 function animate() {
+    const theme = localStorage.getItem('theme');
+
     if (maximizeIcon.src.includes("maximize-icon.svg")) {
-        bottomPanel.style.backgroundColor = '#1B1B1B';
+        bottomPanel.style.backgroundColor = 'var(--black-layer)';
+        bottomPanel.style.borderRadius = 'unset';
+        bottomPanel.style.padding = '20px 0px';
+        bottomPanel.style.scale = 'unset';
+        bottomPanel.style.marginBottom = 'unset';
     } else {
-        bottomPanel.style.backgroundColor = 'transparent';
+        if (theme === 'light') {
+            bottomPanel.style.backgroundColor = 'var(--black-layer)';
+            bottomPanel.style.borderRadius = '20px';
+            bottomPanel.style.padding = '20px 40px';
+            bottomPanel.style.scale = '.95';
+            bottomPanel.style.marginBottom = '20px';
+        } else {
+            bottomPanel.style.backgroundColor = 'transparent';
+        }
     }
 
     requestAnimationFrame(animate);
@@ -60,10 +76,22 @@ fullscreenButton.addEventListener("click", function (event) {
         setTimeout(function () {
             warnNotification.style.opacity = "0";
         }, 2000);
+
+        // document.querySelector('.total-time').style.color = 'var(--white-text)';
+        // document.querySelector('.current-time').style.color = 'var(--white-text)';
+        // document.querySelector('.trackTitle').style.color = 'var(--white-text)';
+        // document.querySelector('.artistsName').style.color = 'var(--white-text)';
+
     } else {
         maximizeIcon.src = "../images/maximize-icon.svg";
         detailsTrack.classList.remove("open");
         document.body.classList.remove('body--active');
+
+        // document.querySelector('.total-time').style.color = 'var(--white)';
+        // document.querySelector('.current-time').style.color = 'var(--white)';
+        // document.querySelector('.trackTitle').style.color = 'var(--white)';
+        // document.querySelector('.artistsName').style.color = 'var(--white)';
+
     }
 });
 

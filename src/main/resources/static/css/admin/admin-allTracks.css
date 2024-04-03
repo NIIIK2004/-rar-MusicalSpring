@@ -1,0 +1,77 @@
+.admin-all-track {
+    max-width: 1114px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 21px;
+}
+
+.admin-all-track li {
+    border-radius: 13px;
+    position: relative;
+    width: 262px;
+    height: 262px;
+    overflow: hidden;
+}
+
+.playPauseIconSlider {
+    width: 36px;
+
+}
+
+.admin-tracks-main__bottom {
+    position: absolute;
+    width: 222px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    bottom: 22px;
+    left: 20px;
+}
+
+.admin-tracks-main__bottom-left h3 {
+    font-weight: 500;
+    font-size: 21px;
+    color: var(--white-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+.admin-tracks-main__bottom-left a span {
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--grayNotEdit);
+}
+
+.tracks-main__top img {
+    border-radius: 13px;
+    object-fit: cover;
+    width: 262px;
+    height: 262px;
+}
+
+.tracks-main__top {
+    position: relative;
+}
+.tracks-main__top:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+
+.admin-tools-top {
+    width: 222px;
+    display: flex;
+    position: absolute;
+    z-index: 62;
+    justify-content: space-between;
+    left: 22px;
+    top: 20px;
+    align-items: center;
+}

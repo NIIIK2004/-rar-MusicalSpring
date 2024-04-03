@@ -3,6 +3,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 23px;
     margin-top: 40px;
+    position: relative;
 }
 
 .news__block {
@@ -129,7 +130,7 @@
 .event_description {
     color: var(--white);
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 300;
     line-height: normal;
 }
 
@@ -150,7 +151,7 @@
     margin-top: 15px;
     color: var(--gray);
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 400;
     line-height: normal;
 }
 
@@ -232,7 +233,7 @@
     margin-top: 28px;
     color: var(--gray);
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: normal;
 }
 

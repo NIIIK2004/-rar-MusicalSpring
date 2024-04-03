@@ -57,7 +57,7 @@
                 <div class="control-block-device">
                     <img th:src="@{/images/device-icon.svg}" title="Устройство воспроизведения">
                     <h6>Играет на: </h6>
-                    <span id="osVersion">Определение</span>
+                    <span id="osVersion" style="color: var(--white-text)">Определение</span>
                 </div>
             </div>
 
@@ -78,7 +78,7 @@
                 <div class="no-work__warn">
                     <div class="no-work__warn_title">
                         <h2>Пока недоступно</h2>
-                        <button class="subs__warn-close noWork-close"><img src="../images/close-for-warn.svg"></button>
+                        <button class="subs__warn-close noWork-close"><img src="../images/close-for-warn.svg" class="icon-close"></button>
                     </div>
                     <p>Функция находиться
                         <br>на этапе разработки
@@ -101,6 +101,10 @@
             <th:block>
                 <ul class="tracks-main__list">
                     <li class="tracks-main__item" th:each="track: ${tracks}">
+                        <audio class="audioPlayer" controls style="display: none;">
+                            <source type="audio/mp3" th:src="@{'/uploads/' + ${track.getAudiofilename()}}">
+                            Ваш браузер не поддерживает воспроизведение аудио.
+                        </audio>
                         <div class="tracks-main__top">
                             <img class="tracks-main__img" th:src="@{'/uploads/' + ${track.getCoverfilename()}}"
                                  height="225">
@@ -120,7 +124,7 @@
     </div>
 
     <div class="subs__warn">
-        <button class="subs__warn-close"><img src="../images/close-for-warn.svg"></button>
+        <button class="subs__warn-close"><img src="../images/close-for-warn.svg" class="icon-close"></button>
         <p>Функция доступна только при подписке Меломан
             <br>
             Хотите преобрести?
@@ -135,11 +139,13 @@
                 <div class="audio-left-block">
 
                     <div class="audio__info-wrapper">
-                        <img class="coverImage" src="../images/cover/Nirvana_album_cover.svg.webp" alt="Обложка аудио"
+                        <img class="coverImage"
+                             src="https://media.istockphoto.com/id/1302436578/ru/%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE/%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0-%D0%BA%D1%80%D1%83%D0%B3-%D0%B7%D0%BD%D0%B0%D1%87%D0%BE%D0%BA-%D0%B0%D0%BD%D0%B8%D0%BC%D0%B0%D1%86%D0%B8%D1%8F-%D0%BD%D0%B0-%D1%87%D0%B5%D1%80%D0%BD%D0%BE%D0%BC-%D1%84%D0%BE%D0%BD%D0%B5-4k-%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-loopable-preloader.jpg?s=640x640&k=20&c=9qPUgl14StpZxJNtQYMMXLCoGKsWCgL0jul5v6vt4iE="
+                             alt="Обложка аудио"
                              width="50">
                         <div class="track__info">
-                            <h3 class="trackTitle">Название аудио</h3>
-                            <p class="artistsName">Имя исполнителя</p>
+                            <h3 class="trackTitle">Вспоминаем</h3>
+                            <p class="artistsName">Ваш последний трек</p>
                         </div>
                     </div>
 
@@ -224,7 +230,7 @@
                 <div class="banner-title-wrapper">
                     <h1 class="banner-title">Хочешь попасть в секретный
                         Телеграм канал нашего сервиса?</h1>
-                    <a href="#"><img th:src="@{/images/close.svg}"></a>
+                    <a href="#" class="close-button"><img th:src="@{/images/close.svg}"></a>
                 </div>
                 <p class="banner-description">Чтобы узнавать быстрее всех об обновлениях или выпусках новых треков,
                     артистов и подкастов! Может ты хочешь испытать новые фишки? Оформляй подписку “Эклектик” и получай
@@ -246,7 +252,7 @@
     </div>
 </section>
 
-<section style="margin: 200px;">Заглушка</section>
+<section style="margin: 200px;"></section>
 
 <div class="details-track" style="background: url('/images/track-test-2.png');">
     <div class="container">
@@ -287,7 +293,10 @@
 <script th:src="@{/js/tracks-main.js}"></script>
 <script th:src="@{/js/custom-select.js}"></script>
 <script th:src="@{/js/custom-file.js}"></script>
+<script th:src="@{/js/greeting.js}"></script>
 <script th:src="@{/js/alert.js}"></script>
+<script th:src="@{/js/keydown.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+
 
 </html>

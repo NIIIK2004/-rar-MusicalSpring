@@ -27,7 +27,8 @@
     <div class="container">
         <div class="profile-wrapper">
             <div class="profile-setting-wrapper">
-                <form class="setting-form" th:object="${user}" th:action="@{/setting/save}" method="post"
+                <form class="setting-form" id="setting-form" th:object="${user}" th:action="@{/setting/save}"
+                      method="post"
                       enctype="multipart/form-data">
                     <div class="setting-top-page">
                         <div class="setting-ava">
@@ -54,18 +55,22 @@
 
                             <label for="surname">Отображаемая фамилия
                                 <input th:field="*{surname}" type="text" id="surname" class="setting-info-input"
-                                       name="surname" required></label>
+                                       name="surname" required>
+                                <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+                            </label>
                         </div>
 
                         <div class="setting-info_wrapper">
                             <label for="username">Логин при входе
                                 <input th:field="*{username}" class="setting-info-input"
                                        name="username" id="username" required>
+                                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
                             </label>
 
                             <label for="mail">Электронная почта
                                 <input th:field="*{mail}" type="text" class="setting-info-input"
                                        name="mail" id="mail" required>
+                                <span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span>
                             </label>
 
                             <input th:field="*{password}" type="hidden" class="setting-info-input"
@@ -98,8 +103,68 @@
             </div>
         </div>
     </div>
+    <div id="error-container"></div>
+    <div id="user-data-message" style="display: none;" class="user-data-message">
+        <h2>Данные о пользователе изменены!</h2>
+        <p>Вы можете увидеть это в личном кабинете. Не меняли данные? Статья о Безопасности данных</p>
+        <a href="#" id="close-link">Хорошо</a>
+    </div>
 </section>
 
 </body>
+<script th:src="@{/js/setting.js}"></script>
 <script th:src="@{/js/basic-tools.js}"></script>
+<script th:src="@{/js/alert.js}"></script>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('setting-form');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            fetch('/setting/save', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Ошибка HTTP ' + response.status);
+                    }
+                    // Проверяем ответ от сервера на наличие сообщений об ошибках
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('user-data-message').style.display = 'block';
+                    const errorContainer = document.getElementById('error-container');
+                    if (errorContainer.innerHTML.trim() === '') {
+                        history.pushState(null, '', '/profile');
+                        fetch('/profile')
+                            .then(response => response.text())
+                            .then(html => {
+                                const tempDiv = document.createElement('div');
+                                tempDiv.innerHTML = html;
+
+                                const profileWrapperContent = tempDiv.querySelector('.profile-wrapper').innerHTML;
+
+                                document.querySelector('.profile-wrapper').innerHTML = profileWrapperContent;
+                            })
+                            .catch(error => {
+                                console.error('Ошибка при загрузке страницы профиля:', error);
+                            });
+                    } else {
+                        // Если есть сообщения об ошибках, не выполняем перенаправление
+                        console.log('Данные не прошли валидацию:', errorContainer.innerHTML);
+                    }
+                })
+                .catch(error => {
+                    console.error('Возникла ошибка при сохранении данных:', error);
+                });
+        });
+    });
+
+
+</script>
 </html>

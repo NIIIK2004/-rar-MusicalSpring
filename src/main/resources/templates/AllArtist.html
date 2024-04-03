@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
@@ -28,57 +29,19 @@
             <h1 class="title">Артисты</h1>
             <div class="view">
                 <span>Вид:</span>
-                <a href="#" data-view="one-view">
-                    <svg id="icon-one" class="icon-one" width="29" height="29" viewBox="0 0 29 29" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <rect width="29" height="29" rx="14.5" fill="#F8F8F8"/>
-                        <circle cx="14.5" cy="14.5" r="8.5" stroke="black" stroke-width="2"/>
-                    </svg>
+                <a href="#" data-view="one-view-1">
+                    <img class="view-icon" th:src="@{/images/artists-view/view-noactive-1.svg}">
                 </a>
-                <a href="#" data-view="two-view">
-                    <svg id="icon-two" class="icon-two" width="29" height="29" viewBox="0 0 29 29" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <rect width="29" height="29" rx="14.5" fill="#F8F8F8"/>
-                        <g clip-path="url(#clip0_1183_2449)">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M14.146 5.87533C14.3689 5.76389 14.6313 5.76389 14.8541 5.87533L22.7708 9.83366C23.039 9.96776 23.2084 10.2419 23.2084 10.5417C23.2084 10.8416 23.039 11.1157 22.7708 11.2498L14.8541 15.2082C14.6313 15.3196 14.3689 15.3196 14.146 15.2082L6.22937 11.2498C5.96117 11.1157 5.79175 10.8416 5.79175 10.5417C5.79175 10.2419 5.96117 9.96776 6.22937 9.83366L14.146 5.87533ZM8.35364 10.5417L14.5001 13.615L20.6465 10.5417L14.5001 7.46852L8.35364 10.5417Z"
-                                  fill="#0C0C0C"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M5.87526 18.1043C6.07079 17.7132 6.54632 17.5547 6.93739 17.7503L14.5 21.5316L22.0626 17.7503C22.4537 17.5547 22.9292 17.7132 23.1248 18.1043C23.3203 18.4954 23.1618 18.9709 22.7707 19.1664L14.8541 23.1248C14.6312 23.2362 14.3688 23.2362 14.146 23.1248L6.2293 19.1664C5.83823 18.9709 5.67972 18.4954 5.87526 18.1043Z"
-                                  fill="#0C0C0C"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M5.87526 14.146C6.07079 13.755 6.54632 13.5965 6.93739 13.792L14.5 17.5733L22.0626 13.792C22.4537 13.5965 22.9292 13.755 23.1248 14.146C23.3203 14.5371 23.1618 15.0126 22.7707 15.2082L14.8541 19.1665C14.6312 19.278 14.3688 19.278 14.146 19.1665L6.2293 15.2082C5.83823 15.0126 5.67972 14.5371 5.87526 14.146Z"
-                                  fill="#0C0C0C"/>
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_1183_2449">
-                                <rect width="19" height="19" fill="white" transform="translate(5 5)"/>
-                            </clipPath>
-                        </defs>
-                    </svg>
+                <a href="#" data-view="two-view-2">
+                    <img class="view-icon" th:src="@{/images/artists-view/view-noactive-2.svg}">
                 </a>
-                <a href="#" data-view="three-view">
-                    <svg id="icon-three" class="icon-three" width="29" height="29" viewBox="0 0 29 29" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <rect width="29" height="29" rx="14.5" fill="#F8F8F8"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M6.58325 7.37492C6.58325 6.93769 6.93769 6.58325 7.37492 6.58325H12.9166C13.3538 6.58325 13.7083 6.93769 13.7083 7.37492V12.9166C13.7083 13.3538 13.3538 13.7083 12.9166 13.7083H7.37492C6.93769 13.7083 6.58325 13.3538 6.58325 12.9166V7.37492ZM8.16659 8.16659V12.1249H12.1249V8.16659H8.16659Z"
-                              fill="#0C0C0C"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M15.2917 7.37492C15.2917 6.93769 15.6462 6.58325 16.0834 6.58325H21.6251C22.0623 6.58325 22.4167 6.93769 22.4167 7.37492V12.9166C22.4167 13.3538 22.0623 13.7083 21.6251 13.7083H16.0834C15.6462 13.7083 15.2917 13.3538 15.2917 12.9166V7.37492ZM16.8751 8.16659V12.1249H20.8334V8.16659H16.8751Z"
-                              fill="#0C0C0C"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M15.2917 16.0834C15.2917 15.6462 15.6462 15.2917 16.0834 15.2917H21.6251C22.0623 15.2917 22.4167 15.6462 22.4167 16.0834V21.6251C22.4167 22.0623 22.0623 22.4167 21.6251 22.4167H16.0834C15.6462 22.4167 15.2917 22.0623 15.2917 21.6251V16.0834ZM16.8751 16.8751V20.8334H20.8334V16.8751H16.8751Z"
-                              fill="#0C0C0C"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M6.58325 16.0834C6.58325 15.6462 6.93769 15.2917 7.37492 15.2917H12.9166C13.3538 15.2917 13.7083 15.6462 13.7083 16.0834V21.6251C13.7083 22.0623 13.3538 22.4167 12.9166 22.4167H7.37492C6.93769 22.4167 6.58325 22.0623 6.58325 21.6251V16.0834ZM8.16659 16.8751V20.8334H12.1249V16.8751H8.16659Z"
-                              fill="#0C0C0C"/>
-                    </svg>
+                <a href="#" data-view="three-view-3">
+                    <img class="view-icon" th:src="@{/images/artists-view/view-noactive-3.svg}">
                 </a>
             </div>
         </div>
 
-        <div class="AllArtist__wrapper one-view" style="display: none;">
+        <div class="AllArtist__wrapper one-view" data-view="1" style="display: none;">
             <th:block th:if="${artists.isEmpty()}">
                 <p>Артистов пока нет</p>
             </th:block>
@@ -96,7 +59,7 @@
             </th:block>
         </div>
 
-        <div class="AllArtist__wrapper two-view" style="display: none;">
+        <div class="AllArtist__wrapper two-view" data-view="2" style="display: none;">
             <th:block th:if="${artists.isEmpty()}">
                 <p>Артистов пока нет</p>
             </th:block>
@@ -118,7 +81,7 @@
             </th:block>
         </div>
 
-        <div class="AllArtist__wrapper three-view" style="display: none;">
+        <div class="AllArtist__wrapper three-view" data-view="3" style="display: none;">
             <th:block th:if="${artists.isEmpty()}">
                 <p>Артистов пока нет</p>
             </th:block>
@@ -143,9 +106,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/view-switcher.js}"></script>
-<script th:src="@{/js/custom-file.js}"></script>
-<script th:src="@{/js/artists.js}"></script>
 
 </html>

@@ -15,6 +15,9 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/admin/admin-addTrack.css}">
     <link rel="icon" th:href="@{/images/logo.svg}">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
     <title>Треки</title>
 </head>
 
@@ -33,11 +36,19 @@
         <div class="admin__wrapper">
             <header class="header" th:include="admin/components/Admin-Header :: header"></header>
             <div class="admin__panel">
-                <form action="alltrack/save" method="post" enctype="multipart/form-data">
-                    <label for="audio" class="audioFile__loading">
-                        <input type="file" id="audio" name="audio" accept="audio/*" onchange="updateFileName()">
-                        <span id="audioFileName">Загрузите файл</span>
+                <form action="/alltrack/saveOrUpdate" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" th:value="${track.id}">
+                    <input type="hidden" name="artist_id" th:value="${track.artists != null ? track.artists.id : ''}" />
+
+
+                    <label for="audioFile" class="audioFile__loading">
+                        <input type="file" id="audioFile" name="audio" accept="audio/*" onchange="updateFileName()">
+                        <span id="audioFileName" th:text="${track.audiofilename != null ? track.audiofilename : 'Загрузите файл'}"></span>
+
+
+                        <!--                        <span id="audioFileName">Загрузите файл</span>-->
                     </label>
+                    <button id="listenButton" type="button" style="color: #00A542">Прослушать</button>
                     <div class="addTrack__wrapper">
                         <div class="addTrack-left">
                             <div class="addTrack-basicInformation">
@@ -46,17 +57,18 @@
                                     <ul class="basicInformation-inputs">
                                         <li>
                                             <label for="title">Название релиза</label>
-                                            <input type="text" id="title" name="title"
+                                            <input type="text" id="title" name="title" th:value="${track.title}"
                                                    placeholder="Введите название релиза">
                                         </li>
-                                        <li>
+                                        <li style="height: 81px">
                                             <label for="artistId">Исполнитель</label>
                                             <th:block th:if="${artists.isEmpty()}">
                                                 <p style="color: #da2424">Без артистов нельзя сделать трек</p>
                                             </th:block>
-                                            <select class="select" id="artistId" name="artist_id">
+                                            <select class="js-select2" id="artistId" name="artist_id">
+                                                <option value=""></option>
                                                 <th:block th:each="artist : ${artists}">
-                                                    <option th:value="${artist.id}" th:text="${artist.name}"></option>
+                                                    <option th:value="${artist.id}" th:text="${artist.name}" th:selected="${track.artists != null and track.artists.id == artist.id}"></option>
                                                 </th:block>
                                             </select>
                                         </li>
@@ -71,9 +83,11 @@
                                     <h1 class="addTrack-title">Вставьте обложку релиза</h1>
                                     <div class="cover-img">
                                         <label for="cover">
-                                            <img id="preview" th:src="@{/}" alt="cover" onerror="this.src='/images/default-download-img.png';">
+                                            <img id="preview" th:src="${'/uploads/' + track.coverfilename}" alt="cover"
+                                                 onerror="this.src='/images/default-download-img.png';">
                                         </label>
-                                        <input type="file" name="cover" id="cover" accept="image/*" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])">
+                                        <input type="file" name="cover" id="cover" accept="image/*"
+                                               onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])">
                                     </div>
                                 </div>
                             </div>
@@ -82,13 +96,12 @@
                                 <ul class="additionalInformation-inputs">
                                     <li>
                                         <label for="genre">Жанр трека</label>
-                                        <input type="text" id="genre" name="genre"
-                                               placeholder="Введите название релиза">
+                                        <input type="text" id="genre" name="genre" th:value="${track.genre}"
+                                               placeholder="Введите жанр трека">
                                     </li>
                                     <li>
                                         <label for="year">Год выпуска</label>
-                                        <input type="text" id="year" name="releaseYear"
-                                               placeholder="Введите год выпуска">
+                                        <input type="text" id="year" name="releaseyear" th:value="${track.releaseyear}" placeholder="Введите год выпуска">
                                     </li>
                                 </ul>
 
@@ -98,7 +111,8 @@
                         <div class="addTrack-right">
                             <h1 class="addTrack-title">Напишите текст песни</h1>
                             <div class="addTrack-lyric">
-                                <textarea name="lyrics" id="lyrics" placeholder="Введите текст"></textarea>
+                                <textarea name="lyrics" id="lyrics" placeholder="Введите текст"
+                                          th:text="${track.lyrics}"></textarea>
                             </div>
                         </div>
                     </div>
@@ -113,4 +127,40 @@
 <script th:src="@{/js/custom-select.js}"></script>
 <script th:src="@{/js/custom-file.js}"></script>
 <script th:src="@{/js/basic-tools.js}"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script th:src="@{/js/select2CDN.js}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.js-select2').select2({
+            placeholder: "Выберите артиста",
+            maximumSelectionLength: 2,
+            language: "ru"
+        });
+
+        $('#artistId').change(function() {
+            let selectedArtistId = $(this).val();
+            $('input[name="artist_id"]').val(selectedArtistId);
+        });
+    });
+
+    //Пред-прослушивание треков
+    document.getElementById('listenButton').addEventListener('click', function () {
+        console.log("click");
+        let audio = new Audio();
+        let audioFile = document.getElementById('audioFile').files[0];
+
+        if (audio.src && !audio.paused) {
+            audio.pause();
+            audio.currentTime = 0;
+        } else if (audioFile) {
+            audio.src = URL.createObjectURL(audioFile);
+            audio.play();
+        } else {
+            alert('Пожалуйста, выберите аудиофайл для прослушивания.');
+        }
+    });
+</script>
+
 </html>
