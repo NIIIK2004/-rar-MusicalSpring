@@ -122,6 +122,9 @@
     </div>
 </div>
 
+<div th:if="${error}" class="error-message">
+    <p th:text="${error}"></p>
+</div>
 
 </body>
 <script th:src="@{/js/custom-select.js}"></script>
@@ -161,6 +164,8 @@
             alert('Пожалуйста, выберите аудиофайл для прослушивания.');
         }
     });
+
+
 </script>
 
 </html>

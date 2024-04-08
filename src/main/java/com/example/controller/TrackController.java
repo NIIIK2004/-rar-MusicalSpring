@@ -53,6 +53,9 @@ public class TrackController {
     public String TrackMainPage(Model model, Principal principal, HttpSession session, HttpServletRequest request) {
         List<Track> tracks = trackRepo.findAll();
         List<Artist> artists = artistRepo.findAll();
+
+        tracks = tracks.stream().sorted(Comparator.comparing(Track::getId).reversed()).toList();
+
         model.addAttribute("artists", artists);
         model.addAttribute("tracks", tracks);
         model.addAttribute("volume", 1.0);
@@ -172,20 +175,34 @@ public class TrackController {
     public String saveOrUpdateTrack(@ModelAttribute("track") Track track,
                                     @RequestParam(value = "cover", required = false) MultipartFile imgfile,
                                     @RequestParam(value = "audio", required = false) MultipartFile audiofile,
-                                    @RequestParam("artist_id") Long artistId,
+                                    @RequestParam(value = "artist_id", required = false) Long artistId,
                                     RedirectAttributes redirectAttributes) throws IOException {
 
+        if (artistId == null) {
+            redirectAttributes.addFlashAttribute("error", "Пожалуйста, выберите артиста");
+            return "redirect:/track/createOrEditTrackPage";
+        }
+
         Artist artist = artistRepo.findById(artistId).orElse(null);
+
         if (artist != null) {
             track.setArtists(artist);
+
+            Track existingTrack = track.getId() != null ? trackRepo.findById(track.getId()).orElse(null) : null;
 
             if (imgfile != null && !imgfile.isEmpty()) {
                 String filenameimg = UUID.randomUUID() + "." + imgfile.getOriginalFilename();
                 imgfile.transferTo(new File(uploadPath + "/" + filenameimg));
                 track.setCoverfilename(filenameimg);
-            } else if (track.getId() != null && track.getCoverfilename() == null) {
-                Track existingTrack = trackRepo.findById(track.getId()).orElse(null);
-                if (existingTrack != null) {
+
+                // Если это редактирование и старая обложка существует, удаляем её
+                if (existingTrack != null && existingTrack.getCoverfilename() != null) {
+                    File oldImgFile = new File(uploadPath + "/" + existingTrack.getCoverfilename());
+                    oldImgFile.delete();
+                }
+            } else {
+                // Если обложка не была загружена, сохраняем имя обложки из существующего трека
+                if (existingTrack != null && existingTrack.getCoverfilename() != null) {
                     track.setCoverfilename(existingTrack.getCoverfilename());
                 }
             }
@@ -194,27 +211,25 @@ public class TrackController {
                 String filenameaudio = UUID.randomUUID() + "." + audiofile.getOriginalFilename();
                 audiofile.transferTo(new File(uploadPath + "/" + filenameaudio));
                 track.setAudiofilename(filenameaudio);
-            } else if (track.getId() != null && track.getAudiofilename() == null) {
-                // Если аудиозапись не была изменена, сохраняем старое значение
-                Track existingTrack = trackRepo.findById(track.getId()).orElse(null);
-                if (existingTrack != null) {
+
+                if (existingTrack != null && existingTrack.getAudiofilename() != null) {
+                    File oldAudioFile = new File(uploadPath + "/" + existingTrack.getAudiofilename());
+                    oldAudioFile.delete();
+                }
+            } else {
+                if (existingTrack != null && existingTrack.getAudiofilename() != null) {
                     track.setAudiofilename(existingTrack.getAudiofilename());
                 }
             }
 
-            boolean isNewTrack = track.getId() == null;
-            if (isNewTrack) {
-                trackRepo.save(track);
-                System.out.println("Новый трек успешно сохранен!");
-            } else {
-                trackRepo.save(track); // Сохраняем изменения в существующем треке
-                System.out.println("Трек успешно обновлен!");
-            }
+            trackRepo.save(track);
 
-            redirectAttributes.addFlashAttribute("success", isNewTrack ? "Новый трек успешно добавлен!" : "Трек успешно обновлен!");
+            redirectAttributes.addFlashAttribute("success", track.getId() == null ? "Новый трек успешно добавлен!" : "Трек успешно обновлен!");
+            return "redirect:/Admin-All-Tracks";
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Выбранный артист не найден");
+            return "redirect:/track/createOrEditTrackPage";
         }
-
-        return "redirect:/Admin-All-Tracks";
     }
 
 

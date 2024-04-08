@@ -96,15 +96,25 @@ public class AllArtistController {
         artist.setLiking(liking);
 
         if (file != null && !file.isEmpty()) {
+            if (artist.getFilename() != null) {
+                File oldFIle = new File(uploadPath + "/" + artist.getFilename());
+                if (oldFIle.exists()) {
+                    oldFIle.delete();
+                }
+            }
             String filename = UUID.randomUUID() + "." + file.getOriginalFilename();
             file.transferTo(new File(uploadPath + "/" + filename));
             artist.setFilename(filename);
+        } else {
+            if (artistId != null && artist.getFilename() != null) {
+                Artist oldArtist = artistRepo.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Артист с ID " + artistId + " не найден"));
+                artist.setFilename(oldArtist.getFilename());
+            }
         }
 
         artistImpl.add(artist);
         return "redirect:/Admin-All-Artist";
     }
-
 
 
     @GetMapping("/allartist/delete/{id}") //Удаление артиста
@@ -114,11 +124,10 @@ public class AllArtistController {
 
         String artistImagePath = artist.getFilename();
 
-        if (artistImagePath != null) {
-            String imagePath = uploadPath + "/" + artistImagePath;
-            File file = new File(imagePath);
-            if (file.exists()) {
-                file.delete();
+        if (artist.getFilename() != null) {
+            File oldFIle = new File(uploadPath + "/" + artist.getFilename());
+            if (oldFIle.exists()) {
+                oldFIle.delete();
             }
         }
 

@@ -62,6 +62,14 @@
     height: 150px;
     border-radius: 13px;
     box-shadow: 5px 11px 23px 6px rgba(0, 0, 0, 0.48);
+    transition: all .3s ease-in-out;
+}
+
+.news_photo:hover {
+    bottom: 10px;
+    right: 10px;
+    width: 520px;
+    height: 280px;
 }
 
 .section-event {
