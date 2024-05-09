@@ -22,7 +22,9 @@
 </head>
 
 <body>
-<header class="header" th:include="components/header :: header"></header>
+
+<header class="header" th:insert="~{components/header :: header}"></header>
+
 <section class="AllArtist">
     <div class="container">
         <div class="artist-main__top">

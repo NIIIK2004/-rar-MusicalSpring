@@ -22,15 +22,15 @@
     <div class="container">
         <div class="header__top">
             <div class="header__top-logo">
-                <img th:src="@{/images/admin/logotype.svg}">
+                <a th:href="@{/Admin}"><img th:src="@{/images/admin/logotype.svg}"></a>
             </div>
             <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
-            <span class="header__top-nameAdmin">Администратор Никита</span>
+            <a class="header__top-nameAdmin" th:href="@{/}">Пользовательский интерфейс</a>
         </div>
     </div>
     <div class="container">
         <div class="admin__wrapper">
-            <header class="header" th:include="admin/components/Admin-Header :: header"></header>
+            <header class="header" th:insert="~{admin/components/Admin-Header :: header}"></header>
             <div class="admin__panel">
                 <form th:object="${album}" th:action="@{/artist/{id}/createOrEditAlbum(id = ${artist.id})}" class="edit-photo-album" method="post" enctype="multipart/form-data">
                     <input type="hidden" th:field="*{id}" />
@@ -40,11 +40,11 @@
                         <input type="file" id="file" name="file" accept="image/*" onchange="previewFile()">
                     </div>
 
-                    <input class="edit-photo-album__title" type="text" name="name" th:value="${album.name}">
+                    <input class="edit-photo-album__title" type="text" name="name" th:value="${album.name}" placeholder="Название альбома">
 
                     <div class="edit-photo-album__cityAndYear">
-                        <input type="text" name="city" th:value="${album.city}">
-                        <input type="number" name="year" th:value="${album.year}">
+                        <input type="text" name="city" th:value="${album.city}" placeholder="В городе...">
+                        <input type="number" name="year" th:value="${album.year ?: 2024}" step="1" min="1900" placeholder="Год события">
                     </div>
 
                     <button class="button_save">Сохранить</button>

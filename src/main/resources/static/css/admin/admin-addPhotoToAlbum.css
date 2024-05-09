@@ -85,7 +85,7 @@
     display: none;
 }
 
-.album__photo a svg {
+.album__photo a img {
     position: absolute;
     bottom: 20px;
     right: 20px;

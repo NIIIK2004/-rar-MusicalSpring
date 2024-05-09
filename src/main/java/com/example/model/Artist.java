@@ -6,8 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,12 +33,17 @@ public class Artist implements Serializable {
     private String liking;
     private String filename;
 
+    @CreatedDate
+    private LocalDateTime createdDate;
+
     @OneToMany(mappedBy = "artists", cascade = CascadeType.REMOVE)
     private List<Track> tracks;
 
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
     private List<Album> albums;
 
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    private List<Playlist> playlists;
 
     //Переопределение методов для того чтобы последние просмотренные не повторялись
     @Override

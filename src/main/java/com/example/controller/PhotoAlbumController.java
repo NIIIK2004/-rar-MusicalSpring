@@ -45,11 +45,10 @@ public class PhotoAlbumController {
         model.addAttribute("album", album);
         model.addAttribute("artist", artist);
         model.addAttribute("sortedPhotoDate", sortedPhotosByCreatedDateTime);
-
         return "PhotoAlbum";
     }
 
-    @GetMapping("/artist/{artistId}/createOrEditAlbumPage") //Видим редактирование Альбома
+    @GetMapping("/artist/{artistId}/createOrEditAlbumPage") //Видим добавление / редактирование Альбома
     public String createOrEditAlbumPage(Model model, @PathVariable Long artistId, @RequestParam(name = "albumId", required = false) Long albumId) {
         Artist artist = artistRepo.findById(artistId)
                 .orElseThrow(() -> new IllegalArgumentException("Не найден id Артиста:" + artistId));
@@ -63,6 +62,7 @@ public class PhotoAlbumController {
         } else {
             model.addAttribute("album", new Album());
         }
+        model.addAttribute("pageTitle", "Фото-Альбомы");
         model.addAttribute("artist", artist);
         return "admin/CreateOrEditPhotoAlbum";
     }
@@ -118,6 +118,15 @@ public class PhotoAlbumController {
         artist.getAlbums().remove(album);
         album.setArtist(null);
 
+        String cover = album.getFilename();
+        if (cover != null) {
+            String imagePath = uploadPath + "/" + cover;
+            File file = new File(imagePath);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+
         albumRepo.deleteById(albumId);
         return "redirect:/artist/{artistId}/details";
     }
@@ -150,6 +159,15 @@ public class PhotoAlbumController {
         if (optionalPhotoArtists.isPresent()) {
             PhotoArtists photoArtists = optionalPhotoArtists.get();
             photoToAlbumRepo.delete(photoArtists);
+
+            String cover = photoArtists.getFilename();
+            if (cover != null) {
+                String imagePath = uploadPath + "/" + cover;
+                File file = new File(imagePath);
+                if (file.exists()) {
+                    file.delete();
+                }
+            }
         }
 
         return "redirect:/artist/{artistId}/album/{albumId}";

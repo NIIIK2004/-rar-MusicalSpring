@@ -13,6 +13,9 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +53,16 @@ public class AllArtistController {
     public String artistMainPage(Model model, HttpServletRequest request) {
         List<Artist> artists = artistRepo.findAll();
         model.addAttribute("artists", artists);
+        model.addAttribute("pageTitle", "Артисты");
+
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            model.addAttribute("username", username);
+        } else {
+            model.addAttribute("username", "Не авторизован");
+        }
 
         if (request.getRequestURI().equals("/Admin-All-Artist")) {
             return "/admin/AdminAllArtist";
@@ -64,8 +77,12 @@ public class AllArtistController {
         if (artistId != null) {
             Artist artist = artistRepo.findById(artistId).orElseThrow(() -> new IllegalThreadStateException("Не найден id Артиста:" + artistId));
             model.addAttribute("artist", artist);
+            model.addAttribute("pageTitle", "Ред.Артиста");
+
         } else {
             model.addAttribute("artist", new Artist());
+            model.addAttribute("pageTitle", "Доб.Артиста");
+
         }
         return "admin/CreateOrEditArtist";
     }
@@ -78,7 +95,12 @@ public class AllArtistController {
                                      @RequestParam String genre,
                                      @RequestParam String listeners,
                                      @RequestParam String country,
-                                     @RequestParam String liking) throws IOException {
+                                     @RequestParam String liking, Model model) throws IOException {
+        if (name.isEmpty() || description.isEmpty() || genre.isEmpty() || country.isEmpty()) {
+            model.addAttribute("error", "Заполните обязательные поля помеченные звездочкой");
+            return "admin/CreateOrEditArtist";
+        }
+
 
         Artist artist;
         if (artistId != null) {
@@ -86,6 +108,10 @@ public class AllArtistController {
                     .orElseThrow(() -> new IllegalArgumentException("Артист с ID " + artistId + " не найден"));
         } else {
             artist = new Artist();
+            if (artistRepo.existsByName(name)) {
+                model.addAttribute("error", "Артист с таким именем уже существует!");
+                return "admin/CreateOrEditArtist"; // Вернуть страницу с ошибкой
+            }
         }
 
         artist.setName(name);
@@ -155,6 +181,13 @@ public class AllArtistController {
 
         List<Artist> recentlyViewedArtists = (List<Artist>) session.getAttribute("recentlyViewedArtists");
 
+        List<Track> lastTracks = artist.getTracks().stream().sorted(Comparator.comparing(Track::getId).reversed()).toList();
+        if (lastTracks.size() > 5) {
+            lastTracks = lastTracks.subList(0, 6);
+        }
+
+        model.addAttribute("lastTracks", lastTracks);
+
         if (recentlyViewedArtists == null) {
             recentlyViewedArtists = new ArrayList<>();
         }
@@ -188,6 +221,7 @@ public class AllArtistController {
 
         model.addAttribute("isSubscribed", isSubscribed);
         model.addAttribute("isUserRegistered", isUserRegistered);
+        model.addAttribute("playlists", artist.getPlaylists());
         model.addAttribute("albums", artist.getAlbums());
 
         if (isUserRegistered) {
@@ -198,8 +232,19 @@ public class AllArtistController {
         Collections.reverse(recentlyViewedArtists);
         return "Artist";
     }
-}
 
+    @GetMapping("/artist/{id}/similar")
+    public String getSimilarArtists(@PathVariable("id") Long id, Model model) {
+        Artist artist = artistRepo.findById(id).orElseThrow(() -> new RuntimeException("Артист с ID : " + id + " не найден!"));
+        List<Artist> similarArtists = artistRepo.findByGenreAndIdNotOrderByListenersDesc(
+                artist.getGenre(),
+                artist.getId()
+        );
+        model.addAttribute("similarArtists", similarArtists);
+        model.addAttribute("artist", artist);
+        return "ArtistSimilar";
+    }
+}
 
 
 

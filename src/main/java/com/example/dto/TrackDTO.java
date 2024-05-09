@@ -14,6 +14,7 @@ public class TrackDTO {
     private Long id;
     private String title;
     private String artistsName;
+    private Long ArtistId;
     private String coverFilename;
     private String genre;
     private String year;

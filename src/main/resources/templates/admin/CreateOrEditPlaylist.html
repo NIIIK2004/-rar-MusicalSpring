@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/admin/admin-header.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/admin-editPhotoAlbum.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <title>Плейлисты</title>
+</head>
+
+<body>
+<div class="admin">
+    <div class="container">
+        <div class="header__top">
+            <div class="header__top-logo">
+                <a th:href="@{/Admin}"><img th:src="@{/images/admin/logotype.svg}"></a>
+            </div>
+            <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
+            <a class="header__top-nameAdmin" th:href="@{/}">Пользовательский интерфейс</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="admin__wrapper">
+            <header class="header" th:insert="~{admin/components/Admin-Header :: header}"></header>
+            <div class="admin__panel">
+                <form th:object="${playlist}"
+                      th:action="@{/artist/{artistId}/createOrEditPlaylist(artistId=${artist.id})}"
+                      class="edit-photo-album" method="post" enctype="multipart/form-data">
+                    <input type="hidden" th:field="*{id}" th:value="${playlist.id}">
+                    <div class="edit-photo-album__cover">
+                        <label for="file">Изменить обложку плейлиста</label>
+                        <img id="preview" th:src="${'/uploads/' + playlist.getCover()}" onerror="this.src='/images/admin/uploads-for-images/cover-for-upload-playlist.svg';">
+                        <input type="file" id="file" name="file" accept="image/*" onchange="previewFile()">
+                    </div>
+
+                    <input class="edit-photo-album__title" type="text" name="title" th:value="${playlist.title}"
+                           placeholder="Название плейлиста">
+
+                    <div class="edit-photo-album__cityAndYear">
+                        <textarea class="edit-playlist__description" name="description" th:value="${playlist.description}"
+                                  placeholder="Классное описание плейлиста" th:text="${playlist.description}"></textarea>
+                    </div>
+
+                    <button class="button_save">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script th:src="@{/js/basic-tools.js}"></script>
+
+</html>

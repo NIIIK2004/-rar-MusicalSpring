@@ -16,12 +16,11 @@
     <link rel="stylesheet" th:href="@{/css/profile.css}">
     <link rel="icon" th:href="@{/images/logo.svg}">
     <title>Musical - Профиль</title>
-    <link rel="stylesheet" href="../static/css/profile.css">
 </head>
 
 <body class="body">
 
-<header class="header" th:include="components/header :: header"></header>
+<header class="header" th:insert="~{components/header :: header}"></header>
 
 <section class="profile">
     <div class="container">
@@ -67,7 +66,7 @@
 
                     <div class="info-user-counting">
                         <div class="user-counting">
-                            <h3>78880</h3>
+                            <h3 th:text="${listenedTracksCount}"></h3>
                             <img th:src="@{/images/counting-listening.svg}" alt="dec">
                         </div>
                         <span>Прослушанных треков</span>
@@ -93,7 +92,7 @@
                         <label for="function1">Включить Бесконечные треки</label>
 
                         <input type="checkbox" id="function2" name="function" class="custom-checkbox">
-                        <label for="function2">Плавные переходы между треками</label>
+                        <label for="function2">Показывать аватарку сверху</label>
                     </form>
                 </div>
 
@@ -132,4 +131,5 @@
 <script th:src="@{/js/custom-select.js}"></script>
 <script th:src="@{/js/custom-file.js}"></script>
 <script th:src="@{/js/alert.js}"></script>
+
 </html>

@@ -17,4 +17,6 @@ public interface UserDao {
     public User findByUsername(String username);
 
     User updateFields(Long id, String name, String surname, String mail, String username, String password, String avatar);
+
+    User findByEmail(String email);
 }

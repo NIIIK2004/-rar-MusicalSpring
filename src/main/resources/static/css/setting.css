@@ -76,6 +76,7 @@
     line-height: normal;
     display: flex;
     flex-direction: column;
+    height: 118px;
 }
 
 .setting-info-input {

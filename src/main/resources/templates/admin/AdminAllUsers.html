@@ -23,22 +23,25 @@
     <div class="container">
         <div class="header__top">
             <div class="header__top-logo">
-                <img th:src="@{/images/admin/logotype.svg}">
+                <a th:href="@{/Admin}">
+                    <img th:src="@{/images/admin/logotype.svg}">
+                </a>
             </div>
             <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
-            <span class="header__top-nameAdmin">Администратор Никитаыыы</span>
+            <a class="header__top-nameAdmin" th:href="@{/}">Пользовательский интерфейс</a>
         </div>
     </div>
     <div class="container">
         <div class="admin__wrapper">
-            <header class="header" th:include="admin/components/Admin-Header :: header"></header>
+            <header class="header" th:insert="~{admin/components/Admin-Header :: header}"></header>
             <div class="admin__panel">
                 <div class="admin__panel-users">
                     <ul>
                         <li th:each="user : ${users}">
                             <div class="user-top">
                                 <div class="user-top-left">
-                                    <img class="user_avatar" th:src="@{'/uploads/' + ${user.avatar}}" alt="ava-users" onerror="this.src = '/images/admin/admin-ava.svg';">
+                                    <img class="user_avatar" th:src="@{'/uploads/' + ${user.avatar}}" alt="ava-users"
+                                         onerror="this.src = '/images/admin/admin-ava.svg';">
                                     <div class="user-data-name">
                                         <h2 th:text="${user.name}"></h2>
                                         <span th:text="${user.surname}"></span>

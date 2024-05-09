@@ -43,6 +43,7 @@ public class TrackImpl implements TrackDao {
         return this.trackRepo.findById(id);
     }
 
+
     public Track findLatestTrackByArtistId(Long artistId) {
         Optional<Track> optionalTrack = trackRepo.findTopByArtistsIdOrderByCoverfilename(artistId);
         return optionalTrack.orElse(null);

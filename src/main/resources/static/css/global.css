@@ -22,9 +22,10 @@ ul {
     --white-text: #F8F8F8;
     --grayNotEdit: #CDCDCD;
 }
+
 /*#e6e6e6*/
 html, body {
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
     scroll-behavior: smooth;
 }
 
@@ -85,4 +86,12 @@ button {
 
 .main {
     padding-bottom: 20px;
+}
+
+a::selection, p::selection, h1::selection, h2::selection, h3::selection, h4::selection, h5::selection, span::selection {
+    background-color: var(--feolet);
+}
+
+img::selection {
+    background-color: transparent;
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/tracks-main.css}">
+    <link rel="stylesheet" th:href="@{/css/details-track.css}">
+    <link rel="stylesheet" th:href="@{/css/AllArtist.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <title>Похожие артисты</title>
+</head>
+
+<body>
+<header class="header" th:insert="~{components/header :: header}"></header>
+<section class="AllArtist">
+    <div class="container">
+
+
+        <div class="AllArtist__wrapper">
+            <th:block th:if="${similarArtists.isEmpty()}">
+                <p>Похожие артисты не найдено, данный артист уникален =)</p>
+            </th:block>
+
+            <th:block th:each="similarArtist : ${similarArtists}">
+                <div class="artist">
+                    <a th:href="@{/artist/{id}/details(id=${similarArtist.id})}">
+                        <div class="img-blackout">
+                            <img th:src="@{'/uploads/' + ${similarArtist.filename}}" alt="artist" width="130" height="130"
+                                 style="border-radius: 50%" id="myImage">
+                        </div>
+                    </a>
+                    <p class="artist-name" th:text="${similarArtist.name}" id="myText"></p>
+                    <p class="similar-artist-listeners" th:text="${similarArtist.listeners} + ' слушателей'"></p>
+                </div>
+            </th:block>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>

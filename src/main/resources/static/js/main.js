@@ -145,7 +145,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 let currentProgress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
                 progress.style.width = currentProgress + "%";
 
-                circle.style.left = (currentProgress * progressBar.offsetWidth) / 103 + "px";
+                // circle.style.left = (currentProgress * progressBar.offsetWidth) / 103 + "px";
+                circle.style.opacity = '0';
 
                 let currentMinutes = Math.floor(audioPlayer.currentTime / 60);
                 let currentSeconds = Math.floor(audioPlayer.currentTime % 60);
@@ -163,6 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let rect = progressBar.getBoundingClientRect();
         let offsetX = event.clientX - rect.left;
         circle.style.left = offsetX - circle.offsetWidth / 2 + "px";
+        circle.style.opacity = '1';
     });
 
     function padDigits(number) {
@@ -180,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     volumeControl.addEventListener('wheel', function (event) {
         event.preventDefault();
         let delta = event.deltaY || event.detail || -event.wheelDelta;
-        let step = delta > 0 ? -0.1 : 0.1; // Определение направления прокрутки
+        let step = delta > 0 ? -0.1 : 0.1;
         volumeControl.value = Math.max(0, Math.min(1, parseFloat(volumeControl.value) + step));
         Array.from(audioPlayers).forEach(function (audio) {
             audio.volume = volumeControl.value;
@@ -211,6 +213,39 @@ function updateBottomPanel(trackId) {
         .catch(reportError => {
             console.error('Ошибка извлекания данных трека бро: ', reportError);
         })
+}
+
+function displayTrackInfo(track) {
+    document.querySelectorAll('.trackTitle').forEach(trackTitle => trackTitle.innerText = track.title);
+    document.querySelectorAll('.artistsName').forEach(artistName => {
+        artistName.innerText = track.artistsName;
+        artistName.href = `/artist/${track.artistId}/details`;
+    });
+    document.querySelectorAll('.coverImage').forEach(image => image.src = `/uploads/${track.coverFilename}`);
+    document.querySelector('.details-track').style.background = `url('/uploads/${track.coverFilename}')`;
+    document.querySelectorAll('.details-track__genre').forEach(trackGenre => trackGenre.innerText = track.genre);
+    document.querySelectorAll('.details-track__lyrics').forEach(trackLyrics => trackLyrics.innerText = track.lyric);
+}
+
+function listenToTrack(button) {
+    let trackId = button.dataset.trackId;
+
+    fetch(`/listen/${trackId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP запроса! Статус: ${response.status}`);
+            }
+            console.log("Track listened successfully");
+        })
+        .catch(error => {
+            console.error('Ошибка при прослушивании трека: ', error);
+
+        });
 }
 
 function updatePlayPauseButton(isPaused) {
@@ -257,49 +292,3 @@ function playTrackById(trackId) {
     const playButton = document.querySelector(`.tracks-main__btn[data-track-id="${trackId}"]`);
     playButton.click();
 }
-
-function displayTrackInfo(track) {
-    document.querySelectorAll('.trackTitle').forEach(trackTitle => trackTitle.innerText = track.title);
-    document.querySelectorAll('.artistsName').forEach(artistName => artistName.innerText = track.artistsName);
-    document.querySelectorAll('.coverImage').forEach(image => image.src = `/uploads/${track.coverFilename}`);
-    document.querySelector('.details-track').style.background = `url('/uploads/${track.coverFilename}')`;
-    document.querySelectorAll('.details-track__genre').forEach(trackGenre => trackGenre.innerText = track.genre);
-    document.querySelectorAll('.details-track__lyrics').forEach(trackLyrics => trackLyrics.innerText = track.lyric);
-}
-
-
-//
-// function toggleMute() {
-//     if (currentAudioPlayer) {
-//         currentAudioPlayer.muted = !currentAudioPlayer.muted;
-//         document.getElementById('muteIcon').src = currentAudioPlayer.muted
-//             ? "../images/sound-muted-icon.svg"
-//             : "../images/sound-active-icon.svg";
-//     }
-// }
-
-
-// ////////Slider/////////
-// var swiper = new Swiper('.swiper', {
-//     // Настройки Swiper
-//     slidesPerView: 4,
-//     spaceBetween: 20,
-//     navigation: {
-//         nextEl: '.main__AllTracks-slider-arrow-right',
-//         prevEl: '.main__AllTracks-slider-arrow-left'
-//     },
-//     mousewheel: false,
-//     loop: false
-// });
-//
-//
-// //////Размытие/////
-//
-// window.addEventListener("DOMContentLoaded", function (event) {
-//     var content = document.getElementById("content");
-//     setTimeout(function () {
-//         content.classList.remove("hidden");
-//         content.style.opacity = 1;
-//     }, 3000);
-// });
-//

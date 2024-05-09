@@ -26,8 +26,18 @@ public class SpringSecurity {
                 .authorizeRequests()
                 .requestMatchers("/js/**", "/css/**", "/fonts/**", "/images/**", "/static/**")
                 .permitAll()
-//                .requestMatchers("/").hasAuthority("Администратор")
-//                .requestMatchers("/").hasAuthority("Пользователь")
+                .requestMatchers("/Admin/users",
+                        "/Admin-News",
+                        "/Admin-All-Artist",
+                        "/Admin-All-Tracks",
+                        "/track/createOrEditTrackPage",
+                        "/artist/createOrEditArtistPage",
+                        "artist/{artistId}/createOrEditAlbumPage",
+                        "/artist/{artistId}/playlist/{playlistId}/addTrack",
+                        "/Admin")
+                .hasAuthority("Администратор")
+                .requestMatchers("/setting")
+                .authenticated()
                 .anyRequest()
                 .permitAll()
                 .and()

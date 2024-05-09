@@ -7,7 +7,7 @@
 .title {
     font-family: 'Nunito', serif;
     font-size: 28px;
-    font-weight: 500;
+    font-weight: 400;
     color: var(--white);
 
     width: fit-content;
@@ -57,7 +57,7 @@ audio {
 .progress-bar {
     background-color: var(--white);
     height: 4px;
-    width: 420px;
+    width: 100%;
     border-radius: 50px;
     position: relative;
 }
@@ -79,6 +79,7 @@ audio {
     height: 15px;
     opacity: 1;
     transition: opacity 0.2s ease;
+    cursor: pointer;
 }
 
 .total-time,
@@ -101,13 +102,36 @@ audio {
 
 .audio-action_btn {
     display: flex;
-    gap: 20px;
+    gap: 8px;
     justify-content: flex-end;
+}
+
+.audio-action_btn button {
+    transition: all .3s;
+    background: transparent;
+    padding: 11px 13px;
+}
+
+.audio-action_btn button:hover {
+    background: #313131;
+    border-radius: 100px;
+    display: block;
+    padding: 11px 13px;
 }
 
 .controls {
     display: flex;
     gap: 5px;
+}
+
+.controls img {
+    opacity: 0.6;
+    transition: all .2s;
+}
+
+.controls img:hover {
+    opacity: 1;
+    transform: scale(0.98);
 }
 
 .audio-left-block,
@@ -148,14 +172,23 @@ audio {
     white-space: nowrap;
 }
 
+.track__info a,
 .track__info p {
     font-weight: 500;
     font-size: 14px;
     line-height: 140%;
-    color: var(--white);
+    color: var(--gray) !important;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    display: block;
+    opacity: 0.6;
+    transition: all .2s;
+}
+
+.track__info a:hover,
+.track__info p:hover {
+    opacity: 1;
 }
 
 
@@ -573,7 +606,7 @@ body.slide-out {
 .control-block-randTrack h2 {
     color: var(--white-text);
     font-size: 21px;
-    font-weight: 500;
+    font-weight: 400;
     line-height: normal;
     max-width: 232px;
 }
@@ -731,7 +764,7 @@ input[type=range]::-webkit-slider-thumb {
     color: var(--white);
     text-align: center;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 400;
     line-height: normal;
     white-space: nowrap;
     overflow: hidden;

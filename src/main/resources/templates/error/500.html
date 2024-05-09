@@ -1,10 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <title>404</title>
 </head>
-<body>
-500
+
+<style>
+    .section-error {
+
+    }
+
+    .header_logo {
+        margin: 100px auto 0;
+    }
+
+    .error_wrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+        max-width: 530px;
+    }
+
+    .error_wrapper img {
+        width: 170px;
+        height: 170px;
+        object-fit: cover;
+        margin: 0 auto;
+    }
+
+    .error_wrapper h1 {
+        font-weight: 500;
+        font-size: 108px;
+        color: var(--white);
+        line-height: 140%;
+    }
+
+    .error_text {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .error_text p {
+        font-weight: 400;
+        font-size: 48px;
+        color: var(--white);
+        line-height: 140%;
+    }
+
+    .error_text span {
+        display: block;
+        font-weight: 300;
+        font-size: 21px;
+        text-align: center;
+        color: var(--white);
+        line-height: 1;
+    }
+
+</style>
+
+<body class="body">
+
+<section class="section-error">
+    <div class="container">
+        <a th:href="@{/}">
+            <img th:src="@{/images/header/logotype-update.svg}" alt="лого" class="header_logo">
+        </a>
+
+        <div class="error_wrapper">
+            <img src="/images/error-404.svg" alt="">
+            <h1>500</h1>
+            <div class="error_text">
+                <p>Что-то пошло не так!!!</p>
+                <span>Без понятия, что вы сделали что попали на эту страницу, но я вам не завидую скорее обратитесь в поддержку</span>
+            </div>
+        </div>
+    </div>
+</section>
+
 </body>
+
 </html>

@@ -6,17 +6,24 @@
                 <li class="header__link"><a th:href="@{/search}">Поиск <img
                         th:src="@{/images/header/search.svg}"></a>
                 </li>
-                <li class="header__link"><a th:href="@{/}">Все треки <img
-                        th:src="@{/images/header/headphones.svg}"></a></li>
-                <li class="header__link"><a th:href="@{/podcasts}">Подкасты <img
-                        th:src="@{/images/header/podcast.svg}"></a></li>
-                <li class="header__link"><a th:href="@{/allartist}">Артисты <img
-                        th:src="@{/images/header/artists.svg}"></a></li>
-                <li class="header__link"><a th:href="@{/news}">Новости <img
-                        th:src="@{/images/header/news.svg}"></a>
+                <li class="header__link">
+                    <a th:href="@{/}">Все треки <img th:src="@{/images/header/headphones.svg}"></a>
                 </li>
-                <li class="header__link"><a th:href="@{/collection}">Коллекция <img
-                        th:src="@{/images/header/like.svg}"></a></li>
+                <li class="header__link">
+                    <a th:href="@{/podcasts}">Подкасты <img th:src="@{/images/header/podcast.svg}"></a>
+                </li>
+                <li class="header__link">
+                    <a th:href="@{/allartist}">Артисты <img th:src="@{/images/header/artists.svg}"></a>
+                </li>
+                <li class="header__link">
+                    <a th:href="@{/news}">Новости <img th:src="@{/images/header/news.svg}"></a>
+                </li>
+                <li class="header__link">
+                    <a th:href="@{/collection}">Коллекция <img th:src="@{/images/header/like.svg}"></a>
+                </li>
+                <li class="header__link" th:if="${#authorization.expression('hasAuthority(''Администратор'')')}">
+                    <a th:href="@{/Admin-News}">Админ-Панель <img th:src="@{/images/header/admin.svg}"></a>
+                </li>
             </ul>
             <div class="header_ets">
                 <a th:href="@{/}" class="header_user">
@@ -62,4 +69,5 @@
     </div>
     <script th:src="@{/js/header-user-menu.js}"></script>
     <script th:src="@{/js/themeChange.js}"></script>
+
 </header>

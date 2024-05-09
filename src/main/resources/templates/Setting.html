@@ -21,7 +21,7 @@
 
 <body class="body">
 
-<header class="header" th:include="components/header :: header"></header>
+<header class="header" th:insert="~{components/header :: header}"></header>
 
 <section class="profile">
     <div class="container">
@@ -46,7 +46,6 @@
                     <div class="setting-info">
                         <div class="setting-info_wrapper">
                             <input th:field="*{id}" type="hidden" class="setting-info-input" name="id" required>
-
                             <label for="name">Отображаемое имя
                                 <input th:field="*{name}" type="text" class="setting-info-input" name="name" id="name"
                                        required>
@@ -61,6 +60,7 @@
                         </div>
 
                         <div class="setting-info_wrapper">
+
                             <label for="username">Логин при входе
                                 <input th:field="*{username}" class="setting-info-input"
                                        name="username" id="username" required>
@@ -103,7 +103,6 @@
             </div>
         </div>
     </div>
-    <div id="error-container"></div>
     <div id="user-data-message" style="display: none;" class="user-data-message">
         <h2>Данные о пользователе изменены!</h2>
         <p>Вы можете увидеть это в личном кабинете. Не меняли данные? Статья о Безопасности данных</p>
@@ -115,56 +114,8 @@
 <script th:src="@{/js/setting.js}"></script>
 <script th:src="@{/js/basic-tools.js}"></script>
 <script th:src="@{/js/alert.js}"></script>
+
 <script>
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const form = document.getElementById('setting-form');
-
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-
-            const formData = new FormData(form);
-
-            fetch('/setting/save', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Ошибка HTTP ' + response.status);
-                    }
-                    // Проверяем ответ от сервера на наличие сообщений об ошибках
-                    return response.text();
-                })
-                .then(html => {
-                    document.getElementById('user-data-message').style.display = 'block';
-                    const errorContainer = document.getElementById('error-container');
-                    if (errorContainer.innerHTML.trim() === '') {
-                        history.pushState(null, '', '/profile');
-                        fetch('/profile')
-                            .then(response => response.text())
-                            .then(html => {
-                                const tempDiv = document.createElement('div');
-                                tempDiv.innerHTML = html;
-
-                                const profileWrapperContent = tempDiv.querySelector('.profile-wrapper').innerHTML;
-
-                                document.querySelector('.profile-wrapper').innerHTML = profileWrapperContent;
-                            })
-                            .catch(error => {
-                                console.error('Ошибка при загрузке страницы профиля:', error);
-                            });
-                    } else {
-                        // Если есть сообщения об ошибках, не выполняем перенаправление
-                        console.log('Данные не прошли валидацию:', errorContainer.innerHTML);
-                    }
-                })
-                .catch(error => {
-                    console.error('Возникла ошибка при сохранении данных:', error);
-                });
-        });
-    });
-
 
 </script>
 </html>

@@ -32,7 +32,7 @@
             <form th:object="${user}" th:action="@{/registration/save}" method="POST" enctype="multipart/form-data" novalidate id="registrationForm">
 
                 <div class="autorizated__wrapper">
-                    <h3 class="autorizated__wrapper-title">Бесконечный поток музыки - Это когда пароль и логин хорошо
+                    <h3 class="autorizated__wrapper-title">🔒 Бесконечный поток музыки - Это когда пароль и логин хорошо
                         защищены</h3>
                     <input type="text" placeholder="Придумайте логин" required th:field="*{username}">
                     <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="autorizated__wrapper hidden">
-                    <h3 class="autorizated__wrapper-title">Ваше имя это стиль вашего профиля</h3>
+                    <h3 class="autorizated__wrapper-title">💫 Ваше имя это стиль вашего профиля</h3>
                     <input type="text" placeholder="Имя" required th:field="*{name}">
                     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="autorizated__wrapper hidden">
-                    <h3 class="autorizated__wrapper-title">Мир глазами вашего объектива</h3>
+                    <h3 class="autorizated__wrapper-title">🌍 Мир глазами вашего объектива</h3>
                     <div class="setting-ava">
                         <label for="avatar" class="avatar-file">
                             <img th:src="@{/images/li_camera.svg}">
@@ -68,7 +68,7 @@
                         <img class="setting-ava-img" th:src="@{'/uploads/' + ${user.avatar}}" id="preview" onerror="this.src='/images/pasteImg.png';">
                     </div>
                     <span th:if="${#fields.hasErrors('avatar')}" th:errors="*{avatar}"></span>
-                    <button class="autorizated__wrapper-senddData" type="submit">Зарегистрироваться</button>
+                    <button class="autorizated__wrapper-senddData btn_reg_pageReg" type="submit">Зарегистрироваться</button>
                     <a href="#" class="autorizated__wrapper-back">Назад</a>
                 </div>
             </form>

@@ -5,12 +5,13 @@ import com.example.model.Subscription;
 import com.example.model.User;
 import com.example.repo.SubscriptionRepo;
 import com.example.repo.UserRepo;
-import com.example.validator.RegistrationValidator;
+import com.example.repo.UserTrackHistoryRepo;
 import com.example.validator.UserValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,10 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -37,6 +35,8 @@ public class ProfileController {
     private final UserRepo userRepo;
     private final SubscriptionRepo subscriptionRepo;
 
+    @Autowired
+    private UserTrackHistoryRepo userTrackHistoryRepo;
     private final UserValidator userValidator;
 
     @InitBinder("user")
@@ -54,13 +54,18 @@ public class ProfileController {
         if (user == null) {
             return "redirect:/login?logout";
         }
+
+        int listenedTracksCount = userTrackHistoryRepo.getSumOfListenCountByUserDividedByTwo(user);
         List<Subscription> subscription = subscriptionRepo.getAllSubscriptionsByUser(user);
+
         model.addAttribute("subscription", subscription);
         model.addAttribute("user", user);
+        model.addAttribute("listenedTracksCount", listenedTracksCount);
         return "Profile";
     }
 
     @GetMapping("/setting")
+    @PreAuthorize("isAuthenticated()")
     public String settingUser(Model model, Principal principal) {
         String username = principal.getName();
         User user = userImpl.findByUsername(username);
@@ -72,8 +77,9 @@ public class ProfileController {
     }
 
     @PostMapping("/setting/save")
-    public String settingUserSave(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    public String settingUserSave(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("user", user);
             return "Setting";
         }
 
@@ -115,5 +121,6 @@ public class ProfileController {
         }
         return errors;
     }
+
 
 }

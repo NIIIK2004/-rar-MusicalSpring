@@ -70,4 +70,9 @@ public class UserImpl implements UserDao {
     public User findByUsername(String username) {
         return userRepo.findByUsername(username);
     }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepo.findByMail(email);
+    }
 }

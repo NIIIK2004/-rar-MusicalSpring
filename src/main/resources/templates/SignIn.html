@@ -27,7 +27,7 @@
 
         <form th:action="@{/login}" method="post">
             <div class="autorizated__wrapper">
-                <h3 class="autorizated__wrapper-title" th:text="${randomMessage}"></h3>
+                <h3 class="autorizated__wrapper-title" th:text="${'💡' + randomMessage}"></h3>
                 <input type="text" id="username" name="username" placeholder="Логин" required>
                 <input type="password" id="password" name="password" placeholder="Пароль" required>
                 <a th:href="@{/registration}" class="autorizated__wrapper-check">Нет аккаунта? Давай

@@ -23,15 +23,15 @@
     <div class="container">
         <div class="header__top">
             <div class="header__top-logo">
-                <img th:src="@{/images/admin/logotype.svg}">
+                <a th:href="@{/Admin}"><img th:src="@{/images/admin/logotype.svg}"></a>
             </div>
             <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
-            <span class="header__top-nameAdmin">Администратор Никита</span>
+            <a class="header__top-nameAdmin" th:href="@{/}">Пользовательский интерфейс</a>
         </div>
     </div>
     <div class="container">
         <div class="admin__wrapper">
-            <header class="header" th:include="admin/components/Admin-Header :: header"></header>
+            <header class="header" th:insert="~{admin/components/Admin-Header :: header}"></header>
             <div class="admin__panel">
                 <th:block th:if="${tracks.isEmpty()}">
                     <p>Релизов пока нет (странно конечно что на музыкальном сервисе нет музыки) XD</p>
@@ -40,7 +40,8 @@
                     <ul class="admin-all-track">
                         <li th:each="track: ${tracks}">
                             <div class="admin-tools-top">
-                                <a class="admin-tools-delete" th:href="@{'/track/createOrEditTrackPage?trackId=' + ${track.id}}">
+                                <a class="admin-tools-delete"
+                                   th:href="@{'/track/createOrEditTrackPage?trackId=' + ${track.id}}">
                                     <img th:src="@{../images/admin/edit.svg}" alt="Редактировать">
                                 </a>
                                 <a class="admin-tools-delete" th:href="@{'/delete/' + ${track.id}}">

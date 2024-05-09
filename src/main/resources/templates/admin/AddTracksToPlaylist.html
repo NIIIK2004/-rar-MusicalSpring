@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/admin/admin-header.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/search.css}">
+    <link rel="stylesheet" th:href="@{/css/Playlist.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/admin-addTracksToPlaylist.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
+    <title>Добавление треков в плейлист</title>
+</head>
+
+<body>
+<div class="admin">
+    <div class="container">
+        <div class="header__top">
+            <div class="header__top-logo">
+                <a th:href="@{/Admin}"><img th:src="@{/images/admin/logotype.svg}"></a>
+            </div>
+            <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
+            <a class="header__top-nameAdmin" th:href="@{/}">Пользовательский интерфейс</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="admin__wrapper">
+            <header class="header" th:insert="~{admin/components/Admin-Header :: header}"></header>
+            <div class="admin__panel">
+                <form action="#" method="GET">
+                    <input class="search_tracks" type="text" id="searchInput" oninput="searchTracks()"
+                           placeholder="Поиск треков...">
+                    <div id="searchResults"></div>
+                </form>
+                <form th:action="@{/artist/{artistId}/playlist/{playlistId}/addTracks(artistId=${artist.id}, playlistId=${playlist.id})}"
+                      method="POST">
+                    <div class="playlist-tracks-wrapper">
+                        <ul class="playlist-tracks playlist-tracks-check">
+                            <li th:each="track : ${tracks}">
+                                <label class="checkbox-other">
+                                    <input type="checkbox" name="selectedTracks" th:value="${track.id}">
+                                    <span class="checkmark"></span>
+                                    <div class="checkbox-info-track">
+                                        <span th:text="${track.artists.name}"></span>
+                                        <span> - </span>
+                                        <span th:text="${track.title}"></span>
+                                        <span> | </span>
+                                        <span style="color: var(--gray)" th:text="${track.genre}"></span>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="button_save">Добавить треки</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script th:src="@{/js/basic-tools.js}"></script>
+<script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+
+<script>
+    function searchTracks() {
+        let searchInput = document.getElementById("searchInput").value.toLowerCase();
+        let tracks = document.querySelectorAll(".playlist-tracks li");
+
+        tracks.forEach(function (track) {
+            let trackTitle = track.querySelector(".checkbox-info-track span:nth-child(3)").textContent.toLowerCase();
+            let trackArtist = track.querySelector(".checkbox-info-track span:first-child").textContent.toLowerCase();
+
+            if (trackTitle.includes(searchInput) || trackArtist.includes(searchInput)) {
+                track.style.display = "block";
+            } else {
+                track.style.display = "none";
+            }
+        });
+    }
+</script>
+</html>

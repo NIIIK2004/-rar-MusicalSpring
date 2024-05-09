@@ -53,7 +53,7 @@ a {
 .header_ets-wrapper {
     display: flex;
     background: rgba(81, 81, 81, 0.50);
-    border-radius: 10px;
+    border-radius: 15px;
     border: 1px solid #686868;
     padding: 15px 30px;
     align-items: center;
@@ -61,7 +61,11 @@ a {
 }
 
 .header_ets-wrapper:hover {
-    background: var(--feolet);
+    background: #292929;
+}
+
+.header_ets-wrapper:active {
+    transform: scale(0.97);
 }
 
 .header_ets-wrapper--authenticated {
@@ -140,6 +144,12 @@ a {
     align-items: center;
     white-space: nowrap;
     line-height: 140%;
+    opacity: 0.8;
+    transition: all .3s;
+}
+
+.user_menu-list a:hover {
+    opacity: 1;
 }
 
 .user-menu-themes {

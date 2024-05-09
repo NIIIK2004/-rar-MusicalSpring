@@ -1,0 +1,74 @@
+.checkbox-other {
+    display: block;
+    position: relative;
+    padding-left: 50px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: all .3s;
+}
+
+.checkbox-other input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    transition: all .3s;
+}
+
+.checkmark {
+    border: 1px solid transparent;
+}
+
+.checkbox-other .checkmark {
+    position: absolute;
+    top: -2.5px;
+    left: 0;
+    height: 30px;
+    width: 30px;
+    border: 1px solid #494949;
+    background: transparent;
+    border-radius: 50px;
+    transition: all .3s;
+}
+
+.checkbox-other:hover input ~ .checkmark {
+    background-color: #1c1c1c;
+    border: 1px solid var(--feolet);
+}
+
+.checkbox-other input:checked ~ .checkmark {
+    /*background: var(--white);*/
+    background: var(--feolet);
+}
+
+.checkbox-other .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-other input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-other .checkmark:after {
+    background: url("/images/check.svg") no-repeat;
+    left: 50%;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    background-size: contain;
+    transform: translate(-50%, -50%);
+}
+
+.playlist-tracks-wrapper {
+    gap: unset;
+    margin-top: 40px;
+    height: 600px;
+    overflow: auto;
+}

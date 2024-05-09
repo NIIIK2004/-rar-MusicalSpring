@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -9,11 +9,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
 
-    <link rel=" stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/search.css">
-    <link rel="icon" href="../images/logo.svg">
+    <link rel=" stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/search.css}">
+    <link rel="icon" th:href="@{/images/logo.svg}">
 
     <title>Musical - Поиск</title>
 </head>
@@ -22,11 +22,11 @@
 <header class="header">
     <div class="container">
         <div class="header__menu-top">
-            <a th:href="@{/search}">
-                <img src="../images/header/logotype-update.svg" class="header_logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/header/logotype-update.svg}" class="header_logo">
             </a>
             <form action="/search" method="GET">
-                <input type="search" class="search_tracks" name="name" placeholder="Найти">
+                <input type="search" class="search_tracks" name="name" placeholder='Например "Ведьма и Осёл" или "Король и Шут" '>
                 <button type="submit" class="search-button"><img class="search_tracks-img"
                                                                  src="../images/header/search.svg"></button>
             </form>
@@ -48,23 +48,6 @@
                         <li><a th:href="@{/logout}"><img th:src="@{/images/header/logout.svg}">Выйти из аккаунта</a>
                         </li>
                     </ul>
-
-                    <div class="user-menu-themes">
-                        <a th:href="@{/}">
-                            <img th:src="@{images/header/theme_sun.svg}">
-                            <span>Светлая</span>
-                        </a>
-
-                        <a th:href="@{/}">
-                            <img th:src="@{images/header/theme_moon.svg}">
-                            <span>Темная</span>
-                        </a>
-
-                        <a th:href="@{/}">
-                            <img th:src="@{images/header/theme_classic.svg}">
-                            <span>Классика</span>
-                        </a>
-                    </div>
                 </div>
 
                 <a th:href="@{/login}" class="header_login">

@@ -3,9 +3,12 @@ package com.example.controller;
 import com.example.impl.UserImpl;
 import com.example.model.Subscription;
 import com.example.model.User;
+import com.example.model.UserTrackHistory;
 import com.example.repo.SubscriptionRepo;
+import com.example.repo.UserTrackHistoryRepo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,8 +28,10 @@ import java.util.stream.Collectors;
 public class AdminUserController {
     private final UserImpl userImpl;
     private final SubscriptionRepo subscriptionRepo;
+    private final UserTrackHistoryRepo userTrackHistoryRepo;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public String viewAllUsers(Model model) {
         List<User> users = userImpl.findAll();
         users = users.stream().sorted(Comparator.comparing(User::getId).reversed()).collect(Collectors.toList());
@@ -36,7 +41,8 @@ public class AdminUserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
         User currentUser = userImpl.findByUsername(currentUsername);
-        model.addAttribute("currentUserId", currentUser.getId()); // Передаем только идентификатор текущего пользователя
+        model.addAttribute("currentUserId", currentUser.getId());
+        model.addAttribute("pageTitle", "Пользователи");
 
         return "admin/AdminAllUsers";
     }
@@ -54,8 +60,10 @@ public class AdminUserController {
 
         User user = userImpl.findById(id).orElseThrow(() -> new IllegalArgumentException("Пользователь с id " + id + " не найден"));
         List<Subscription> userSubscriptions = subscriptionRepo.findByUserId(user.getId());
+        List<UserTrackHistory> userTrackHistories = userTrackHistoryRepo.findByUserId(user.getId());
 
         subscriptionRepo.deleteAll(userSubscriptions);
+        userTrackHistoryRepo.deleteAll(userTrackHistories);
         userImpl.delete(id);
 
         model.addAttribute("success", "Пользователь успешно удален");
@@ -63,6 +71,7 @@ public class AdminUserController {
     }
 
     @GetMapping("/add/administrators")
+    @PreAuthorize("hasRole('ADMIN')")
     public String addAdministratorsPage(Model model) {
         model.addAttribute("admin", new User());
         return "admin/CreateAdmin";

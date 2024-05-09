@@ -26,27 +26,26 @@
     <div class="container">
         <div class="header__top">
             <div class="header__top-logo">
-                <img th:src="@{/images/admin/logotype.svg}">
+                <a th:href="@{/Admin}">
+                    <img th:src="@{/images/admin/logotype.svg}">
+                </a>
             </div>
             <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
-            <span class="header__top-nameAdmin">Администратор Никита</span>
+            <a class="header__top-nameAdmin" th:href="@{/}">Пользовательский интерфейс</a>
         </div>
     </div>
     <div class="container">
         <div class="admin__wrapper">
-            <header class="header" th:include="admin/components/Admin-Header :: header"></header>
+            <header class="header" th:insert="~{admin/components/Admin-Header :: header}"></header>
             <div class="admin__panel">
                 <form action="/alltrack/saveOrUpdate" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" th:value="${track.id}">
-                    <input type="hidden" name="artist_id" th:value="${track.artists != null ? track.artists.id : ''}" />
-
+                    <input type="hidden" name="artist_id" th:value="${track.artists != null ? track.artists.id : ''}"/>
 
                     <label for="audioFile" class="audioFile__loading">
                         <input type="file" id="audioFile" name="audio" accept="audio/*" onchange="updateFileName()">
-                        <span id="audioFileName" th:text="${track.audiofilename != null ? track.audiofilename : 'Загрузите файл'}"></span>
-
-
-                        <!--                        <span id="audioFileName">Загрузите файл</span>-->
+                        <span id="audioFileName"
+                              th:text="${track.audiofilename != null ? track.audiofilename : 'Загрузите файл'}"></span>
                     </label>
                     <button id="listenButton" type="button" style="color: #00A542">Прослушать</button>
                     <div class="addTrack__wrapper">
@@ -68,7 +67,8 @@
                                             <select class="js-select2" id="artistId" name="artist_id">
                                                 <option value=""></option>
                                                 <th:block th:each="artist : ${artists}">
-                                                    <option th:value="${artist.id}" th:text="${artist.name}" th:selected="${track.artists != null and track.artists.id == artist.id}"></option>
+                                                    <option th:value="${artist.id}" th:text="${artist.name}"
+                                                            th:selected="${track.artists != null and track.artists.id == artist.id}"></option>
                                                 </th:block>
                                             </select>
                                         </li>
@@ -101,10 +101,10 @@
                                     </li>
                                     <li>
                                         <label for="year">Год выпуска</label>
-                                        <input type="text" id="year" name="releaseyear" th:value="${track.releaseyear}" placeholder="Введите год выпуска">
+                                        <input type="text" id="year" name="releaseyear" th:value="${track.releaseyear}"
+                                               placeholder="Введите год выпуска">
                                     </li>
                                 </ul>
-
                             </div>
                             <button type="submit" class="button_save">Загрузить на площадку</button>
                         </div>
@@ -142,7 +142,7 @@
             language: "ru"
         });
 
-        $('#artistId').change(function() {
+        $('#artistId').change(function () {
             let selectedArtistId = $(this).val();
             $('input[name="artist_id"]').val(selectedArtistId);
         });

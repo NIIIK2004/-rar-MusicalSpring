@@ -24,12 +24,24 @@
     <div class="Artist_ava-wrapper">
         <img th:src="@{'/uploads/' + ${artist.filename}}" alt="ava" class="Artist_ava">
     </div>
-    <header class="header" th:include="components/header :: header"></header>
+
+    <header class="header" th:insert="~{components/header :: header}"></header>
 
     <section class="Artist">
         <div class="container">
             <div class="Artist__wrapper">
-                <h1 class="Artist-name title" th:text="${artist.name}"></h1>
+                <div class="Artist-top-block">
+                    <h1 class="Artist-name title" th:text="${artist.name}"></h1>
+                    <!--                    <div class="Artist__info-social">-->
+                    <!--                        <a th:href="@{https://open.spotify.com/artist/72lYxQHj6k4H3u18ErEWhH}"><img-->
+                    <!--                                th:src="@{/images/spotify.svg}" alt="link"></a>-->
+                    <!--                        <a th:href="@{https://vk.com/niiik04}"><img th:src="@{/images/VK.svg}" alt="link"></a>-->
+                    <!--                        <a th:href="@{https://web.telegram.org/a/#tosVopros}"><img th:src="@{/images/Telegram.svg}"-->
+                    <!--                                                                                   alt="link"></a>-->
+                    <!--                        <a th:href="@{https://www.youtube.com/channel/UCNZnF-bicYstScveDsd648A}"><img-->
+                    <!--                                th:src="@{/images/Youtube.svg}" alt="link"></a>-->
+                    <!--                    </div>-->
+                </div>
                 <p class="Artist__info-bio text" th:text="${artist.description}"></p>
 
                 <div class="Artist__btns">
@@ -51,17 +63,8 @@
                     </form>
 
 
-                    <button class="Artist__btns-similar">Найти похожих</button>
+                    <a th:href="@{/artist/{id}/similar(id=${artist.id})}" class="Artist__btns-similar">Похожие</a>
                 </div>
-                <!--<div class="Artist__info-social">
-                    <a th:href="@{https://open.spotify.com/artist/72lYxQHj6k4H3u18ErEWhH}"><img
-                            th:src="@{/images/spotify.svg}" alt="link"></a>
-                    <a th:href="@{https://vk.com/niiik04}"><img th:src="@{/images/VK.svg}" alt="link"></a>
-                    <a th:href="@{https://web.telegram.org/a/#tosVopros}"><img th:src="@{/images/Telegram.svg}"
-                                                                               alt="link"></a>
-                    <a th:href="@{https://www.youtube.com/channel/UCNZnF-bicYstScveDsd648A}"><img
-                            th:src="@{/images/Youtube.svg}" alt="link"></a>
-                </div>-->
             </div>
             <div class="statistics-wrapper">
                 <h1 class="statistics-title title">Статистика артиста</h1>
@@ -183,59 +186,101 @@
 
 <section class="Artist-info">
     <div class="container">
+
+        <div class="Artist__info-block">
+            <div class="Artist__info-title-block">
+                <h2 class="Artist__info-title">Последние релизы</h2>
+                <a href="#">Посмотреть всё</a>
+            </div>
+            <th:block th:if="${#lists.isEmpty(lastTracks)}">
+                <div class="Artist-empty-block">
+                    <img th:src="@{/images/cassette.svg}">
+                    <p>Пока тишина, но скоро будет громко =)</p>
+                </div>
+            </th:block>
+            <ul class="Artist__info-tracks">
+                <li th:each="lastTrack : ${lastTracks}">
+                    <img class="info-tracks-cover" th:src="@{'/uploads/' + ${lastTrack.coverfilename}}"
+                         alt="cover-tracks">
+                    <div class="Artist__info-track-title">
+                        <p th:text="${lastTrack.title}"></p>
+                        <button class="tracks-main__btn" th:data-track-id="${lastTrack.id}"
+                                onclick="listenToTrack(this)">
+                            <img class="playPauseIconSlider" src="/images/play-track-small.svg"
+                                 alt="Воспроизвести">
+                        </button>
+                        <audio class="audioPlayer" controls style="display: none;">
+                            <source type="audio/mp3" th:src="@{'/uploads/' + ${lastTrack.getAudiofilename()}}">
+                            Ваш браузер не поддерживает воспроизведение аудио.
+                        </audio>
+                    </div>
+                    <div class="artist-section-page-line"></div>
+                </li>
+            </ul>
+        </div>
+
+
         <div class="Artist__info-block">
             <h2 class="Artist__info-title">Плейлисты артиста</h2>
+            <th:block th:if="${#lists.isEmpty(playlists)}">
+                <div class="Artist-empty-block">
+                    <img th:src="@{/images/devilMask.svg}">
+                    <p>Пока что плейлист в разработке. Оставайтесь в теме!</p>
+                </div>
+            </th:block>
             <div class="Artist__info-playlists">
-                <div class="Artist__info-playlist">
-                    <h3>Выбор редакции</h3>
-                    <img th:src="@{/images/playlist-1.png}" alt="pl1">
+                <div class="Artist__info-sets-wrapper set-wrapper-playlist" th:each="playlist : ${playlists}">
+                    <div class="admin-tools" th:if="${#authorization.expression('hasAuthority(''Администратор'')')}">
+                        <div class="editing-tools" style="bottom: 0; padding: 17px">
+                            <a th:href="@{'/artist/' + ${artist.id} + '/createOrEditPlaylistPage?playlistId=' + ${playlist.id}}">
+                                <img th:src="@{/images/admin/edit.svg}">
+                            </a>
+                            <a th:href="@{/artist/{artistId}/playlist/{playlistId}/deletePlaylist(artistId=${artist.id}, playlistId=${playlist.id})}">
+                                <img th:src="@{/images/admin/delete.svg}">
+                            </a>
+                        </div>
+                    </div>
+                    <a th:href="@{/artist/{artistId}/playlist/{playlistId}(artistId = ${artist.id}, playlistId = ${playlist.id})}"
+                       class="Artist__info-playlist">
+                        <h3 th:text="${playlist.title}"></h3>
+                        <img th:src="@{'/uploads/' + ${playlist.cover}}" alt="pl1">
+                    </a>
                 </div>
-                <div class="Artist__info-playlist">
-                    <h3>Все треки</h3>
-                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
-                </div>
-                <div class="Artist__info-playlist">
-                    <h3>Личный</h3>
-                    <img th:src="@{/images/playlist-3.png}" alt="pl1">
-                </div>
-                <div class="Artist__info-playlist">
-                    <h3>Все треки</h3>
-                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
-                </div>
-                <div class="Artist__info-playlist">
-                    <h3>Все треки</h3>
-                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
-                </div>
-                <div class="Artist__info-playlist">
-                    <h3>Все треки</h3>
-                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
-                </div>
-                <div class="Artist__info-playlist">
-                    <h3>Все треки</h3>
-                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
-                </div>
-                <div class="Artist__info-playlist">
-                    <h3>Все треки</h3>
-                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
-                </div>
-                <div class="Artist__info-playlist">
-                    <h3>Все треки</h3>
-                    <img th:src="@{/images/playlist-2.png}" alt="pl1">
+
+                <div class="Artist__info-playlist-add"
+                     th:if="${#authorization.expression('hasAuthority(''Администратор'')')}">
+                    <a th:href="@{/artist/{artistId}/createOrEditPlaylistPage(artistId = ${artist.id})}">
+                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M21 7C21.9665 7 22.75 7.7835 22.75 8.75V33.25C22.75 34.2165 21.9665 35 21 35C20.0335 35 19.25 34.2165 19.25 33.25V8.75C19.25 7.7835 20.0335 7 21 7Z"
+                                  fill="#F8F8F8"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M7 21C7 20.0335 7.7835 19.25 8.75 19.25H33.25C34.2165 19.25 35 20.0335 35 21C35 21.9665 34.2165 22.75 33.25 22.75H8.75C7.7835 22.75 7 21.9665 7 21Z"
+                                  fill="#F8F8F8"></path>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
 
         <div class="Artist__info-block">
             <h2 class="Artist__info-title">Фото-Альбомы</h2>
-
+            <th:block th:if="${#lists.isEmpty(albums)}">
+                <div class="Artist-empty-block">
+                    <img th:src="@{/images/T-shirt.svg}">
+                    <p>Альбомы ещё не готовы. Но мы уже натираем объектив и готовимся к звездным кадрам!</p>
+                </div>
+            </th:block>
             <div class="Artist__info-sets" id="ArtistAlbums">
-                <div class="Artist__info-sets-wrapper" th:each="album : ${albums}">
-                    <div class="admin-tools">
+                <div class="Artist__info-sets-wrapper set-wrapper-album" th:each="album : ${albums}">
+                    <div class="admin-tools" th:if="${#authorization.expression('hasAuthority(''Администратор'')')}">
                         <div class="editing-tools">
-                            <a th:href="@{'/artist/' + ${artist.id} + '/createOrEditAlbumPage?albumId=' + ${album.id}}"><img
-                                    th:src="@{/images/admin/edit.svg}"></a>
-                            <a th:href="@{/artist/{artistId}/album/{albumId}/deleteAlbum(artistId=${artist.id}, albumId=${album.id})}"><img
-                                    th:src="@{/images/admin/delete.svg}"></a>
+                            <a th:href="@{'/artist/' + ${artist.id} + '/createOrEditAlbumPage?albumId=' + ${album.id}}">
+                                <img th:src="@{/images/admin/edit.svg}">
+                            </a>
+                            <a th:href="@{/artist/{artistId}/album/{albumId}/deleteAlbum(artistId=${artist.id}, albumId=${album.id})}">
+                                <img th:src="@{/images/admin/delete.svg}">
+                            </a>
                         </div>
                     </div>
                     <a th:href="@{/artist/{artistId}/album/{albumId}(artistId=${artist.id}, albumId=${album.id})}"
@@ -251,7 +296,8 @@
                         </div>
                     </a>
                 </div>
-                <div class="admin-tools-add-album">
+                <div class="admin-tools-add-album"
+                     th:if="${#authorization.expression('hasAuthority(''Администратор'')')}">
                     <a th:href="@{/artist/{artistId}/createOrEditAlbumPage(artistId = ${artist.id})}">
                         <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -268,8 +314,11 @@
     </div>
 </section>
 
+<section style="margin: 100px;"></section>
+
 </body>
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/basic-tools.js}"></script>
+<script th:src="@{/js/admin/deleteFetchObject.js}"></script>
 
 </html>

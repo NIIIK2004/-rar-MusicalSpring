@@ -35,3 +35,9 @@
     border-radius: 15px;
 }
 
+.album__photo a img {
+    width: 44px;
+    height: 44px;
+}
+
+

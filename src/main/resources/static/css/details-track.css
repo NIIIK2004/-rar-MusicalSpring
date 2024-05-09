@@ -123,7 +123,7 @@
 .track__tab-lyric {
     max-height: 600px;
     overflow-y: auto;
-    mask-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0));
+    mask-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
 }
 
 .details-track__tab {

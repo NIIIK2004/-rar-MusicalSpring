@@ -1,6 +1,7 @@
 body {
     height: 1080px;
 }
+
 .profile-wrapper {
     padding: 50px;
     border-radius: 36px;
@@ -50,7 +51,7 @@ body {
     gap: 13px;
 }
 
-.user-info-name h1{
+.user-info-name h1 {
     color: var(--white);
     font-size: 35px;
     font-weight: 400;
@@ -65,6 +66,7 @@ body {
     display: flex;
     align-items: center;
 }
+
 .user-info-surnameAndRole,
 .user-info-surname {
     color: var(--gray);
@@ -192,7 +194,7 @@ body {
     display: flex;
     color: var(--white);
     font-size: 17px;
-    font-weight: 500;
+    font-weight: 400;
     line-height: normal;
     gap: 10px;
 }
@@ -263,7 +265,13 @@ body {
     align-items: center;
     gap: 22px;
     justify-content: left;
+}
+.interesting-wrapper a {
+    transition: all .3s;
+}
 
+.interesting-wrapper a:hover {
+    transform: scale(.97);
 }
 
 .interesting-wrapper a img {
@@ -280,6 +288,7 @@ body {
     width: 350px;
     transition: all .4s;
 }
+
 .user-data-message p,
 .user-data-message h2 {
     color: #FFF;

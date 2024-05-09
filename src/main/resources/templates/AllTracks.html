@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap"
+          rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
@@ -21,11 +22,20 @@
 </head>
 
 <body class="body">
+<!--<div v-if="loading" class="loading-screen">-->
+<!--    <p>Loading...</p>-->
+<!--</div>-->
+<!--<div v-else>-->
 <div style="background: rgba(83, 71, 204, 0.60); top: -28%; left: -7%;" class="top-decor-left"></div>
 <div style="background: rgba(191, 62, 253, 0.50); top: -40%; left: 30%;" class="top-decor-left"></div>
 
-<header class="header" th:include="components/header :: header"></header>
+<header class="header" th:insert="~{components/header :: header}"></header>
 
+<section class="control-panel InaccessibleContent" sec:authorize="!isAuthenticated()">
+    <div class="container">
+        <img th:src="@{/images/Inaccessible content.png}">
+    </div>
+</section>
 <section class="control-panel" sec:authorize="isAuthenticated()">
     <div class="container">
         <h1 id="greeting" class="title"></h1><span class="control-panel-name" th:text="${name} + '!'"></span>
@@ -36,7 +46,8 @@
                 <div class="control-block-randTrack">
                     <h2>Произвести рандомные треки</h2>
                     <button class="control-block-randBtn" onclick="playRandomTrack()">
-                        <img class="control-block-randBtn-img" src="../images/play-track-small.svg" alt="Воспроизвести">
+                        <img class="control-block-randBtn-img" src="../images/play-track-small.svg"
+                             alt="Воспроизвести">
                     </button>
                 </div>
             </div>
@@ -78,7 +89,8 @@
                 <div class="no-work__warn">
                     <div class="no-work__warn_title">
                         <h2>Пока недоступно</h2>
-                        <button class="subs__warn-close noWork-close"><img src="../images/close-for-warn.svg" class="icon-close"></button>
+                        <button class="subs__warn-close noWork-close"><img src="../images/close-for-warn.svg"
+                                                                           class="icon-close"></button>
                     </div>
                     <p>Функция находиться
                         <br>на этапе разработки
@@ -108,13 +120,15 @@
                         <div class="tracks-main__top">
                             <img class="tracks-main__img" th:src="@{'/uploads/' + ${track.getCoverfilename()}}"
                                  height="225">
-                            <button class="tracks-main__btn" th:data-track-id="${track.id}">
+                            <button class="tracks-main__btn" th:data-track-id="${track.id}"
+                                    onclick="listenToTrack(this)">
                                 <img class="playPauseIconSlider" src="../images/play-track-small.svg"
                                      alt="Воспроизвести">
                             </button>
                         </div>
                         <h3 class="tracks-main__album" th:text="${track.getTitle()}"></h3>
-                        <a class="tracks-main__artist" th:href="@{'/artist/' + ${track.artists.id} + '/details'}"><span
+                        <a class="tracks-main__artist"
+                           th:href="@{'/artist/' + ${track.artists.id} + '/details'}"><span
                                 th:text="${track.artists.name}"></span></a>
                     </li>
                 </ul>
@@ -140,12 +154,12 @@
 
                     <div class="audio__info-wrapper">
                         <img class="coverImage"
-                             src="https://media.istockphoto.com/id/1302436578/ru/%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE/%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0-%D0%BA%D1%80%D1%83%D0%B3-%D0%B7%D0%BD%D0%B0%D1%87%D0%BE%D0%BA-%D0%B0%D0%BD%D0%B8%D0%BC%D0%B0%D1%86%D0%B8%D1%8F-%D0%BD%D0%B0-%D1%87%D0%B5%D1%80%D0%BD%D0%BE%D0%BC-%D1%84%D0%BE%D0%BD%D0%B5-4k-%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-loopable-preloader.jpg?s=640x640&k=20&c=9qPUgl14StpZxJNtQYMMXLCoGKsWCgL0jul5v6vt4iE="
+                             src="../images/track-test-2.png"
                              alt="Обложка аудио"
                              width="50">
                         <div class="track__info">
-                            <h3 class="trackTitle">Вспоминаем</h3>
-                            <p class="artistsName">Ваш последний трек</p>
+                            <h3 class="trackTitle">Включите трек</h3>
+                            <a href="#" class="artistsName">И здесь появится информация</a>
                         </div>
                     </div>
 
@@ -174,7 +188,8 @@
                 </div>
                 <div class="audio-action_btn">
                     <button onclick="toggleMute()">
-                        <img class="action_btn-sound-active btn" id="muteIcon" src="../images/sound-active-icon.svg"
+                        <img class="action_btn-sound-active btn" id="muteIcon"
+                             src="../images/sound-active-icon.svg"
                              alt="Звук включен">
                     </button>
                     <button class="action_btn-repeat">
@@ -187,7 +202,8 @@
                         <img class="btn" src="../images/more-icon.svg" alt="Еще больше">
                     </button>
                     <button id="fullscreen-container" class="transition">
-                        <img class="action_btn-maximize btn" src="../images/maximize-icon.svg" alt="На весь экран">
+                        <img class="action_btn-maximize btn" src="../images/maximize-icon.svg"
+                             alt="На весь экран">
                     </button>
                 </div>
             </div>
@@ -207,10 +223,12 @@
                 <th:block th:each="artist: ${recentlyViewedArtists}">
                     <a th:href="@{'/artist/' + ${artist.id} + '/details'}">
                         <div class="artist__block">
-                            <img th:src="@{'/uploads/' + ${artist.filename}}" alt="artist-image" class="artist-avatar">
+                            <img th:src="@{'/uploads/' + ${artist.filename}}" alt="artist-image"
+                                 class="artist-avatar">
                             <h2 class="interesting-artist-name" th:text="${artist.name}">Исполнитель</h2>
                             <span class="interesting-artist-genre" th:text="${artist.genre}">Альтернатива</span>
-                            <img class="interesting-artist-link" th:src="@{/images/link-artist.svg}" alt="decor-el"
+                            <img class="interesting-artist-link" th:src="@{/images/link-artist.svg}"
+                                 alt="decor-el"
                                  style="">
                         </div>
                     </a>
@@ -232,8 +250,10 @@
                         Телеграм канал нашего сервиса?</h1>
                     <a href="#" class="close-button"><img th:src="@{/images/close.svg}"></a>
                 </div>
-                <p class="banner-description">Чтобы узнавать быстрее всех об обновлениях или выпусках новых треков,
-                    артистов и подкастов! Может ты хочешь испытать новые фишки? Оформляй подписку “Эклектик” и получай
+                <p class="banner-description">Чтобы узнавать быстрее всех об обновлениях или выпусках новых
+                    треков,
+                    артистов и подкастов! Может ты хочешь испытать новые фишки? Оформляй подписку “Эклектик” и
+                    получай
                     приватное приглашение в наш канал</p>
                 <a th:href="@{/subscribe}" class="banner-link">Приобрести</a>
             </div>
@@ -254,11 +274,12 @@
 
 <section style="margin: 200px;"></section>
 
-<div class="details-track" style="background: url('/images/track-test-2.png');">
+<div class="details-track" style="background: url('/images/track-test-3.png');">
     <div class="container">
         <div class="details-track__inner">
             <div class="details-track__left">
-                <img class="details-track__img coverImage" th:src="@{/images/track-test-2.png}" alt="cover" width="690"
+                <img class="details-track__img coverImage" th:src="@{/images/track-test-2.png}" alt="cover"
+                     width="690"
                      height="690">
             </div>
             <div class="details-track__tabs">
@@ -268,13 +289,13 @@
                 </div>
                 <div class="details-track__content">
                     <div class="details-track__tab active" data-tab="quotes">
-                        <h3 class="details-track__title trackTitle">Хомяк</h3>
-                        <p class="details-track__artist artistsName">Темным и Обманчивым</p>
-                        <span class="details-track__genre">Русский Рок | 2023 Год</span>
+                        <h3 class="details-track__title trackTitle">Название трека</h3>
+                        <p class="details-track__artist artistsName">Исполнитель</p>
+                        <span class="details-track__genre">Жанр трека | Год выпуска</span>
                     </div>
                     <div class="details-track__tab track__tab-lyric" data-tab="text">
                         <p class="details-track__lyrics">
-                            Текст трека
+                            Здесь будет показываться текст играющего трека
                         </p>
                     </div>
                 </div>
@@ -283,13 +304,17 @@
     </div>
 </div>
 
-</body>
+<!--</div>-->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/platform/1.3.5/platform.min.js"></script>
+
+
 <script>
     let os = platform.os;
     document.getElementById("osVersion").innerText = "" + os.family + " " + os.version;
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script th:src="@{/js/tracks-main.js}"></script>
 <script th:src="@{/js/custom-select.js}"></script>
 <script th:src="@{/js/custom-file.js}"></script>
@@ -298,5 +323,16 @@
 <script th:src="@{/js/keydown.js}"></script>
 <script th:src="@{/js/main.js}"></script>
 
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/platform/1.3.5/platform.min.js"></script>-->
+<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/vue@3.0.11"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/vue-router@4.0.12"></script>-->
+<!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>-->
+
+<!--<script src="/js/app.js"></script>-->
+
+</body>
 
 </html>
+

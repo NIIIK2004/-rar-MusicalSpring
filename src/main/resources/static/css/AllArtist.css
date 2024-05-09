@@ -105,15 +105,31 @@
 
 .artist-view-two a {
     width: 100%;
-    padding: 15px 36px 15px 22px;
+    padding: 16px 36px 17px 22px;
     border-radius: 13px;
-    /*background: #121212;*/
     background: var(--black-layer);
 
     display: flex;
     align-items: center;
     gap: 12px;
     transition: all .3s;
+}
+
+.similar-artist-listeners {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    font-family: 'Nunito';
+    text-align: center;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    color: var(--white-text);
+    transform: translate(-50%, 73%);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100px;
 }
 
 .artist-view-two a:hover {
@@ -150,16 +166,6 @@
     gap: 18px;
 }
 
-.artist-view-two a {
-    width: 100%;
-    border-radius: 13px;
-    background: var(--black-layer);
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 23px 30px 23px 23px;
-}
-
 
 /*animation for load*/
 @keyframes fadeIn {
@@ -182,11 +188,4 @@
 .view-icon:hover {
     opacity: 0.7;
 }
-
-
-
-
-
-
-
 

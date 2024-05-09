@@ -37,6 +37,8 @@ public class NewsController {
         news = news.stream().sorted(Comparator.comparing(News::getId).reversed()).toList();
 
         model.addAttribute("newsList", news);
+        model.addAttribute("pageTitle", "Новости");
+
 
         if(request.getRequestURI().equals("/Admin-News")) {
             return "/admin/CreateOrDeleteNews";

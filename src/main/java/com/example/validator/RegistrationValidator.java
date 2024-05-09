@@ -20,6 +20,7 @@ public class RegistrationValidator {
     public void validate(@Size(max = 30) User user, BindingResult result, MultipartFile file) {
 
         User existingUser = userImpl.findByUsername(user.getUsername());
+        User existingUserByEmail = userImpl.findByEmail(user.getMail());
 
         if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
             result.rejectValue("username", null, "Пользователь с таким логином уже зарегистрирован!");
@@ -63,6 +64,10 @@ public class RegistrationValidator {
 
         if (user.getMail().isEmpty()) {
             result.rejectValue("mail", null, "Поле 'Почта' не может быть пустым!");
+        }
+
+        if (existingUserByEmail != null && existingUserByEmail.getMail() != null && !existingUserByEmail.getMail().isEmpty()) {
+            result.rejectValue("mail", null, "Пользователь с такой эл.почтой уже зарегистрирован!");
         }
 
         validateFileType(file, result);

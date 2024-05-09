@@ -26,6 +26,7 @@ public class TrackService {
             trackDTO.setId(track.getId());
             trackDTO.setTitle(track.getTitle());
             trackDTO.setArtistsName(track.getArtists().getName());
+            trackDTO.setArtistId(track.getArtists().getId());
             trackDTO.setCoverFilename(track.getCoverfilename());
             trackDTO.setYear(track.getReleaseyear());
             trackDTO.setGenre(track.getGenre());
