@@ -42,7 +42,6 @@
 }
 
 .checkbox-other input:checked ~ .checkmark {
-    /*background: var(--white);*/
     background: var(--feolet);
 }
 

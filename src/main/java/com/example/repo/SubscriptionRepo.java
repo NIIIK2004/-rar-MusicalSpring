@@ -9,9 +9,7 @@ import java.util.List;
 public interface SubscriptionRepo extends JpaRepository<Subscription, Long> {
     List<Subscription> findByUserId(Long userId);
     List<Subscription> findByArtistId(Long artistId);
-
     List<Subscription> findByUserIdAndArtistId(Long userId, Long artistId);
-
     List<Subscription> getAllSubscriptionsByUser(User user);
 
 }

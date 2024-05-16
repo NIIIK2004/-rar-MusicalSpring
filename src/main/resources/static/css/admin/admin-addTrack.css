@@ -190,10 +190,8 @@
 .select2-container--open .select2-dropdown--below {
     top: 30px;
     background: #262626;
-    /*border: transparent;*/
     border: 1px solid var(--feolet) !important;
     padding: 2px;
-
     border-top-left-radius: 10px !important;
     border-top-right-radius: 10px !important;
 }

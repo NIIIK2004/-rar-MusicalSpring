@@ -1,7 +1,3 @@
-/*.tracks-main {*/
-/*    margin-bottom: 200px;*/
-/*}*/
-
 .tracks-main__list {
     display: grid;
     grid-template-columns: repeat(7, 1fr);

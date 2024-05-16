@@ -73,7 +73,6 @@
 
 .playlist-info-btns a:hover {
     backdrop-filter: blur(21px);
-
 }
 
 .playlist-content {
@@ -104,10 +103,6 @@
     transition: all .2s;
     max-height: 90px;
     cursor: pointer;
-}
-
-.playlist-tracks {
-
 }
 
 .playlist-track-left {
@@ -204,7 +199,6 @@
 
 .successMessage {
     background: #5347ccad;
-
 }
 
 .errorMessage {

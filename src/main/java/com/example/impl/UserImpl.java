@@ -29,10 +29,10 @@ public class UserImpl implements UserDao {
     }
 
     @Override
-    public User saveAdmin(User user) {
+    public void saveAdmin(User user) {
         user.setRoles(Collections.singleton(Role.ADMIN));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepo.save(user);
+        userRepo.save(user);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class UserImpl implements UserDao {
     }
 
     @Override
-    public User updateFields(Long id, String name, String surname, String mail, String username, String password, String avatar) {
+    public void updateFields(Long id, String name, String surname, String mail, String username, String password, String avatar) {
         Optional<User> optionalUser = userRepo.findById(id);
         if (optionalUser.isPresent()) {
             User existingUser = optionalUser.get();
@@ -61,7 +61,8 @@ public class UserImpl implements UserDao {
             existingUser.setUsername(username);
             existingUser.setPassword(password);
             existingUser.setAvatar(avatar);
-            return userRepo.save(existingUser);
+            userRepo.save(existingUser);
+            return;
         }
         throw new IllegalArgumentException("Invalid user Id: " + id);
     }

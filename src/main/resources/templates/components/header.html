@@ -4,25 +4,25 @@
             <a th:href="@{/}"><img th:src="@{/images/header/logotype-update.svg}" alt="лого" class="header_logo"></a>
             <ul class="header__links">
                 <li class="header__link"><a th:href="@{/search}">Поиск <img
-                        th:src="@{/images/header/search.svg}"></a>
+                        th:src="@{/images/header/search.svg}" alt="Поиск"></a>
                 </li>
                 <li class="header__link">
-                    <a th:href="@{/}">Все треки <img th:src="@{/images/header/headphones.svg}"></a>
+                    <a th:href="@{/}">Все треки <img th:src="@{/images/header/headphones.svg}" alt="headphones"></a>
                 </li>
                 <li class="header__link">
-                    <a th:href="@{/podcasts}">Подкасты <img th:src="@{/images/header/podcast.svg}"></a>
+                    <a th:href="@{/podcasts}">Подкасты <img th:src="@{/images/header/podcast.svg}" alt="podcast"></a>
                 </li>
                 <li class="header__link">
-                    <a th:href="@{/allartist}">Артисты <img th:src="@{/images/header/artists.svg}"></a>
+                    <a th:href="@{/allartist}">Артисты <img th:src="@{/images/header/artists.svg}" alt="artists"></a>
                 </li>
                 <li class="header__link">
-                    <a th:href="@{/news}">Новости <img th:src="@{/images/header/news.svg}"></a>
+                    <a th:href="@{/news}">Новости <img th:src="@{/images/header/news.svg}" alt="news"></a>
                 </li>
                 <li class="header__link">
-                    <a th:href="@{/collection}">Коллекция <img th:src="@{/images/header/like.svg}"></a>
+                    <a th:href="@{/collection}">Коллекция <img th:src="@{/images/header/like.svg}" alt="like"></a>
                 </li>
                 <li class="header__link" th:if="${#authorization.expression('hasAuthority(''Администратор'')')}">
-                    <a th:href="@{/Admin-News}">Админ-Панель <img th:src="@{/images/header/admin.svg}"></a>
+                    <a th:href="@{/Admin}">Админ-Панель <img th:src="@{/images/header/admin.svg}" alt="admin"></a>
                 </li>
             </ul>
             <div class="header_ets">
@@ -34,26 +34,26 @@
 
                 <div class="header_user-menu">
                     <ul class="user_menu-list">
-                        <li><a th:href="@{/profile}"><img th:src="@{/images/header/profile.svg}">Мой профиль</a></li>
-                        <li><a th:href="@{/setting}"><img th:src="@{/images/header/setting.svg}">Настройки</a></li>
-                        <li><a th:href="@{/subscribe}"><img th:src="@{/images/header/subs.svg}">Подписка</a></li>
-                        <li><a th:href="@{/logout}"><img th:src="@{/images/header/logout.svg}">Выйти из аккаунта</a>
+                        <li><a th:href="@{/profile}"><img th:src="@{/images/header/profile.svg}" alt="profile">Мой профиль</a></li>
+                        <li><a th:href="@{/setting}"><img th:src="@{/images/header/setting.svg}" alt="setting">Настройки</a></li>
+                        <li><a th:href="@{/subscribe}"><img th:src="@{/images/header/subs.svg}" alt="subs">Подписка</a></li>
+                        <li><a th:href="@{/logout}"><img th:src="@{/images/header/logout.svg}" alt="logout">Выйти из аккаунта</a>
                         </li>
                     </ul>
 
                     <div class="user-menu-themes">
                         <a href="#" class="theme_sun">
-                            <img th:src="@{/images/header/theme_sun.svg}">
+                            <img th:src="@{/images/header/theme_sun.svg}" alt="theme_sun">
                             <span>Светлая</span>
                         </a>
 
                         <a href="#" class="theme_moon">
-                            <img th:src="@{/images/header/theme_moon.svg}">
+                            <img th:src="@{/images/header/theme_moon.svg}" alt="theme_moon">
                             <span>Темная</span>
                         </a>
 
                         <a href="#" class="theme_classic">
-                            <img th:src="@{/images/header/theme_classic.svg}">
+                            <img th:src="@{/images/header/theme_classic.svg}" alt="theme_classic">
                             <span>Классика</span>
                         </a>
                     </div>

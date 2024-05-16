@@ -10,7 +10,6 @@ function updateFileName(event) {
 
     fileLabelPhoto.innerHTML = fileNamePhoto;
 }
-
 function updateFileAudio() {
     let inputaudio = document.getElementById('audio');
     let fileNameaudio = inputaudio.files[0].name;
@@ -18,7 +17,6 @@ function updateFileAudio() {
 
     fileLabelaudio.innerHTML = fileNameaudio;
 }
-
 function updateFilePhoto() {
     let inputphoto = document.getElementById('cover');
     let fileNamephoto = inputphoto.files[0].name;
@@ -27,7 +25,6 @@ function updateFilePhoto() {
     fileLabelphoto.innerHTML = fileNamephoto;
 
 }
-
 function updateFileClip() {
     let inputclip = document.getElementById('clip');
     let fileNameclip = inputclip.files[0].name;

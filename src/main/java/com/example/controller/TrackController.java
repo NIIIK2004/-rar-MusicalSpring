@@ -15,12 +15,10 @@ import com.example.service.TrackService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,21 +29,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
 public class TrackController {
-
     @Value("${upload.path}")
     private String uploadPath;
     private final TrackRepo trackRepo;
     private final TrackImpl trackImpl;
     private final ArtistRepo artistRepo;
-
     private final UserImpl userImpl;
-
     @Autowired
     private TrackService trackService;
     @Autowired
@@ -90,14 +88,12 @@ public class TrackController {
         return ResponseEntity.ok("Track listened successfully");
     }
 
-
     @GetMapping(value = {"/", "/Admin-All-Tracks"})
     //Получение списка всех треков для пользователя и администратора
     public String TrackMainPage(Model model, Principal principal, HttpSession session, HttpServletRequest request) {
         List<Track> tracks = trackRepo.findAll();
         List<Artist> artists = artistRepo.findAll();
 
-//        tracks = tracks.stream().sorted(Comparator.comparing(Track::getId).reversed()).toList();
         Collections.shuffle(tracks);
 
         model.addAttribute("artists", artists);
@@ -240,8 +236,8 @@ public class TrackController {
     @GetMapping("/search")
     //Поиск треков и артистов
     public String searchArtistAndTrack(@RequestParam(name = "name", required = false) String name, Model model) {
-        List<Artist> artists = new ArrayList<>();
-        List<Track> tracks = new ArrayList<>();
+        List<Artist> artists;
+        List<Track> tracks;
 
         if (name != null && !name.isEmpty()) {
             artists = artistRepo.findByName(name);
@@ -261,8 +257,6 @@ public class TrackController {
 
         return "Search";
     }
-
-
 
     @GetMapping("/random-track")
     //Получение запроса для реализации включения рандомных треков

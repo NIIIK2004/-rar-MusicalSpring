@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TrackDao {
-    public Track add(Track track);
+    Track add(Track track);
 
-    public void delete(Long id);
+    void delete(Long id);
 
-    public List<Track> findAll();
+    List<Track> findAll();
 
-    public Optional<Track> findById(Long id);
+    Optional<Track> findById(Long id);
 
-    public List<Track> findByName(String name);
+    List<Track> findByName(String name);
 
     Track findLatestTrackByArtistId(Long artistId);
 

@@ -27,9 +27,7 @@ public class Artist implements Serializable {
     private String description;
     private String genre;
     private String listeners;
-
     private String country;
-
     private String liking;
     private String filename;
 

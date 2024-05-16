@@ -1,4 +1,3 @@
-
 .profile {
     position: relative;
 }
@@ -19,7 +18,6 @@
     opacity: .34;
     filter: blur(60px);
 }
-
 
 #avatar {
     display: none;

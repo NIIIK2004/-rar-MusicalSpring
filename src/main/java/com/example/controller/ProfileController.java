@@ -24,7 +24,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,7 +37,6 @@ public class ProfileController {
     private final UserImpl userImpl;
     private final UserRepo userRepo;
     private final SubscriptionRepo subscriptionRepo;
-
     @Autowired
     private UserTrackHistoryRepo userTrackHistoryRepo;
     private final UserValidator userValidator;
@@ -45,6 +47,7 @@ public class ProfileController {
     }
 
     @GetMapping("/profile")
+    //Просмотр личного профиля пользователя
     public String profilePage(Model model, Principal principal) {
         if (principal == null) {
             return "redirect:/login?logout";
@@ -66,6 +69,7 @@ public class ProfileController {
 
     @GetMapping("/setting")
     @PreAuthorize("isAuthenticated()")
+    //Просмотр редактирования профиля пользователя или те же настройки
     public String settingUser(Model model, Principal principal) {
         String username = principal.getName();
         User user = userImpl.findByUsername(username);
@@ -77,6 +81,7 @@ public class ProfileController {
     }
 
     @PostMapping("/setting/save")
+    //Отправка данных для сохранения данных пользователя в профиле
     public String settingUserSave(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
@@ -92,7 +97,7 @@ public class ProfileController {
                     user.setAvatar(existingUser.getAvatar());
                 } else {
                     try {
-                        String avatar = UUID.randomUUID().toString() + ".jpg";
+                        String avatar = UUID.randomUUID() + ".jpg";
                         file.transferTo(new File(uploadPath + "/" + avatar));
                         user.setAvatar(avatar);
                     } catch (IOException e) {
@@ -111,6 +116,7 @@ public class ProfileController {
 
     @PostMapping("/setting/validate")
     @ResponseBody
+    //Отправка данных на проверку валидации профиля
     public List<String> validateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         List<String> errors = new ArrayList<>();
         userValidator.validate(user, bindingResult);

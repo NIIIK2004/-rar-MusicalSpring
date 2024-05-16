@@ -1,12 +1,8 @@
-let audio = document.getElementById("myAudio");
 let progressBar = document.querySelector(".progress-bar");
 let progress = document.querySelector(".progress");
 let circle = document.querySelector(".circle");
 let currentTime = document.querySelector(".current-time");
 let totalTime = document.querySelector(".total-time");
-let playButton = document.querySelector("button img#playPauseIcon");
-let playButtonSlider = document.querySelector("button img#playPauseIconSlider");
-let muteButton = document.querySelector("button img#muteIcon");
 let volumeControl = document.getElementById("volumeControl");
 
 let currentAudioPlayer = null;
@@ -139,13 +135,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    audioPlayers.forEach((audioPlayer, index) => {
+    audioPlayers.forEach((audioPlayer) => {
         audioPlayer.addEventListener("timeupdate", function () {
             if (!isNaN(audioPlayer.duration)) {
                 let currentProgress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
                 progress.style.width = currentProgress + "%";
 
-                // circle.style.left = (currentProgress * progressBar.offsetWidth) / 103 + "px";
                 circle.style.opacity = '0';
 
                 let currentMinutes = Math.floor(audioPlayer.currentTime / 60);

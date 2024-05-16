@@ -12,16 +12,11 @@ import java.util.List;
 
 public interface UserTrackHistoryRepo extends JpaRepository<UserTrackHistory, Long> {
     List<UserTrackHistory> findByUserAndTrack(User user, Track track);
-    int countByUser(User user);
-
     @Transactional
     void deleteByTrack(Track track);
-
     List<UserTrackHistory> findByUserId(Long userId);
-
     @Query("SELECT SUM(uth.listenCount) FROM UserTrackHistory uth WHERE uth.user = :user")
     Integer getSumOfListenCountByUser(@Param("user") User user);
-
     default int getSumOfListenCountByUserDividedByTwo(User user) {
         Integer result = getSumOfListenCountByUser(user);
         return result != null ? (int)Math.floor(result / 2.0) : 0;

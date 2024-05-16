@@ -32,6 +32,7 @@ public class AdminUserController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
+    //Просмотр всех пользователей для администратора
     public String viewAllUsers(Model model) {
         List<User> users = userImpl.findAll();
         users = users.stream().sorted(Comparator.comparing(User::getId).reversed()).collect(Collectors.toList());
@@ -48,6 +49,7 @@ public class AdminUserController {
     }
 
     @GetMapping("/delete/{id}")
+    //Удаление любого пользователя, кроме себя
     public String deleteUser(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
@@ -72,12 +74,14 @@ public class AdminUserController {
 
     @GetMapping("/add/administrators")
     @PreAuthorize("hasRole('ADMIN')")
+    //Просмотр страницы для добавления/создания администратора
     public String addAdministratorsPage(Model model) {
         model.addAttribute("admin", new User());
         return "admin/CreateAdmin";
     }
 
     @PostMapping("/add/administrators")
+    //Отправка данных для добавления/создания нового админа
     public String addAdministrators(@ModelAttribute("admin") @Valid User admin,
                                     BindingResult result,
                                     RedirectAttributes redirectAttributes) {

@@ -9,7 +9,6 @@ public interface SubscriptionDao {
     List<Subscription> getAllSubscriptionsByArtist(Long artistId);
     void subscription(Long userId, Long artistId);
     void unsubscription(Long userId, Long artistId);
-
     boolean checkSubscription(Long userId, Long artistId);
 
 }

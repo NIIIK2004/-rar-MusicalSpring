@@ -34,9 +34,10 @@ public class PhotoAlbumController {
     private final AlbumRepo albumRepo;
 
 
-    @GetMapping("/artist/{artistId}/album/{albumId}") //Видим сам альбом внутри
+    @GetMapping("/artist/{artistId}/album/{albumId}")
+    //Видим сам альбом внутри
     public String viewAlbum(@PathVariable Long artistId, @PathVariable Long albumId, Model model) {
-        Artist artist = artistImpl.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Invalid artist Id:" + artistId));
+        Artist artist = artistImpl.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Невалид артист ID:" + artistId));
 
         Album album = artist.getAlbums().stream().filter(a -> a.getId().equals(albumId)).findFirst().orElseThrow(() -> new IllegalArgumentException("Невалид id альбома"));
 
@@ -48,7 +49,8 @@ public class PhotoAlbumController {
         return "PhotoAlbum";
     }
 
-    @GetMapping("/artist/{artistId}/createOrEditAlbumPage") //Видим добавление / редактирование Альбома
+    @GetMapping("/artist/{artistId}/createOrEditAlbumPage")
+    //Видим добавление / редактирование Альбома
     public String createOrEditAlbumPage(Model model, @PathVariable Long artistId, @RequestParam(name = "albumId", required = false) Long albumId) {
         Artist artist = artistRepo.findById(artistId)
                 .orElseThrow(() -> new IllegalArgumentException("Не найден id Артиста:" + artistId));
@@ -67,7 +69,8 @@ public class PhotoAlbumController {
         return "admin/CreateOrEditPhotoAlbum";
     }
 
-    @PostMapping("artist/{artistId}/createOrEditAlbum") //Редактируем или создаём новый Альбом
+    @PostMapping("artist/{artistId}/createOrEditAlbum")
+    //Редактируем или создаём новый Альбом
     public String createOrEditAlbum(@PathVariable("artistId") Long artistId,
                                     @ModelAttribute("album") Album album,
                                     @RequestParam(name = "file", required = false)
@@ -110,10 +113,11 @@ public class PhotoAlbumController {
         return "redirect:/artist/{artistId}/details#ArtistAlbums";
     }
 
-    @GetMapping("/artist/{artistId}/album/{albumId}/deleteAlbum") //Удаляем Альбом
+    @GetMapping("/artist/{artistId}/album/{albumId}/deleteAlbum")
+    //Удаляем Альбом
     public String deleteAlbum(@PathVariable Long artistId, @PathVariable Long albumId) {
         Artist artist = artistRepo.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Invalid artist Id:" + artistId));
-        Album album = artist.getAlbums().stream().filter(a -> a.getId().equals(albumId)).findFirst().orElseThrow(() -> new IllegalArgumentException("Invalid album Id:" + albumId));
+        Album album = artist.getAlbums().stream().filter(a -> a.getId().equals(albumId)).findFirst().orElseThrow(() -> new IllegalArgumentException("Невалид альбома Id:" + albumId));
 
         artist.getAlbums().remove(album);
         album.setArtist(null);
@@ -131,10 +135,11 @@ public class PhotoAlbumController {
         return "redirect:/artist/{artistId}/details";
     }
 
-    @PostMapping("/artist/{artistId}/album/{albumId}/addPhoto") //Добавляем фото в Альбом
+    @PostMapping("/artist/{artistId}/album/{albumId}/addPhoto")
+    //Добавляем фото в Альбом
     public String addPhotoToAlbum(@PathVariable Long artistId, @PathVariable Long albumId, @RequestParam("files") MultipartFile[] files) throws IOException {
         Artist artist = artistImpl.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Invalid artist Id:" + artistId));
-        Album album = artist.getAlbums().stream().filter(a -> a.getId().equals(albumId)).findFirst().orElseThrow(() -> new IllegalArgumentException("Invalid album Id:" + albumId));
+        Album album = artist.getAlbums().stream().filter(a -> a.getId().equals(albumId)).findFirst().orElseThrow(() -> new IllegalArgumentException("Невалид альбома Id:" + albumId));
 
         for (MultipartFile file : files) {
             if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
@@ -153,7 +158,8 @@ public class PhotoAlbumController {
         return "redirect:/artist/{artistId}/album/{albumId}";
     }
 
-    @GetMapping("/artist/{artistId}/album/{albumId}/deletePhoto/{photoId}") //Удаляем фото из Альбома
+    @GetMapping("/artist/{artistId}/album/{albumId}/deletePhoto/{photoId}")
+    //Удаляем фото из Альбома
     public String deletePhotoToAlbum(@PathVariable Long artistId, @PathVariable Long albumId, @PathVariable Long photoId) {
         Optional<PhotoArtists> optionalPhotoArtists = photoToAlbumRepo.findById(photoId);
         if (optionalPhotoArtists.isPresent()) {
@@ -172,6 +178,4 @@ public class PhotoAlbumController {
 
         return "redirect:/artist/{artistId}/album/{albumId}";
     }
-
-
 }

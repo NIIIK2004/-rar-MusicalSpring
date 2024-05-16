@@ -7,14 +7,11 @@ import com.example.repo.TrackRepo;
 import com.example.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.security.Principal;
 import java.time.LocalDate;
 
 @Controller
@@ -25,7 +22,8 @@ public class AdminStatisticsController {
     private final TrackRepo trackRepo;
 
     @GetMapping("/Admin")
-    public String AdminMainPage(Principal principal, Model model) {
+    //Просмотр страницы статистика для админа
+    public String AdminMainPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String adminName = authentication.getName();
         User adminUser = userRepo.findByUsername(adminName);

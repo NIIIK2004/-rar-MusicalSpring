@@ -5,18 +5,18 @@ import com.example.model.User;
 import java.util.List;
 import java.util.Optional;
 public interface UserDao {
-    public User save(User user);
+    User save(User user);
 
-    User saveAdmin(User user);
+    void saveAdmin(User user);
 
-    public void delete(Long id);
+    void delete(Long id);
 
-    public List<User> findAll();
+    List<User> findAll();
 
-    public Optional<User> findById(Long id);
-    public User findByUsername(String username);
+    Optional<User> findById(Long id);
+    User findByUsername(String username);
 
-    User updateFields(Long id, String name, String surname, String mail, String username, String password, String avatar);
+    void updateFields(Long id, String name, String surname, String mail, String username, String password, String avatar);
 
     User findByEmail(String email);
 }

@@ -24,7 +24,7 @@
         <div class="header__top">
             <div class="header__top-logo">
                 <a th:href="@{/Admin}">
-                    <img th:src="@{/images/admin/logotype.svg}">
+                    <img th:src="@{/images/admin/logotype.svg}" alt="logotype">
                 </a>
             </div>
             <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
@@ -72,12 +72,6 @@
         <a class="admin-add" th:href="@{'/Admin/users/add/administrators'}">Добавить Администратора</a>
     </div>
 </div>
-
-<!--<div class="user-data-message" id="user-data-message" th:if="${errors}" style="background: #b44646">-->
-<!--    <h2>Произошла Ошибка</h2>-->
-<!--    <p>Технические неполадки, попробуйте чуть позже или сообщите вышестоящему Администратору для решения проблемы</p>-->
-<!--    <a href="#" id="close-link">Хорошо</a>-->
-<!--</div>-->
 
 <div class="user-data-message" id="user-data-message" th:if="${success}">
     <h2>Новый Администратор</h2>

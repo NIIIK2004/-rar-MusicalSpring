@@ -31,5 +31,4 @@ public class Album {
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PhotoArtists> photos;
 
-
 }

@@ -145,11 +145,6 @@ input[type="search"]::-webkit-search-cancel-button {
     font-size: 19px;
     font-weight: 300;
     line-height: normal;
-
-    color: var(--gray);
-    font-size: 19px;
-    font-weight: 300;
-    line-height: normal;
 }
 
 .search__track-track-info {

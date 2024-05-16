@@ -63,7 +63,7 @@
     margin: 50px auto 0;
 }
 
-.autorizated__wrapper input{
+.autorizated__wrapper input {
     padding: 17px 30px;
     color: var(--white);
     font-family: Nunito, serif;
@@ -108,7 +108,7 @@ input:focus {
 }
 
 .autorizated__wrapper-check:hover {
-opacity: 1;
+    opacity: 1;
 }
 
 .autorizated__wrapper-senddData,

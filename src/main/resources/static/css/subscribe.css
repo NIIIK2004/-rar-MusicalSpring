@@ -1,7 +1,3 @@
-.section-subscribe {
-
-}
-
 .subscribe__wrapper {
     display: flex;
     align-items: center;
@@ -431,7 +427,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    padding: 0px 13px;
+    padding: 0 13px;
 }
 
 .plan-buy-btn {
@@ -580,7 +576,6 @@
     width: 263px;
     height: 288px;
 }
-
 
 .progress-block-bottom {
     text-align: center;

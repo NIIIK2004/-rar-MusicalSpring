@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class PodcastController {
     @GetMapping("/podcasts")
-    public String PodcastMainPage(Model model) {
+    public String PodcastMainPage() {
         return "Podcasts";
     }
 }

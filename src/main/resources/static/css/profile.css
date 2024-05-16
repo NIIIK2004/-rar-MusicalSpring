@@ -108,7 +108,6 @@ body {
 }
 
 .info-user-counting {
-    /*background: #212121;*/
     background: #24242469;
     padding: 20px;
     border-radius: 15px;
@@ -238,7 +237,7 @@ body {
     color: var(--feolet);
     background: transparent;
     padding: 8px 20px;
-    font-family: Nunito;
+    font-family: Nunito, serif;
     font-size: 17px;
     font-weight: 400;
     line-height: normal;
@@ -292,7 +291,7 @@ body {
 .user-data-message p,
 .user-data-message h2 {
     color: #FFF;
-    font-family: Nunito;
+    font-family: Nunito, serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -311,7 +310,7 @@ body {
     padding: 8px 20px;
     background: transparent;
     color: var(--white);
-    font-family: Nunito;
+    font-family: Nunito, serif;
     font-size: 17px;
     font-weight: 400;
     line-height: normal;

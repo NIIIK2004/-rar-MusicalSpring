@@ -4,21 +4,25 @@ import com.example.dao.SubscriptionDao;
 import com.example.impl.ArtistImpl;
 import com.example.impl.TrackImpl;
 import com.example.impl.UserImpl;
-import com.example.model.*;
+import com.example.model.Artist;
+import com.example.model.Subscription;
+import com.example.model.Track;
+import com.example.model.User;
 import com.example.repo.ArtistRepo;
 import com.example.repo.SubscriptionRepo;
-import com.example.repo.TrackRepo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,13 +34,10 @@ import java.util.*;
 @Controller
 @RequiredArgsConstructor
 public class AllArtistController {
-
     @Autowired
     private UserImpl userImpl;
-
     @Autowired
     private SubscriptionRepo subscriptionRepo;
-
     @Autowired
     private SubscriptionDao subscriptionDao;
     @Value("${upload.path}")
@@ -45,8 +46,6 @@ public class AllArtistController {
     private final ArtistImpl artistImpl;
 
     private final TrackImpl trackImpl;
-    private final TrackRepo trackRepo;
-    private Track track;
 
     @GetMapping(value = {"/allartist", "/Admin-All-Artist"})
     //Получение списка артистов для пользователя и администратора
@@ -54,7 +53,6 @@ public class AllArtistController {
         List<Artist> artists = artistRepo.findAll();
         model.addAttribute("artists", artists);
         model.addAttribute("pageTitle", "Артисты");
-
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
@@ -67,13 +65,13 @@ public class AllArtistController {
         if (request.getRequestURI().equals("/Admin-All-Artist")) {
             return "/admin/AdminAllArtist";
         } else {
-            return "allartist";
+            return "AllArtist";
         }
     }
 
-    @GetMapping("/artist/createOrEditArtistPage") //Вывод страницы о добавлении либо редактировании артиста
+    @GetMapping("/artist/createOrEditArtistPage")
+    //Вывод страницы о добавлении либо редактировании артиста
     public String createOrEditArtistPage(Model model, @RequestParam(name = "artistId", required = false) Long artistId) {
-
         if (artistId != null) {
             Artist artist = artistRepo.findById(artistId).orElseThrow(() -> new IllegalThreadStateException("Не найден id Артиста:" + artistId));
             model.addAttribute("artist", artist);
@@ -87,7 +85,8 @@ public class AllArtistController {
         return "admin/CreateOrEditArtist";
     }
 
-    @PostMapping("/artist/createOrEditArtist") // Обработка создания и редактирования артиста
+    @PostMapping("/artist/createOrEditArtist")
+    //Отправка данных для создания и редактирования артиста
     public String createOrEditArtist(@RequestParam(name = "artistId", required = false) Long artistId,
                                      @RequestParam(name = "file", required = false) MultipartFile file,
                                      @RequestParam String name,
@@ -101,7 +100,6 @@ public class AllArtistController {
             return "admin/CreateOrEditArtist";
         }
 
-
         Artist artist;
         if (artistId != null) {
             artist = artistRepo.findById(artistId)
@@ -110,7 +108,7 @@ public class AllArtistController {
             artist = new Artist();
             if (artistRepo.existsByName(name)) {
                 model.addAttribute("error", "Артист с таким именем уже существует!");
-                return "admin/CreateOrEditArtist"; // Вернуть страницу с ошибкой
+                return "admin/CreateOrEditArtist";
             }
         }
 
@@ -142,13 +140,11 @@ public class AllArtistController {
         return "redirect:/Admin-All-Artist";
     }
 
-
-    @GetMapping("/allartist/delete/{id}") //Удаление артиста
+    @GetMapping("/allartist/delete/{id}")
+    //Удаление артиста
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Artist artist = artistImpl.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid artist Id:" + id));
-
-        String artistImagePath = artist.getFilename();
 
         if (artist.getFilename() != null) {
             File oldFIle = new File(uploadPath + "/" + artist.getFilename());
@@ -156,7 +152,6 @@ public class AllArtistController {
                 oldFIle.delete();
             }
         }
-
 
         List<Track> tracks = artist.getTracks();
         if (tracks != null) {
@@ -174,7 +169,8 @@ public class AllArtistController {
         return "redirect:/Admin-All-Artist";
     }
 
-    @GetMapping("/artist/{id}/details") //Детали артиста
+    @GetMapping("/artist/{id}/details")
+    //Детальная страница артиста
     public String ArtistDetails(@PathVariable("id") Long id, Model model, Principal principal, HttpSession session) {
         Artist artist = artistRepo.findById(id).orElseThrow(() -> new RuntimeException("Артист с ID : " + id + " не найден!"));
         model.addAttribute("artist", artist);
@@ -234,6 +230,7 @@ public class AllArtistController {
     }
 
     @GetMapping("/artist/{id}/similar")
+    //Просмотр страницы "Похожие" на артиста
     public String getSimilarArtists(@PathVariable("id") Long id, Model model) {
         Artist artist = artistRepo.findById(id).orElseThrow(() -> new RuntimeException("Артист с ID : " + id + " не найден!"));
         List<Artist> similarArtists = artistRepo.findByGenreAndIdNotOrderByListenersDesc(

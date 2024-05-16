@@ -1,4 +1,3 @@
-
 const lightThemeButton = document.querySelector('.theme_sun');
 const darkThemeButton = document.querySelector('.theme_moon');
 const classicThemeButton = document.querySelector('.theme_classic');

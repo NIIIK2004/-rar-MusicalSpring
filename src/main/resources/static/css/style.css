@@ -1,5 +1,4 @@
 @import 'global.css';
-@import 'components/modal.css';
 @import 'components/form-styles.css';
 @import 'components/custom-file.css';
 @import 'components/fonts.css';
@@ -9,7 +8,6 @@
     font-size: 28px;
     font-weight: 400;
     color: var(--white);
-
     width: fit-content;
     display: contents;
 }
@@ -19,19 +17,16 @@
     font-weight: 300;
     font-size: 21px;
     line-height: 140%;
-
     color: var(--white);
 }
 
 .container {
-    /*max-width: 1785px;*/
     max-width: 1710px;
     padding: 0 20px;
     margin: 0 auto;
 }
 
 .bottom_panel {
-    /*background-color: #1B1B1B;*/
     background: var(--black-layer);
     padding: 20px 0;
     position: fixed;
@@ -39,7 +34,6 @@
     left: 0;
     width: 100%;
     z-index: 300;
-
     transition: all .4s;
 }
 
@@ -281,7 +275,7 @@ audio {
 }
 
 .MainSlideTitle {
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     font-style: normal;
     font-weight: 400;
     font-size: 40px;
@@ -290,7 +284,7 @@ audio {
 }
 
 .MainSlideArtist {
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     font-weight: 500;
     font-size: 24px;
     line-height: 33px;
@@ -298,7 +292,7 @@ audio {
 }
 
 .slide-info-artist {
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     font-weight: 500;
     font-size: 21px;
     line-height: 29px;
@@ -306,7 +300,7 @@ audio {
 }
 
 .slide-info-title {
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     font-weight: 500;
     font-size: 18px;
     line-height: 25px;
@@ -328,7 +322,6 @@ audio {
 /* Для Firefox */
 ::-moz-scrollbar {
     background-color: var(--black);
-
     width: 10px;
 }
 
@@ -433,7 +426,6 @@ body.slide-out {
     -webkit-transition: -webkit-transform .3s;
     transition: -webkit-transform .3s;
     -o-transition: transform .3s;
-    transition: transform .3s;
     transition: transform .3s, -webkit-transform .3s
 }
 
@@ -899,19 +891,3 @@ input[type=range]::-webkit-slider-thumb {
     margin-left: 100px;
     transition: all 0.3s ease-out;
 }
-
-
-/*!*animation for load*!*/
-/*@keyframes fadeIn {*/
-/*    from {*/
-/*        opacity: 0;*/
-/*    }*/
-/*    to {*/
-/*        opacity: 1;*/
-/*    }*/
-/*}*/
-
-/*.main,*/
-/*.control-panel {*/
-/*    animation: fadeIn 0.5s ease-in-out;*/
-/*}*/

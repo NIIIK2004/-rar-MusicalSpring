@@ -37,10 +37,6 @@
     transform: translate(-50%, -50%);
 }
 
-.admin__panel-dataArtist {
-
-}
-
 .dataArtist__wrapper {
     display: flex;
     align-items: flex-start;

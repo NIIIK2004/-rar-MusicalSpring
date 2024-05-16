@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     document.addEventListener('keydown', function (event) {
         if (event.key === 'Enter' && event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA') {
-            event.preventDefault(); // Предотвращаем действие по умолчанию, чтобы не срабатывал Enter дважды
+            event.preventDefault();
             if (currentIndex === 0) {
                 showRegistrationForm();
             } else {
@@ -91,15 +91,11 @@ document.addEventListener('DOMContentLoaded', function () {
     let notificationMessageBlock = document.querySelector('.notification-message');
 
     if (notificationMessageBlock) {
-        // Запускаем задержку перед добавлением класса 'hidden'
         setTimeout(function () {
-            // Добавляем класс 'hidden' после 2 секунд
             notificationMessageBlock.classList.add('hidden-success-message');
         }, 2000);
 
-        // Отслеживаем событие завершения анимации
         notificationMessageBlock.addEventListener('transitionend', function () {
-            // Устанавливаем display: none; после завершения анимации
             notificationMessageBlock.style.display = 'none';
         });
     }

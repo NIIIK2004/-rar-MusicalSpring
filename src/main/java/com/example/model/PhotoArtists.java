@@ -23,5 +23,4 @@ public class PhotoArtists {
     @JoinColumn(name = "album_id")
     private Album album;
 
-
 }

@@ -17,15 +17,10 @@
     <link rel="stylesheet" th:href="@{/css/details-track.css}">
     <link rel="stylesheet" th:href="@{/css/AllArtist.css}">
     <link rel="icon" th:href="@{/images/logo.svg}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
     <title>Musical - Релизы</title>
 </head>
 
 <body class="body">
-<!--<div v-if="loading" class="loading-screen">-->
-<!--    <p>Loading...</p>-->
-<!--</div>-->
-<!--<div v-else>-->
 <div style="background: rgba(83, 71, 204, 0.60); top: -28%; left: -7%;" class="top-decor-left"></div>
 <div style="background: rgba(191, 62, 253, 0.50); top: -40%; left: 30%;" class="top-decor-left"></div>
 
@@ -33,9 +28,10 @@
 
 <section class="control-panel InaccessibleContent" sec:authorize="!isAuthenticated()">
     <div class="container">
-        <img th:src="@{/images/Inaccessible content.png}">
+        <img th:src="@{/images/Inaccessible content.png}" alt="content">
     </div>
 </section>
+
 <section class="control-panel" sec:authorize="isAuthenticated()">
     <div class="container">
         <h1 id="greeting" class="title"></h1><span class="control-panel-name" th:text="${name} + '!'"></span>
@@ -46,7 +42,7 @@
                 <div class="control-block-randTrack">
                     <h2>Произвести рандомные треки</h2>
                     <button class="control-block-randBtn" onclick="playRandomTrack()">
-                        <img class="control-block-randBtn-img" src="../images/play-track-small.svg"
+                        <img class="control-block-randBtn-img" th:src="@{/images/play-track-small.svg}"
                              alt="Воспроизвести">
                     </button>
                 </div>
@@ -54,19 +50,20 @@
 
             <div class="control-block">
                 <div class="control-block-volume">
-                    <img th:src="@{/images/sound-mute-icon.svg}">
+                    <img th:src="@{/images/sound-mute-icon.svg}" title="Уменьшить громкость" alt="sound-mute-icon">
                     <div class="slider-container">
+                        <label for="volumeControl"></label>
                         <input class="range" type="range" id="volumeControl" min="0" max="1" step="0.1"
                                value="${volume}"/>
                         <div class="slider-track"></div>
                     </div>
-                    <img th:src="@{/images/sound-active-icon.svg}" title="Увеличить громкость">
+                    <img th:src="@{/images/sound-active-icon.svg}" title="Увеличить громкость" alt="sound-active-icon">
                 </div>
             </div>
 
             <div class="control-block">
                 <div class="control-block-device">
-                    <img th:src="@{/images/device-icon.svg}" title="Устройство воспроизведения">
+                    <img th:src="@{/images/device-icon.svg}" title="Устройство воспроизведения" alt="device-icon">
                     <h6>Играет на: </h6>
                     <span id="osVersion" style="color: var(--white-text)">Определение</span>
                 </div>
@@ -76,21 +73,22 @@
                 <div class="control-block-genre">
                     <div class="block-genre" style="background: #E7AD1A">
                         <span>Альтернатива</span>
-                        <img src="../images/play-track-small.svg"
+                        <img th:src="@{/images/play-track-small.svg}"
                              alt="Воспроизвести">
                     </div>
 
                     <div class="block-genre" style="background: #E9ADCD">
                         <span>Поп-Панк</span>
-                        <img src="../images/play-track-small.svg"
+                        <img th:src="@{/images/play-track-small.svg}"
                              alt="Воспроизвести">
                     </div>
                 </div>
                 <div class="no-work__warn">
                     <div class="no-work__warn_title">
                         <h2>Пока недоступно</h2>
-                        <button class="subs__warn-close noWork-close"><img src="../images/close-for-warn.svg"
-                                                                           class="icon-close"></button>
+                        <button class="subs__warn-close noWork-close"><img th:src="@{/images/close-for-warn.svg}"
+                                                                           class="icon-close" alt="close-for-warn">
+                        </button>
                     </div>
                     <p>Функция находиться
                         <br>на этапе разработки
@@ -119,10 +117,10 @@
                         </audio>
                         <div class="tracks-main__top">
                             <img class="tracks-main__img" th:src="@{'/uploads/' + ${track.getCoverfilename()}}"
-                                 height="225">
+                                 height="225" alt="tracks-main__img">
                             <button class="tracks-main__btn" th:data-track-id="${track.id}"
                                     onclick="listenToTrack(this)">
-                                <img class="playPauseIconSlider" src="../images/play-track-small.svg"
+                                <img class="playPauseIconSlider" th:src="@{images/play-track-small.svg}"
                                      alt="Воспроизвести">
                             </button>
                         </div>
@@ -138,10 +136,11 @@
     </div>
 
     <div class="subs__warn">
-        <button class="subs__warn-close"><img src="../images/close-for-warn.svg" class="icon-close"></button>
+        <button class="subs__warn-close"><img th:src="@{/images/close-for-warn.svg}" class="icon-close"
+                                              alt="close-for-warn.svg"></button>
         <p>Функция доступна только при подписке Меломан
             <br>
-            Хотите преобрести?
+            Хотите приобрести?
         </p>
         <a class="subs__warn-subs" th:href="@{subscribe}">Хочу</a>
     </div>
@@ -154,7 +153,7 @@
 
                     <div class="audio__info-wrapper">
                         <img class="coverImage"
-                             src="../images/track-test-2.png"
+                             th:src="@{/images/track-test-2.png}"
                              alt="Обложка аудио"
                              width="50">
                         <div class="track__info">
@@ -180,29 +179,28 @@
                 </div>
 
                 <div class="controls">
-                    <button id="prevButton"><img src="../images/prev_song-icon.svg" alt="Пред трек"></button>
-                    <button class="toggle-audio-button" id="playPauseButton"><img class="playPauseIcon"
-                                                                                  src="../images/play-icon.svg"
-                                                                                  alt="Воспроизвести"></button>
-                    <button id="nextButton"><img src="../images/next_song-icon.svg" alt="След трек"></button>
+                    <button id="prevButton"><img th:src="@{/images/prev_song-icon.svg}" alt="Пред трек" draggable="false"></button>
+                    <button class="toggle-audio-button" id="playPauseButton">
+                        <img class="playPauseIcon" th:src="@{/images/play-icon.svg}" alt="Воспроизвести" draggable="false"></button>
+                    <button id="nextButton"><img th:src="@{/images/next_song-icon.svg}" alt="След трек" draggable="false"></button>
                 </div>
                 <div class="audio-action_btn">
                     <button onclick="toggleMute()">
                         <img class="action_btn-sound-active btn" id="muteIcon"
-                             src="../images/sound-active-icon.svg"
+                             th:src="@{/images/sound-active-icon.svg}"
                              alt="Звук включен">
                     </button>
                     <button class="action_btn-repeat">
-                        <img class="btn" src="../images/repeat-icon.svg" alt="На повтор">
+                        <img class="btn" th:src="@{/images/repeat-icon.svg}" alt="На повтор">
                     </button>
                     <button class="action_btn-shuffle">
-                        <img class="btn" src="../images/shuffle-icon.svg" alt="Перемешка">
+                        <img class="btn" th:src="@{/images/shuffle-icon.svg}" alt="Перемешка">
                     </button>
                     <button class="action_btn-more">
-                        <img class="btn" src="../images/more-icon.svg" alt="Еще больше">
+                        <img class="btn" th:src="@{/images/more-icon.svg}" alt="Еще больше">
                     </button>
                     <button id="fullscreen-container" class="transition">
-                        <img class="action_btn-maximize btn" src="../images/maximize-icon.svg"
+                        <img class="action_btn-maximize btn" th:src="@{/images/maximize-icon.svg}"
                              alt="На весь экран">
                     </button>
                 </div>
@@ -242,13 +240,13 @@
     <div class="container">
         <div class="banner">
             <div class="banner-gradient">
-                <img th:src="@{/images/banner-gr-1.svg}">
+                <img th:src="@{/images/banner-gr-1.svg}" alt="banner-gr-1">
             </div>
             <div class="banner-wrapper">
                 <div class="banner-title-wrapper">
                     <h1 class="banner-title">Хочешь попасть в секретный
                         Телеграм канал нашего сервиса?</h1>
-                    <a href="#" class="close-button"><img th:src="@{/images/close.svg}"></a>
+                    <a href="#" class="close-button"><img th:src="@{/images/close.svg}" alt="close"></a>
                 </div>
                 <p class="banner-description">Чтобы узнавать быстрее всех об обновлениях или выпусках новых
                     треков,
@@ -258,14 +256,14 @@
                 <a th:href="@{/subscribe}" class="banner-link">Приобрести</a>
             </div>
             <div class="banner-gradient-2">
-                <img th:src="@{/images/banner-gr-2.svg}">
+                <img th:src="@{/images/banner-gr-2.svg}" alt="banner-gr-2">
             </div>
             <div class="banner-gradient-decor">
                 <div>
-                    <img th:src="@{/images/banner-circle.svg}">
-                    <img th:src="@{/images/banner-circle.svg}">
+                    <img th:src="@{/images/banner-circle.svg}" alt="banner-circle">
+                    <img th:src="@{/images/banner-circle.svg}" alt="banner-circle">
                 </div>
-                <img class="gradient-decor-img" th:src="@{/images/banner-circle.svg}">
+                <img class="gradient-decor-img" th:src="@{/images/banner-circle.svg}" alt="banner-circle">
             </div>
 
         </div>
@@ -304,11 +302,8 @@
     </div>
 </div>
 
-<!--</div>-->
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/platform/1.3.5/platform.min.js"></script>
-
 
 <script>
     let os = platform.os;
@@ -322,15 +317,6 @@
 <script th:src="@{/js/alert.js}"></script>
 <script th:src="@{/js/keydown.js}"></script>
 <script th:src="@{/js/main.js}"></script>
-
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/platform/1.3.5/platform.min.js"></script>-->
-<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/vue@3.0.11"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/vue-router@4.0.12"></script>-->
-<!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>-->
-
-<!--<script src="/js/app.js"></script>-->
 
 </body>
 

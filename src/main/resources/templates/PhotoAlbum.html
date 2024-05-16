@@ -26,7 +26,8 @@
 <section class="album">
     <div class="container">
         <div class="album-title">
-            <a onclick="goBack()" th:href="@{#}" class="album__go-back">
+
+            <a th:href="@{/artist/{id}/details(id=${artist.id})}" class="album__go-back">
                 <img th:src="@{/images/goBack-icon.svg}" alt="goBack">
                 <h1 class="title" th:text="'Фото-Альбом | ' + ${album.name}"></h1>
             </a>
@@ -62,7 +63,7 @@
             <div class="album__photo" th:each="photo : ${sortedPhotoDate}">
                 <a th:href="@{'/artist/' + ${artist.id} + '/album/' + ${album.id} + '/deletePhoto/' + ${photo.id}}"
                    th:if="${#authorization.expression('hasAuthority(''Администратор'')')}">
-                    <img th:src="@{/images/admin-delete-entity.svg}">
+                    <img th:src="@{/images/admin/delete.svg}">
                 </a>
                 <img th:src="@{'/uploads/' + ${photo.getFilename()}}">
             </div>

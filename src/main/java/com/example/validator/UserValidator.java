@@ -59,13 +59,6 @@ public class UserValidator implements Validator {
             errors.rejectValue("mail", "NotEmpty.user.mail", "Поле 'Почта' не может быть пустым!");
         }
 
-       // Проверка фотографии
-//        if (user.getAvatar() != null && !user.getAvatar().isEmpty()) {
-//            String contentType = user.getAvatar().getContentType();
-//            if (contentType == null || !contentType.startsWith("image")) {
-//                errors.rejectValue("file", "Type.user.file", "Поддерживаются только изображения (png, jpg, и т. д.)!");
-//            }
-//        }
     }
 
     private boolean usernameAlreadyExists(User user) {

@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function() {
     closeButton.addEventListener("click", function(event) {
         event.preventDefault();
         banner.classList.add('fade-out');
-        // banner.style.display = "none";
 
         setTimeout(function() {
             banner.style.display = "none";

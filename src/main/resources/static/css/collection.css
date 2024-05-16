@@ -25,7 +25,6 @@
     max-width: 100%;
 }
 
-
 .offer {
     opacity: 0;
     max-width: 513px;
@@ -49,7 +48,7 @@
 .offer p {
     margin-top: 50px;
     text-align: center;
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     font-weight: 500;
     font-size: 21px;
     line-height: 29px;
@@ -66,7 +65,7 @@
     background: linear-gradient(92.05deg, #4A3AF2 44.53%, #CD3FFF 74.96%, #DA138A 105.45%);
     border-radius: 14px;
 
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     font-weight: 700;
     font-size: 21px;
     line-height: 140%;
@@ -103,7 +102,7 @@
     background: #4A39F2;
     border-radius: 14px;
 
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     font-weight: 700;
     font-size: 21px;
     line-height: 140%;

@@ -33,17 +33,10 @@
     background: rgba(82, 82, 82, 0.3);
 }
 
-.statistics {
-}
-
 .admin-title {
     font-weight: 400;
     font-size: 20px;
     color: var(--white);
-}
-
-.allDay-statistics {
-
 }
 
 .statistics-list {
@@ -78,8 +71,4 @@
     color: var(--white);
     margin-top: 13px;
     line-height: 1;
-}
-
-.oneDay-statistics {
-
 }

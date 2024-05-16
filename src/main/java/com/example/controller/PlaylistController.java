@@ -1,7 +1,10 @@
 package com.example.controller;
 
 import com.example.impl.ArtistImpl;
-import com.example.model.*;
+import com.example.model.Artist;
+import com.example.model.Playlist;
+import com.example.model.PlaylistContent;
+import com.example.model.Track;
 import com.example.repo.ArtistRepo;
 import com.example.repo.PlaylistRepo;
 import com.example.repo.TrackRepo;
@@ -18,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,11 +28,9 @@ public class PlaylistController {
 
     @Value("${upload.path}")
     private String uploadPath;
-
     private final ArtistRepo artistRepo;
     private final TrackRepo trackRepo;
     private final ArtistImpl artistImpl;
-
     @Autowired
     private final PlaylistRepo playlistRepo;
     private final TrackToPlaylistRepo trackToPlaylistRepo;
@@ -41,8 +41,9 @@ public class PlaylistController {
         Artist artist = artistImpl.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Не найден id Артиста:" + artistId));
         Playlist playlist = artist.getPlaylists().stream().filter(a -> a.getId().equals(playlistId)).findFirst().orElseThrow(() -> new IllegalArgumentException("Невалид id плейлиста"));
 
-        List<PlaylistContent> sortedPlaylistByCreated = playlist.getContents().stream().sorted(Comparator.comparing(PlaylistContent::getId).reversed()).collect(Collectors.toList());
+        List<PlaylistContent> sortedPlaylistByCreated = playlist.getContents().stream().sorted(Comparator.comparing(PlaylistContent::getId).reversed()).toList();
 
+        model.addAttribute("sortedPlaylistByCreated", sortedPlaylistByCreated);
         model.addAttribute("playlist", playlist);
         model.addAttribute("artist", artist);
 
@@ -82,7 +83,7 @@ public class PlaylistController {
         Artist artist = artistImpl.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Не найден id Артиста:" + artistId));
 
         if (playlist.getId() == null || playlist.getId() <= 0) {
-            if (file != null && !Objects.requireNonNull(file.getOriginalFilename().isEmpty())) {
+            if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
                 String filename = UUID.randomUUID() + "." + file.getOriginalFilename();
                 file.transferTo(new File(uploadPath + "/" + filename));
                 playlist.setCover(filename);
@@ -117,8 +118,8 @@ public class PlaylistController {
     @GetMapping("/artist/{artistId}/playlist/{playlistId}/deletePlaylist")
     //Это удаление плейлиста
     public String deletePlaylist(@PathVariable Long artistId, @PathVariable Long playlistId) {
-        Artist artist = artistRepo.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Invalid artist Id:" + artistId));
-        Playlist playlist = artist.getPlaylists().stream().filter(a -> a.getId().equals(playlistId)).findFirst().orElseThrow(() -> new IllegalArgumentException("Invalid playlist Id:" + playlistId));
+        Artist artist = artistRepo.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Невалид артист Id:" + artistId));
+        Playlist playlist = artist.getPlaylists().stream().filter(a -> a.getId().equals(playlistId)).findFirst().orElseThrow(() -> new IllegalArgumentException("Невалид плейлист Id:" + playlistId));
 
         artist.getPlaylists().remove(playlist);
         playlist.setArtist(null);
@@ -141,8 +142,8 @@ public class PlaylistController {
     public String addTracksToPlaylist(Model model, @PathVariable Long artistId, @PathVariable Long playlistId) {
         List<Track> tracks = trackRepo.findAll();
 
-        Artist artist = artistRepo.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Invalid artist Id:" + artistId));
-        Playlist playlist = playlistRepo.findById(playlistId).orElseThrow(() -> new IllegalArgumentException("Invalid playlist Id:" + playlistId));
+        Artist artist = artistRepo.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Невалид артист Id:" + artistId));
+        Playlist playlist = playlistRepo.findById(playlistId).orElseThrow(() -> new IllegalArgumentException("Невалид плейлист Id:" + playlistId));
 
         model.addAttribute("playlist", playlist);
         model.addAttribute("tracks", tracks);
@@ -160,7 +161,7 @@ public class PlaylistController {
                                               @RequestParam(value = "selectedTracks", required = false) List<Long> selectedTracksIds,
                                               RedirectAttributes redirectAttributes) {
 
-        Playlist playlist = playlistRepo.findById(playlistId).orElseThrow(() -> new IllegalArgumentException("Invalid playlist Id:" + playlistId));
+        Playlist playlist = playlistRepo.findById(playlistId).orElseThrow(() -> new IllegalArgumentException("Невалид плейлист Id:" + playlistId));
 
         if (selectedTracksIds != null && !selectedTracksIds.isEmpty()) {
             int currentTrackCount = playlist.getContents().size();
@@ -188,7 +189,6 @@ public class PlaylistController {
             }
 
             playlistRepo.save(playlist);
-
             redirectAttributes.addFlashAttribute("successMessage", "Выбранные треки были добавлены в Плейлист");
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "Ни одного трека не было добавлено");
@@ -198,6 +198,7 @@ public class PlaylistController {
     }
 
     @GetMapping("/artist/{artistId}/playlist/{playlistId}/deleteTrack")
+    //Удаление трека из плейлиста
     public String deleteTrackFromPlaylist(@PathVariable Long artistId,
                                           @PathVariable Long playlistId,
                                           @RequestParam Long trackId,

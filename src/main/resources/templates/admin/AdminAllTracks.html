@@ -23,7 +23,7 @@
     <div class="container">
         <div class="header__top">
             <div class="header__top-logo">
-                <a th:href="@{/Admin}"><img th:src="@{/images/admin/logotype.svg}"></a>
+                <a th:href="@{/Admin}"><img th:src="@{/images/admin/logotype.svg}" alt="logotype"></a>
             </div>
             <a class="header__top-logout" th:href="@{/logout}">Выйти из системы</a>
             <a class="header__top-nameAdmin" th:href="@{/}">Пользовательский интерфейс</a>
@@ -54,7 +54,7 @@
                             </audio>
                             <div class="tracks-main__top">
                                 <img class="tracks-main__img" th:src="@{'/uploads/' + ${track.getCoverfilename()}}"
-                                     height="225">
+                                     height="225" alt="tracks-main__img">
                             </div>
                             <div class="admin-tracks-main__bottom">
                                 <div class="admin-tracks-main__bottom-left">
@@ -64,7 +64,7 @@
                                     </a>
                                 </div>
                                 <button class="tracks-main__btn" th:data-track-id="${track.id}">
-                                    <img class="playPauseIconSlider" src="../images/play-track-small.svg"
+                                    <img class="playPauseIconSlider" th:src="@{/images/play-track-small.svg}"
                                          alt="Воспроизвести">
                                 </button>
                             </div>

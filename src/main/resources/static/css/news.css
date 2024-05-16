@@ -127,7 +127,7 @@
 
 .event_title {
     color: var(--white);
-    font-family: Nunito;
+    font-family: Nunito, serif;
     font-size: 40px;
     font-style: normal;
     font-weight: 500;

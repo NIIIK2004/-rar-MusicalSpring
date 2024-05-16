@@ -1,17 +1,3 @@
-// const swiper = new Swiper('.theme__swiper', {
-//     slidesPerView: 'auto',
-//     spaceBetween: 30,
-//     centeredSlides: true,
-//     loop: true,
-//     autoplay: {
-//         delay: 5,
-//         disableOnInteraction: false,
-//     },
-//     speed: 4000,
-//     direction: 'horizontal'
-// });
-
-
 const swiper = new Swiper('.theme__swiper', {
     slidesPerView: 'auto',
     spaceBetween: 30,
@@ -26,6 +12,5 @@ const swiper = new Swiper('.theme__swiper', {
     speed: 4000,
     direction: 'horizontal'
 });
-
 
 AOS.init();

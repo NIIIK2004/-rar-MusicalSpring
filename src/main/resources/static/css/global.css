@@ -23,9 +23,7 @@ ul {
     --grayNotEdit: #CDCDCD;
 }
 
-/*#e6e6e6*/
 html, body {
-    /*overflow-y: scroll;*/
     scroll-behavior: smooth;
 }
 
@@ -35,8 +33,6 @@ body {
     font-weight: 300;
     line-height: 140%;
     color: var(--white);
-    /*transition: opacity 1s ease-out;*/
-    /*position: relative;*/
     transition: all .3s;
 }
 

@@ -15,7 +15,6 @@
 
 .playPauseIconSlider {
     width: 36px;
-
 }
 
 .admin-tracks-main__bottom {
@@ -54,6 +53,7 @@
 .tracks-main__top {
     position: relative;
 }
+
 .tracks-main__top:after {
     content: "";
     position: absolute;
@@ -63,7 +63,6 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
 }
-
 
 .admin-tools-top {
     width: 222px;

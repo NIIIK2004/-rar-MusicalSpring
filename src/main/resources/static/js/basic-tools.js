@@ -1,7 +1,3 @@
-function goBack() {
-    window.history.back();
-}
-
 function updateFileName() {
     let input = document.getElementById('audioFile');
     let fileNameSpan = document.getElementById('audioFileName');
