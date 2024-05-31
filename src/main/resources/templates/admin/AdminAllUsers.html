@@ -73,10 +73,9 @@
     </div>
 </div>
 
-<div class="user-data-message" id="user-data-message" th:if="${success}">
-    <h2>Новый Администратор</h2>
-    <p>Успешно создан, теперь еще один Администратор управляет данным сайтом, всех поздравляем</p>
-    <a href="#" id="close-link">Отлично</a>
+<div class="alert-success" id="user-data-message" th:if="${success}">
+    <h2>Администратор создан</h2>
+    <p>Теперь еще один Администратор управляет данным сайтом, всех поздравляем *(нет)</p>
 </div>
 
 <div id="error-message" th:if="${errors}" th:text="${errors}"></div>

@@ -10,11 +10,14 @@ import com.example.model.Track;
 import com.example.model.User;
 import com.example.repo.ArtistRepo;
 import com.example.repo.SubscriptionRepo;
+import com.example.repo.TrackRepo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -46,6 +49,7 @@ public class AllArtistController {
     private final ArtistImpl artistImpl;
 
     private final TrackImpl trackImpl;
+    private final TrackRepo trackRepo;
 
     @GetMapping(value = {"/allartist", "/Admin-All-Artist"})
     //Получение списка артистов для пользователя и администратора
@@ -86,29 +90,47 @@ public class AllArtistController {
     }
 
     @PostMapping("/artist/createOrEditArtist")
-    //Отправка данных для создания и редактирования артиста
-    public String createOrEditArtist(@RequestParam(name = "artistId", required = false) Long artistId,
-                                     @RequestParam(name = "file", required = false) MultipartFile file,
-                                     @RequestParam String name,
-                                     @RequestParam String description,
-                                     @RequestParam String genre,
-                                     @RequestParam String listeners,
-                                     @RequestParam String country,
-                                     @RequestParam String liking, Model model) throws IOException {
-        if (name.isEmpty() || description.isEmpty() || genre.isEmpty() || country.isEmpty()) {
-            model.addAttribute("error", "Заполните обязательные поля помеченные звездочкой");
-            return "admin/CreateOrEditArtist";
+    //    //Отправка данных для создания и редактирования артиста
+    public ResponseEntity<?> createOrEditArtist(@RequestParam(name = "artistId", required = false) Long artistId,
+                                                @RequestParam(name = "file", required = false) MultipartFile file,
+                                                @RequestParam String name,
+                                                @RequestParam String description,
+                                                @RequestParam String genre,
+                                                @RequestParam String listeners,
+                                                @RequestParam String country,
+                                                @RequestParam String liking,
+                                                RedirectAttributes redirectAttributes) throws IOException {
+        List<String> errors = new ArrayList<>();
+
+        if (name.isEmpty() ) {
+            errors.add("Заполните имя артиста");
+        }
+        if (description.isEmpty() ) {
+            errors.add("Заполните описание артиста");
+        }
+        if (genre.isEmpty()) {
+            errors.add("Заполните жанр в котором пишет артист");
+        }
+        if (country.isEmpty()) {
+            errors.add("Заполните страну артиста");
+        }
+        if (!errors.isEmpty()) {
+            return ResponseEntity.badRequest().body(Collections.singletonMap("errors", errors));
         }
 
         Artist artist;
+
         if (artistId != null) {
             artist = artistRepo.findById(artistId)
                     .orElseThrow(() -> new IllegalArgumentException("Артист с ID " + artistId + " не найден"));
         } else {
             artist = new Artist();
             if (artistRepo.existsByName(name)) {
-                model.addAttribute("error", "Артист с таким именем уже существует!");
-                return "admin/CreateOrEditArtist";
+                errors.add("Артист с таким именем уже существует!");
+                return ResponseEntity.badRequest().body(Collections.singletonMap("errors", errors));
+            }
+            if (file == null || file.isEmpty()) {
+                errors.add("Вставьте изображение артиста");
             }
         }
 
@@ -131,16 +153,23 @@ public class AllArtistController {
             artist.setFilename(filename);
         } else {
             if (artistId != null && artist.getFilename() != null) {
-                Artist oldArtist = artistRepo.findById(artistId).orElseThrow(() -> new IllegalArgumentException("Артист с ID " + artistId + " не найден"));
+                Artist oldArtist = artistRepo.findById(artistId)
+                        .orElseThrow(() -> new IllegalArgumentException("Артист с ID " + artistId + " не найден"));
                 artist.setFilename(oldArtist.getFilename());
             }
         }
 
         artistImpl.add(artist);
-        return "redirect:/Admin-All-Artist";
+
+        Map<String, String> response = new HashMap<>();
+        response.put("redirectUrl", "/Admin-All-Artist");
+        response.put("successMessage", "Новый артист добавлен");
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/allartist/delete/{id}")
+    @Transactional
     //Удаление артиста
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Artist artist = artistImpl.findById(id)
@@ -154,17 +183,15 @@ public class AllArtistController {
         }
 
         List<Track> tracks = artist.getTracks();
-        if (tracks != null) {
-            for (Track track1 : tracks) {
-                trackImpl.delete(track1.getId());
-            }
+        if (tracks != null && !tracks.isEmpty()) {
+            trackRepo.deleteAll(tracks);
         }
 
         List<Subscription> subscriptions = subscriptionRepo.findByArtistId(artist.getId());
         subscriptionRepo.deleteAll(subscriptions);
 
         artistImpl.delete(artist.getId());
-        redirectAttributes.addFlashAttribute("success", "Успешное удаление артиста " + artist.getName());
+        redirectAttributes.addFlashAttribute("successDelete", "Успешное удаление артиста " + artist.getName());
 
         return "redirect:/Admin-All-Artist";
     }

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class NewsController {
         model.addAttribute("newsList", news);
         model.addAttribute("pageTitle", "Новости");
 
-        if(request.getRequestURI().equals("/Admin-News")) {
+        if (request.getRequestURI().equals("/Admin-News")) {
             return "/admin/CreateOrDeleteNews";
         } else {
             return "News";
@@ -45,18 +46,18 @@ public class NewsController {
 
     @PostMapping("/news/save")
     //Создание новости от имени Админа
-    public String save(@ModelAttribute("news") @Valid News news, @RequestParam("file") MultipartFile file, BindingResult result, Model model) {
+    public String save(@ModelAttribute("news") @Valid News news, @RequestParam("file") MultipartFile file, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+        List<News> newsList = newsRepo.findAll();
 
         if (file.isEmpty()) {
-            result.rejectValue("imageNews", "errorsNews" ,"Загрузите фотографию новости");
-        }
-
-        if (result.hasErrors()) {
-            List<News> newsList = newsRepo.findAll();
-            model.addAttribute("newsList", newsList);
+            redirectAttributes.addFlashAttribute("errorImg", "Загрузите фотографию новости");
             return "redirect:/Admin-News";
         }
 
+        if (result.hasErrors()) {
+            model.addAttribute("newsList", newsList);
+            return "redirect:/Admin-News";
+        }
 
         try {
             String filename = UUID.randomUUID() + ".jpg";
@@ -69,13 +70,26 @@ public class NewsController {
         news.setDate(LocalDateTime.now());
 
         newsRepo.save(news);
+        redirectAttributes.addFlashAttribute("successAdd", "Новость была добавлена");
         return "redirect:/Admin-News";
     }
 
     @GetMapping("/news/delete/{id}")
     //Удаление новости
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        News news = newsRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Инвалид айди друк"));
+        String imagesNews = news.getImageNews();
+
+        if (imagesNews != null) {
+            String imagePath = uploadPath + "/" + imagesNews;
+            File file = new File(imagePath);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+
         newsRepo.deleteById(id);
+        redirectAttributes.addFlashAttribute("successDelete", "Новость была удалена");
         return "redirect:/Admin-News";
     }
 }

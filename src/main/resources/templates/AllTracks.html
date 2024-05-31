@@ -16,21 +16,18 @@
     <link rel="stylesheet" th:href="@{/css/tracks-main.css}">
     <link rel="stylesheet" th:href="@{/css/details-track.css}">
     <link rel="stylesheet" th:href="@{/css/AllArtist.css}">
+    <link rel="stylesheet" th:href="@{/css/BlockUpdates.css}">
+    <link rel="stylesheet" th:href="@{/css/Artist.css}">
     <link rel="icon" th:href="@{/images/logo.svg}">
     <title>Musical - Релизы</title>
 </head>
 
 <body class="body">
+
 <div style="background: rgba(83, 71, 204, 0.60); top: -28%; left: -7%;" class="top-decor-left"></div>
 <div style="background: rgba(191, 62, 253, 0.50); top: -40%; left: 30%;" class="top-decor-left"></div>
 
 <header class="header" th:insert="~{components/header :: header}"></header>
-
-<section class="control-panel InaccessibleContent" sec:authorize="!isAuthenticated()">
-    <div class="container">
-        <img th:src="@{/images/Inaccessible content.png}" alt="content">
-    </div>
-</section>
 
 <section class="control-panel" sec:authorize="isAuthenticated()">
     <div class="container">
@@ -179,10 +176,13 @@
                 </div>
 
                 <div class="controls">
-                    <button id="prevButton"><img th:src="@{/images/prev_song-icon.svg}" alt="Пред трек" draggable="false"></button>
+                    <button id="prevButton"><img th:src="@{/images/prev_song-icon.svg}" alt="Пред трек"
+                                                 draggable="false"></button>
                     <button class="toggle-audio-button" id="playPauseButton">
-                        <img class="playPauseIcon" th:src="@{/images/play-icon.svg}" alt="Воспроизвести" draggable="false"></button>
-                    <button id="nextButton"><img th:src="@{/images/next_song-icon.svg}" alt="След трек" draggable="false"></button>
+                        <img class="playPauseIcon" th:src="@{/images/play-icon.svg}" alt="Воспроизвести"
+                             draggable="false"></button>
+                    <button id="nextButton"><img th:src="@{/images/next_song-icon.svg}" alt="След трек"
+                                                 draggable="false"></button>
                 </div>
                 <div class="audio-action_btn">
                     <button onclick="toggleMute()">
@@ -199,7 +199,11 @@
                     <button class="action_btn-more">
                         <img class="btn" th:src="@{/images/more-icon.svg}" alt="Еще больше">
                     </button>
-                    <button id="fullscreen-container" class="transition">
+                    <button class="action_btn-more" sec:authorize="!isAuthenticated()">
+                        <img class="action_btn-maximize btn" th:src="@{/images/maximize-icon-lock.svg}"
+                             alt="На весь экран">
+                    </button>
+                    <button id="fullscreen-container" class="transition" sec:authorize="isAuthenticated()">
                         <img class="action_btn-maximize btn" th:src="@{/images/maximize-icon.svg}"
                              alt="На весь экран">
                     </button>
@@ -210,6 +214,10 @@
 
     <div class="warn__notification">
         <p>Для полного восприятия вида нажмите F11</p>
+    </div>
+
+    <div th:if="${successMessage != null}" class="success__notification" role="alert">
+        [[${successMessage}]]
     </div>
 </section>
 
@@ -266,6 +274,35 @@
                 <img class="gradient-decor-img" th:src="@{/images/banner-circle.svg}" alt="banner-circle">
             </div>
 
+        </div>
+    </div>
+</section>
+
+<section class="interesting-playlists">
+    <div class="container">
+        <h2 class="title">Подходящие плейлисты</h2>
+        <div class="Artist__info-playlists">
+            <div class="Artist__info-sets-wrapper set-wrapper-playlist" th:each="playlist : ${playlists}">
+                <a th:href="@{/artist/{artistId}/playlist/{playlistId}(artistId = ${playlist.getArtist().id}, playlistId = ${playlist.id})}"
+                   class="Artist__info-playlist">
+                    <h3 th:text="${playlist.title}"></h3>
+                    <img th:src="@{'/uploads/' + ${playlist.cover}}" alt="pl1">
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="InaccessibleContent" sec:authorize="!isAuthenticated()">
+    <div class="container">
+        <div class="InaccessibleContent__wrapper">
+            <p>Зарегистрируйся сейчас и получи доступ ко всем возможностям нашего сервиса!</p>
+            <a th:href="@{/registration}" class="InaccessibleContent-btn">
+                <div class="InaccessibleContent-btn-inner" sec:authorize="!isAuthenticated()">
+                    Регистрация
+                </div>
+            </a>
         </div>
     </div>
 </section>

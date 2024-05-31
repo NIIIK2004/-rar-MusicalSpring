@@ -89,6 +89,7 @@
 
 .dataArtist-fields input,
 .dataArtist-fields textarea {
+    font-family: Nunito, serif;
     padding: 17px 30px;
     color: var(--white);
     font-size: 18px;
@@ -115,16 +116,6 @@
 
 .button_save {
     margin-top: 15px;
-}
-
-.error-message {
-    border: 1px solid #ed5858;
-    padding: 7px;
-    text-align: center;
-    border-radius: 60px;
-    background: #ed585821;
-    margin: 10px;
-    font-size: 17px;
 }
 
 .Artist__info-playlist-add {

@@ -33,7 +33,7 @@
         <div class="admin__wrapper">
             <header class="header" th:insert="~{admin/components/Admin-Header :: header}"></header>
             <div class="admin__panel">
-                <form th:object="${artist}" th:action="@{/artist/createOrEditArtist}" class="admin__panel-dataArtist"
+                <form id="artistForm" th:object="${artist}" th:action="@{/artist/createOrEditArtist}" class="admin__panel-dataArtist"
                       method="post" enctype="multipart/form-data">
                     <div class="dataArtist__wrapper">
                         <div class="dataArtist-img">
@@ -60,18 +60,21 @@
                                       th:text="${artist != null} ? ${artist.description} : ''"></textarea>
                         </div>
                     </div>
-                    <div th:if="${error}" class="error-message">
-                        <p th:text="${error}"></p>
-                    </div>
-                    <button type="submit" class="button_save">Создать нового артиста</button>
+<!--                    <div th:if="${error}" class="error-message">-->
+<!--                        <p th:text="${error}"></p>-->
+<!--                    </div>-->
+                    <button id="submitButton" type="submit" class="button_save">Создать нового артиста</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
+<div class="alert-delete dn" id="user-data-message"></div>
+
 
 </body>
 <script th:src="@{/js/basic-tools.js}"></script>
+<script th:src="@{/js/admin/createFetchObject.js}"></script>
 
 </html>

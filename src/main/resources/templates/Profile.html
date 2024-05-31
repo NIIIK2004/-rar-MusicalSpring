@@ -121,10 +121,8 @@
     </div>
 </section>
 
-<div class="user-data-message" id="user-data-message" th:if="${message}">
-    <h2>Данные о пользователе изменены!</h2>
-    <p>Вы можете увидеть это в личном кабинете. Не меняли данные? Статья о Безопасности данных</p>
-    <a href="#" id="close-link">Хорошо</a>
+<div class="alert-success" id="user-data-message" th:if="${message}" style="width: unset">
+    <h2>Данные пользователя были обновлены!</h2>
 </div>
 
 </body>

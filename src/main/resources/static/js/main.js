@@ -155,12 +155,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    progressBar.addEventListener("mousemove", function (event) {
+    function updateProgressBarAndCircle(event) {
         let rect = progressBar.getBoundingClientRect();
         let offsetX = event.clientX - rect.left;
         circle.style.left = offsetX - circle.offsetWidth / 2 + "px";
-        circle.style.opacity = '1';
-    });
+        if (event.type === 'mousemove') {
+            circle.style.opacity = '1';
+            progressBar.style.backgroundColor = 'var(--white)';
+        } else {
+            circle.style.opacity = '0';
+            progressBar.style.backgroundColor = '#cdcdcd36';
+        }
+    }
+
+    progressBar.addEventListener("mousemove", updateProgressBarAndCircle);
+    progressBar.addEventListener("mouseleave", updateProgressBarAndCircle);
 
     function padDigits(number) {
         return (number < 10) ? "0" + number : number;

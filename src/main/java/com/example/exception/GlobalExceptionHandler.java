@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -18,6 +20,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         modelAndView.addObject("errorMessage", ex.getMessage());
         return modelAndView;
     }
+
 
     @ExceptionHandler(Exception.class)
     public ModelAndView handleGenericException(Exception ex) {

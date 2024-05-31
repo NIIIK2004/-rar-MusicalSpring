@@ -108,7 +108,8 @@ a {
     z-index: 12;
     padding: 28px 18px 25px;
     border-radius: 22px;
-    background: #161616;
+    background: #161616b5;
+    backdrop-filter: blur(7px);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -159,7 +160,8 @@ a {
     justify-content: center;
     align-items: flex-end;
     border-radius: 13px;
-    background: #292929;
+    background: #16161600;
+    backdrop-filter: blur(1px);
 }
 
 .user-menu-themes span {

@@ -14,4 +14,5 @@ public interface TrackRepo extends JpaRepository<Track, Long> {
     @Query("SELECT a FROM Track a WHERE a.title LIKE %:name%")
     List<Track> findByName(@Param("name") String name);
     long countByCreatedDateBetween(LocalDateTime start, LocalDateTime end);
+
 }

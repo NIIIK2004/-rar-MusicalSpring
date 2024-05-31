@@ -20,6 +20,10 @@ public class CustomErrorController implements ErrorController {
         if (status != null && Integer.parseInt(status.toString()) == HttpStatus.FORBIDDEN.value()) {
             return "error/403";
         }
+        if (status != null && Integer.parseInt(status.toString()) == HttpStatus.BAD_REQUEST.value()) {
+            return "error/404";
+        }
+
         return "error/error";
     }
 }

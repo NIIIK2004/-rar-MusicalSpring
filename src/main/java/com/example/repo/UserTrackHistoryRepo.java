@@ -21,4 +21,6 @@ public interface UserTrackHistoryRepo extends JpaRepository<UserTrackHistory, Lo
         Integer result = getSumOfListenCountByUser(user);
         return result != null ? (int)Math.floor(result / 2.0) : 0;
     }
+
+    List<UserTrackHistory> findByTrackId(Long id);
 }

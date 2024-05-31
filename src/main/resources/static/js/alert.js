@@ -9,6 +9,15 @@ const noWorkWarn = document.querySelector('.no-work__warn');
 const closebtn = document.querySelectorAll('.subs__warn-close');
 const noWorkClose = document.querySelectorAll('.noWork-close');
 
+const successNotification = document.querySelectorAll('.success__notification');
+
+successNotification.forEach(notification => {
+    setTimeout(function () {
+        notification.style.opacity = "0";
+        notification.style.bottom = "80px";
+    }, 2000);
+});
+
 //Алерт нижней панели
 repeatBtns.forEach((btn) => {
     btn.addEventListener('click', addSubsWarn);
@@ -46,6 +55,7 @@ noWorkClose.forEach((btn) => {
 function addNoWorkWarn() {
     noWorkWarn.classList.add('visible');
 }
+
 function removeNoWorkWarn() {
     noWorkWarn.classList.remove('visible');
 }
@@ -55,27 +65,19 @@ document.addEventListener("DOMContentLoaded", function () {
     if (messageElement) {
         setTimeout(function () {
             messageElement.classList.add('hide');
-        }, 5000);
-
-        let closeLink = document.getElementById('close-link');
-        if (closeLink) {
-            closeLink.addEventListener('click', function (e) {
-                e.preventDefault();
-                messageElement.classList.add('hide');
-            });
-        }
+        }, 3500);
     }
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const banner = document.querySelector(".ads-banner");
     const closeButton = document.querySelector(".close-button");
 
-    closeButton.addEventListener("click", function(event) {
+    closeButton.addEventListener("click", function (event) {
         event.preventDefault();
         banner.classList.add('fade-out');
 
-        setTimeout(function() {
+        setTimeout(function () {
             banner.style.display = "none";
             banner.classList.remove('fade-out');
         }, 500);

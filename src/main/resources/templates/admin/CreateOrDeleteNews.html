@@ -35,12 +35,16 @@
             <header class="header" th:insert="~{admin/components/Admin-Header :: header}"></header>
             <div class="admin__panel">
                 <form th:action="@{/news/save}" method="post" enctype="multipart/form-data">
+                    <div th:if="${errorImg}" class="error-message">
+                        <p th:text="${errorImg}"></p>
+                    </div>
                     <div class="data-news">
                         <div class="news-cover">
                             <label for="file">
-                                <img id="preview" th:src="@{/}" alt="plus" onerror="this.src='/images/default-download-img.png';">
+                                <img id="preview" th:src="@{/}" alt="plus"
+                                     onerror="this.src='/images/admin/uploads-for-images/cover-for-upload-news.svg';">
                             </label>
-                            <input type="file" id="file" name="file" accept="image/*" required onchange="previewFile()">
+                            <input type="file" id="file" name="file" accept="image/*" onchange="previewFile()">
                         </div>
                         <div class="news-info">
                             <input type="text" id="title" name="title" required placeholder="Название новости">
@@ -73,8 +77,19 @@
     </div>
 </div>
 
+<div class="alert-success" id="user-data-message" th:if="${successAdd}" style="left: 35px; right: unset;">
+    <h2>Добавлено!</h2>
+    <p>Новость была добавлена, можете просмотреть в разделе "Новости"</p>
+</div>
+
+<div class="alert-delete" id="user-data-message" th:if="${successDelete}" style="left: 35px; right: unset;">
+    <h2>Удалено!</h2>
+    <p>Новость была, удалена, возможно это действительно было нужно</p>
+</div>
+
 
 </body>
 <script th:src="@{/js/basic-tools.js}"></script>
+<script th:src="@{/js/alert.js}"></script>
 
 </html>

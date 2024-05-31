@@ -26,6 +26,7 @@
 <section class="AllArtist">
     <div class="container">
 
+                <h1 class="title" th:text="'Похожие на исполнителя - ' + ${artist.name}"></h1>
 
         <div class="AllArtist__wrapper">
             <th:block th:if="${similarArtists.isEmpty()}">

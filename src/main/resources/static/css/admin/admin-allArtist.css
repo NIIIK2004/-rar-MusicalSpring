@@ -3,6 +3,7 @@
     grid-template-columns: repeat(9, 1fr);
     gap: 22px;
     align-items: center;
+    margin-top: 40px;
 }
 
 .admin__panel-artists ul {

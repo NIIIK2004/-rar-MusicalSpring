@@ -74,7 +74,7 @@
             </form>
         </div>
     </section>
-    <div th:if="${errors}" class="error-message notification-message">
+    <div th:if="${errors}" class="alert-delete notification-message" id="user-data-message">
         <h2>Есть ошибки при регистрации:</h2>
         <ul>
             <li th:each="error : ${errors}" th:text="${error.defaultMessage}"></li>
@@ -84,4 +84,5 @@
 </body>
 <script th:src="@{/js/registration.js}"></script>
 <script th:src="@{/js/basic-tools.js}"></script>
+<script th:src="@{/js/alert.js}"></script>
 </html>

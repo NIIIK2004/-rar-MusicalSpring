@@ -1,7 +1,6 @@
 @import 'global.css';
 @import 'components/form-styles.css';
 @import 'components/custom-file.css';
-@import 'components/fonts.css';
 
 .title {
     font-family: 'Nunito', serif;
@@ -28,7 +27,7 @@
 
 .bottom_panel {
     background: var(--black-layer);
-    padding: 20px 0;
+    padding: 15px 0;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -49,11 +48,12 @@ audio {
 }
 
 .progress-bar {
-    background-color: var(--white);
+    background-color: #cdcdcd36;
     height: 4px;
     width: 100%;
     border-radius: 50px;
     position: relative;
+    transition: all .3s;
 }
 
 .progress {
@@ -104,6 +104,7 @@ audio {
     transition: all .3s;
     background: transparent;
     padding: 11px 13px;
+    opacity: 0.4;
 }
 
 .audio-action_btn button:hover {
@@ -111,6 +112,7 @@ audio {
     border-radius: 100px;
     display: block;
     padding: 11px 13px;
+    opacity: 1;
 }
 
 .controls {
@@ -559,6 +561,45 @@ body.slide-out {
     margin-bottom: 40px;
 }
 
+.InaccessibleContent {
+    background: var(--feolet);
+    position: fixed;
+    width: 100%;
+    padding: 10px 0;
+    bottom: 9.4%;
+    z-index: 999;
+}
+
+.InaccessibleContent__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.InaccessibleContent p {
+    display: block;
+    line-height: 1;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.InaccessibleContent-btn-inner {
+    display: flex;
+    background: rgba(81, 81, 81, 0.50);
+    border-radius: 11px;
+    border: 1px solid #686868;
+    padding: 9px 20px;
+    align-items: center;
+    transition: all .3s;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.InaccessibleContent-btn-inner:hover {
+    background: #292929;
+}
+
+
 .control-panel-name {
     background: linear-gradient(49deg, #4A3AF2 9.53%, #CD3FFF 44.96%, #DA138A 105.45%);
     background-clip: text;
@@ -704,7 +745,7 @@ input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
 }
 
-
+.interesting-playlists,
 .interesting-artist {
     margin-top: 85px;
 }
@@ -891,3 +932,4 @@ input[type=range]::-webkit-slider-thumb {
     margin-left: 100px;
     transition: all 0.3s ease-out;
 }
+

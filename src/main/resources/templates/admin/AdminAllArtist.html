@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" th:href="@{/css/admin/admin-header.css}">
     <link rel="stylesheet" th:href="@{/css/admin/admin-allArtist.css}">
+    <link rel="stylesheet" th:href="@{/css/search.css}">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="icon" th:href="@{/images/logo.svg}">
@@ -32,11 +33,17 @@
         <div class="admin__wrapper">
             <header class="header" th:insert="~{admin/components/Admin-Header :: header}"></header>
             <div class="admin__panel">
+                <form action="#" method="GET">
+                    <input class="search_tracks" type="text" id="searchInput" oninput="searchArtistToAdmin()"
+                           placeholder="Поиск артистов...">
+                    <div id="searchResults"></div>
+                </form>
                 <div class="admin__panel-artists">
                     <ul th:each="artist : ${artists}">
                         <li>
                             <a th:href="@{/artist/{id}/details(id = ${artist.id})}">
                                 <img class="admin__panel-artists-ava" th:src="@{'/uploads/' + ${artist.filename}}" alt="Артист">
+                                <p style="display: none" class="admin__panel-artists-title" th:text="${artist.name}"></p>
                             </a>
                             <div class="admin__panel-artists-tools">
                                 <a th:href="@{'/artist/createOrEditArtistPage?artistId=' + ${artist.id}}"><img th:src="@{/images/admin/edit.svg}" alt="Редактирование"></a>
@@ -52,8 +59,16 @@
     </div>
 </div>
 
+<div class="alert-delete" id="user-data-message" th:if="${successDelete}">
+    <h2>Удален!</h2>
+    <p>Артист был успешно удален</p>
+</div>
+
 
 </body>
 <script th:src="@{/js/basic-tools.js}"></script>
+<script th:src="@{/js/SearchFetchObject.js}"></script>
+<script th:src="@{/js/alert.js}"></script>
+
 
 </html>

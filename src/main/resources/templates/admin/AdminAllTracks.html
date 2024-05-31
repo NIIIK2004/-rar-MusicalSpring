@@ -79,8 +79,14 @@
 </div>
 
 
+<div class="alert-delete" id="user-data-message" th:if="${successDelete}">
+    <h2>Удален!</h2>
+    <p>Релиз был успешно удален</p>
+</div>
+
 </body>
 <script th:src="@{/js/basic-tools.js}"></script>
 <script th:src="@{/js/adminPlayTracks.js}"></script>
+<script th:src="@{/js/alert.js}"></script>
 
 </html>

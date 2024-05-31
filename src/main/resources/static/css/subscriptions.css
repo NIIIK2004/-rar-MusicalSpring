@@ -103,3 +103,19 @@
 .subscriptions_artist-right button:hover {
     background: rgb(34 34 34);
 }
+
+.notHaveSubs {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap: 15px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.notHaveSubs img {
+    width: fit-content;
+}

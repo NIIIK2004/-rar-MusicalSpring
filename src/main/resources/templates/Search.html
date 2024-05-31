@@ -26,7 +26,7 @@
                 <img th:src="@{/images/header/logotype-update.svg}" class="header_logo">
             </a>
             <form action="/search" method="GET">
-                <input type="search" class="search_tracks" name="name" placeholder='Например "Ведьма и Осёл" или "Король и Шут" '>
+                <input type="search" class="search_tracks" name="name" placeholder='Например "Ведьма и Осёл" или "Король и Шут" ' th:value="${query}">
                 <button type="submit" class="search-button"><img class="search_tracks-img"
                                                                  src="../images/header/search.svg"></button>
             </form>
@@ -62,9 +62,20 @@
 
 <section class="search__artist">
     <div class="container">
-        <h1 class="title">Артисты </h1>
-        <div class="search__track-wrapper" th:if="${artists.isEmpty()}">
-            <span>Артистов не найдено</span>
+
+        <div class="suggestion__wrapper" th:if="${!suggestions.isEmpty()}">
+            <p class="suggestion_title">Возможно, вы имели в виду:</p>
+            <ul>
+                <li th:each="suggestion : ${suggestions}">
+                    <a th:href="@{'/search?name=' + ${suggestion}}" th:text="${suggestion}"></a>
+                </li>
+            </ul>
+        </div>
+
+        <h1 class="title" th:text="${artists.isEmpty()} ? 'Результаты поиска' : 'Артисты'"></h1>
+        <div class="noSearch__track-wrapper" th:if="${artists.isEmpty()}">
+            <img th:src="@{/images/noArtistInSearch.svg}">
+            <span>По вашему запросу артистов не было найдено</span>
         </div>
         <div th:each="artist : ${artists}" th:if="${!artists.isEmpty()}">
             <div class="search__artist-wrapper">
@@ -86,10 +97,7 @@
 
 <section class="search__track">
     <div class="container">
-        <h1 class="title">Треки</h1>
-        <div class="search__track-wrapper" th:if="${tracks.isEmpty()}">
-            <span>Из треков ничего не найдено</span>
-        </div>
+        <h1 class="title" th:if="${!tracks.isEmpty()}">Треки</h1>
         <div class="search__track-wrapper">
             <ul class="search__track-track" th:each="track : ${tracks}" th:if="${!tracks.isEmpty()}">
                 <li>

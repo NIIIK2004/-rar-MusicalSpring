@@ -182,6 +182,7 @@
     transition: background-color 0.5s ease;
 }
 
+.success__notification,
 .warn__notification {
     pointer-events: none;
     opacity: 0;
@@ -197,6 +198,10 @@
     transition: all .5s ease-in-out;
 }
 
+.success__notification {
+    opacity: 1;
+}
+
 .warn__notification p {
     color: #FFF;
     font-size: 17px;
@@ -207,5 +212,9 @@
 @media screen and (min-height: 1080px) {
     .details-track__inner {
         margin-top: 160px;
+    }
+
+    .InaccessibleContent {
+        bottom: 7.9%;
     }
 }

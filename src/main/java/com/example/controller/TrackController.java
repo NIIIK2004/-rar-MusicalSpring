@@ -3,18 +3,15 @@ package com.example.controller;
 import com.example.dto.TrackDTO;
 import com.example.impl.TrackImpl;
 import com.example.impl.UserImpl;
-import com.example.model.Artist;
-import com.example.model.Track;
-import com.example.model.User;
-import com.example.model.UserTrackHistory;
-import com.example.repo.ArtistRepo;
-import com.example.repo.TrackRepo;
-import com.example.repo.UserRepo;
-import com.example.repo.UserTrackHistoryRepo;
+import com.example.model.*;
+import com.example.repo.*;
+import com.example.service.PlaylistService;
 import com.example.service.TrackService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.apache.lucene.search.spell.LevensteinDistance;
+import org.apache.lucene.search.spell.StringDistance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -50,6 +47,13 @@ public class TrackController {
     private UserRepo userRepo;
     @Autowired
     private UserTrackHistoryRepo userTrackHistoryRepo;
+
+    @Autowired
+    private PlaylistContentsRepo playlistContentsRepo;
+    @Autowired
+    private PlaylistService playlistService;
+    @Autowired
+    private SubscriptionRepo subscriptionRepo;
 
     @GetMapping("/{trackId}")
     //Получение значения играющего трека - (создано для передачи fetch-запросам)
@@ -93,9 +97,34 @@ public class TrackController {
     public String TrackMainPage(Model model, Principal principal, HttpSession session, HttpServletRequest request) {
         List<Track> tracks = trackRepo.findAll();
         List<Artist> artists = artistRepo.findAll();
+        List<Playlist> playlists = new ArrayList<>();
 
         Collections.shuffle(tracks);
 
+        if (principal != null) {
+            String username = principal.getName();
+            User user = userImpl.findByUsername(username);
+
+            if (user != null) {
+                model.addAttribute("name", user.getName());
+
+                List<Subscription> subscriptions = subscriptionRepo.findByUser(user);
+                if (subscriptions != null && !subscriptions.isEmpty()) {
+                    List<Artist> followedArtists = subscriptions.stream().map(Subscription::getArtist).toList();
+                    playlists = playlistService.getPlaylistsByArtists(followedArtists);
+
+                    if (playlists.isEmpty()) {
+                        playlists = playlistService.getRandomPlaylists();
+                    }
+                }
+            } else {
+                playlists = playlistService.getRandomPlaylists();
+            }
+        } else {
+            playlists = playlistService.getRandomPlaylists();
+        }
+
+        model.addAttribute("playlists", playlists);
         model.addAttribute("artists", artists);
         model.addAttribute("tracks", tracks);
         model.addAttribute("volume", 1.0);
@@ -106,6 +135,12 @@ public class TrackController {
             User user = userImpl.findByUsername(username);
             if (user != null) {
                 model.addAttribute("name", user.getName());
+
+                boolean showSuccessMessage = session.getAttribute("showSuccessMessage") == null || (boolean) session.getAttribute("showSuccessMessage");
+                if (showSuccessMessage) {
+                    model.addAttribute("successMessage", "Вы успешно вошли в систему!");
+                    session.setAttribute("showSuccessMessage", false);
+                }
             }
         }
 
@@ -143,62 +178,76 @@ public class TrackController {
     }
 
     @PostMapping("/alltrack/saveOrUpdate")
-    //Сохранение добавления или редактирования треков - (Отправка запроса)
-    public String saveOrUpdateTrack(@ModelAttribute("track") Track track,
-                                    @RequestParam(value = "cover", required = false) MultipartFile imgfile,
-                                    @RequestParam(value = "audio", required = false) MultipartFile audiofile,
-                                    @RequestParam(value = "artist_id", required = false) Long artistId,
-                                    RedirectAttributes redirectAttributes) throws IOException {
+    //    //Сохранение добавления или редактирования треков - (Отправка запроса)
+    public ResponseEntity<?> saveOrUpdateTrack(@ModelAttribute("track") Track track,
+                                               @RequestParam(value = "cover", required = false) MultipartFile imgfile,
+                                               @RequestParam(value = "audio", required = false) MultipartFile audiofile,
+                                               @RequestParam(value = "artist_id", required = false) Long artistId, RedirectAttributes redirectAttributes) throws IOException {
+        List<String> errors = new ArrayList<>();
+
+        if (track.getId() == null) {
+            if (imgfile == null || imgfile.isEmpty()) {
+                errors.add("Загрузите обложку релиза");
+            }
+            if (audiofile == null || audiofile.isEmpty()) {
+                errors.add("Загрузите аудиофайл");
+            }
+        }
+
         if (artistId == null) {
-            redirectAttributes.addFlashAttribute("error", "Пожалуйста, выберите артиста");
-            return "redirect:/track/createOrEditTrackPage";
+            errors.add("Выберите артиста");
+        }
+        if (track.getTitle().isEmpty()) {
+            errors.add("Заполните, название трека");
+        }
+        if (!errors.isEmpty()) {
+            return ResponseEntity.badRequest().body(Collections.singletonMap("errors", errors));
         }
 
         Artist artist = artistRepo.findById(artistId).orElse(null);
-
-        if (artist != null) {
-            track.setArtists(artist);
-
-            Track existingTrack = track.getId() != null ? trackRepo.findById(track.getId()).orElse(null) : null;
-
-            if (imgfile != null && !imgfile.isEmpty()) {
-                String filenameimg = UUID.randomUUID() + "." + imgfile.getOriginalFilename();
-                imgfile.transferTo(new File(uploadPath + "/" + filenameimg));
-                track.setCoverfilename(filenameimg);
-
-                if (existingTrack != null && existingTrack.getCoverfilename() != null) {
-                    File oldImgFile = new File(uploadPath + "/" + existingTrack.getCoverfilename());
-                    oldImgFile.delete();
-                }
-            } else {
-                if (existingTrack != null && existingTrack.getCoverfilename() != null) {
-                    track.setCoverfilename(existingTrack.getCoverfilename());
-                }
-            }
-
-            if (audiofile != null && !audiofile.isEmpty()) {
-                String filenameaudio = UUID.randomUUID() + "." + audiofile.getOriginalFilename();
-                audiofile.transferTo(new File(uploadPath + "/" + filenameaudio));
-                track.setAudiofilename(filenameaudio);
-
-                if (existingTrack != null && existingTrack.getAudiofilename() != null) {
-                    File oldAudioFile = new File(uploadPath + "/" + existingTrack.getAudiofilename());
-                    oldAudioFile.delete();
-                }
-            } else {
-                if (existingTrack != null && existingTrack.getAudiofilename() != null) {
-                    track.setAudiofilename(existingTrack.getAudiofilename());
-                }
-            }
-
-            trackRepo.save(track);
-
-            redirectAttributes.addFlashAttribute("success", track.getId() == null ? "Новый трек успешно добавлен!" : "Трек успешно обновлен!");
-            return "redirect:/Admin-All-Tracks";
-        } else {
-            redirectAttributes.addFlashAttribute("error", "Выбранный артист не найден");
-            return "redirect:/track/createOrEditTrackPage";
+        if (artist == null) {
+            errors.add("Выбранный артист не найден");
+            return ResponseEntity.badRequest().body(Collections.singletonMap("errors", errors));
         }
+
+        track.setArtists(artist);
+
+        Track existingTrack = track.getId() != null ? trackRepo.findById(track.getId()).orElse(null) : null;
+
+        if (imgfile != null && !imgfile.isEmpty()) {
+            String filenameimg = UUID.randomUUID() + "." + imgfile.getOriginalFilename();
+            imgfile.transferTo(new File(uploadPath + "/" + filenameimg));
+            track.setCoverfilename(filenameimg);
+
+            if (existingTrack != null && existingTrack.getCoverfilename() != null) {
+                File oldImgFile = new File(uploadPath + "/" + existingTrack.getCoverfilename());
+                oldImgFile.delete();
+            }
+        } else {
+            if (existingTrack != null && existingTrack.getCoverfilename() != null) {
+                track.setCoverfilename(existingTrack.getCoverfilename());
+            }
+        }
+
+        if (audiofile != null && !audiofile.isEmpty()) {
+            String filenameaudio = UUID.randomUUID() + "." + audiofile.getOriginalFilename();
+            audiofile.transferTo(new File(uploadPath + "/" + filenameaudio));
+            track.setAudiofilename(filenameaudio);
+
+            if (existingTrack != null && existingTrack.getAudiofilename() != null) {
+                File oldAudioFile = new File(uploadPath + "/" + existingTrack.getAudiofilename());
+                oldAudioFile.delete();
+            }
+        } else {
+            if (existingTrack != null && existingTrack.getAudiofilename() != null) {
+                track.setAudiofilename(existingTrack.getAudiofilename());
+            }
+        }
+
+        trackRepo.save(track);
+
+        redirectAttributes.addFlashAttribute("successAdd", "Релиз был успешно загружен");
+        return ResponseEntity.ok(Collections.singletonMap("redirectUrl", "/Admin-All-Tracks"));
     }
 
 
@@ -206,6 +255,15 @@ public class TrackController {
     //Удаление трека и удаление всей логики связанных с другими таблицами (Получение запроса - Удаление)
     public String Delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Track track = trackImpl.findById(id).orElseThrow(() -> new IllegalArgumentException("Инвалид бро" + id));
+        List<UserTrackHistory> userTrackHistoryList = userTrackHistoryRepo.findByTrackId(id);
+        List<PlaylistContent> playlistContent = playlistContentsRepo.findByTrackId(id);
+
+        if (!userTrackHistoryList.isEmpty()) {
+            userTrackHistoryRepo.deleteByTrack(track);
+        }
+        if (!playlistContent.isEmpty()) {
+            playlistContentsRepo.deleteByTrack(track);
+        }
 
         String trackAudioPath = track.getAudiofilename();
         String trackCoverPath = track.getCoverfilename();
@@ -224,11 +282,9 @@ public class TrackController {
                 file.delete();
             }
         }
-        trackImpl.delete(track.getArtists().getId());
-        userTrackHistoryRepo.deleteByTrack(track);
 
         trackImpl.delete(track.getId());
-        redirectAttributes.addFlashAttribute("success", "Эх мы удалили какой то хороший трек грусть..." + track.getTitle());
+        redirectAttributes.addFlashAttribute("successDelete", "Релиз был успешно удален");
 
         return "redirect:/Admin-All-Tracks";
     }
@@ -238,24 +294,49 @@ public class TrackController {
     public String searchArtistAndTrack(@RequestParam(name = "name", required = false) String name, Model model) {
         List<Artist> artists;
         List<Track> tracks;
+        List<String> suggestions = new ArrayList<>();
 
         if (name != null && !name.isEmpty()) {
             artists = artistRepo.findByName(name);
             tracks = trackRepo.findByName(name);
 
-            List<Track> artistTracks = new ArrayList<>();
-            for (Artist artist : artists) {
-                artistTracks.addAll(artist.getTracks());
+            if (artists.isEmpty() && tracks.isEmpty()) {
+                suggestions = generateSuggestions(name);
+            } else {
+                List<Track> artistTracks = new ArrayList<>();
+                for (Artist artist : artists) {
+                    artistTracks.addAll(artist.getTracks());
+                }
+                tracks.addAll(artistTracks);
             }
-            tracks.addAll(artistTracks);
         } else {
             artists = artistRepo.findAll().stream().limit(3).collect(Collectors.toList());
             tracks = trackRepo.findAll().stream().limit(5).collect(Collectors.toList());
         }
+
         model.addAttribute("artists", artists);
         model.addAttribute("tracks", tracks);
+        model.addAttribute("suggestions", suggestions);
+        model.addAttribute("query", name);
 
         return "Search";
+    }
+
+    private List<String> generateSuggestions(String query) {
+        List<String> suggestions = new ArrayList<>();
+        StringDistance distance = new LevensteinDistance();
+
+        List<String> allNames = new ArrayList<>();
+        artistRepo.findAll().forEach(artist -> allNames.add(artist.getName()));
+        trackRepo.findAll().forEach(track -> allNames.add(track.getTitle()));
+
+        for (String name : allNames) {
+            if (distance.getDistance(query, name) > 0.8) {
+                suggestions.add(name);
+            }
+        }
+
+        return suggestions;
     }
 
     @GetMapping("/random-track")

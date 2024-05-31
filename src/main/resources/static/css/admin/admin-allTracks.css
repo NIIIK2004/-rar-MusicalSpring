@@ -1,15 +1,21 @@
 .admin-all-track {
-    max-width: 1114px;
+    height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #191919;
+    padding: 13px;
+    border-radius: 13px;
+    max-width: 1123px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 21px;
+    gap: 16px;
 }
 
 .admin-all-track li {
     border-radius: 13px;
     position: relative;
     width: 262px;
-    height: 262px;
+    height: 150px;
     overflow: hidden;
 }
 
@@ -47,11 +53,12 @@
     border-radius: 13px;
     object-fit: cover;
     width: 262px;
-    height: 262px;
+    height: 150px;
 }
 
 .tracks-main__top {
     position: relative;
+    height: -webkit-fill-available;
 }
 
 .tracks-main__top:after {
@@ -73,4 +80,10 @@
     left: 22px;
     top: 20px;
     align-items: center;
+    opacity: 0;
+    transition: all .2s;
+}
+
+.admin-tools-top:hover {
+    opacity: 1;
 }

@@ -36,7 +36,6 @@
 
 .user-data-name h2 {
     color: var(--white);
-    font-family: SF Pro Display, serif;
     font-size: 30px;
     font-weight: 600;
     line-height: normal;
@@ -44,7 +43,6 @@
 
 .user-data-name span {
     color: var(--gray);
-    font-family: SF Pro Display, serif;
     font-size: 20px;
     font-weight: 400;
     line-height: normal;
@@ -58,7 +56,6 @@
 
 .user-top-right span{
     color: var(--gray);
-    font-family: SF Pro Display, serif;
     font-size: 20px;
     font-weight: 400;
     line-height: normal;
@@ -66,15 +63,14 @@
 }
 
 .user-bottom-left {
-    gap: 15px;
+    gap: 9px;
     display: flex;
     flex-direction: column;
 }
 
 .user-bottom-left h2 {
     color: var(--white);
-    font-family: SF Pro Display, serif;
     font-size: 26px;
-    font-weight: 400;
+    font-weight: 300;
     line-height: normal;
 }

@@ -98,6 +98,27 @@ input[type="search"]::-webkit-search-cancel-button {
     align-items: center;
 }
 
+.noSearch__track-wrapper {
+    display: flex;
+    margin: 0 auto;
+    max-width: 444px;
+    gap: 17px;
+    align-items: center;
+    margin-top: 52px;
+}
+
+.noSearch__track-wrapper img {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.noSearch__track-wrapper span {
+    color: var(--gray);
+    text-align: left;
+    font-size: 17px;
+    display: block;
+}
+
 .search__track-track li {
     display: flex;
     gap: 15px;
@@ -155,8 +176,34 @@ input[type="search"]::-webkit-search-cancel-button {
     margin-top: 40px;
 }
 
+.suggestion__wrapper {
+    display: flex;
+    gap: 7px;
+    margin-bottom: 35px;
+}
 
+.suggestion_title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    color: var(--gray);
+}
 
+.suggestion_title:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: url(../images/li_alert-circle.svg);
+    background-size: cover;
+    display: block;
+    opacity: 0.6;
+}
+
+.suggestion__wrapper ul li a {
+    font-size: 16px;
+    color: #9b72f9 !important;
+}
 
 
 

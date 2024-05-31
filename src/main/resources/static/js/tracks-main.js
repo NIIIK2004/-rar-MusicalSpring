@@ -29,14 +29,14 @@ function animate() {
     if (maximizeIcon.src.includes("maximize-icon.svg")) {
         bottomPanel.style.backgroundColor = 'var(--black-layer)';
         bottomPanel.style.borderRadius = 'unset';
-        bottomPanel.style.padding = '20px 0px';
+        bottomPanel.style.padding = '15px 0px';
         bottomPanel.style.scale = 'unset';
         bottomPanel.style.marginBottom = 'unset';
     } else {
         if (theme === 'light') {
             bottomPanel.style.backgroundColor = 'var(--black-layer)';
             bottomPanel.style.borderRadius = '20px';
-            bottomPanel.style.padding = '20px 40px';
+            bottomPanel.style.padding = '15px 40px';
             bottomPanel.style.scale = '.95';
             bottomPanel.style.marginBottom = '20px';
         } else {
@@ -55,9 +55,12 @@ fullscreenButton.addEventListener("click", function (event) {
         detailsTrack.classList.add("open");
         document.body.classList.add('body--active');
         warnNotification.style.opacity = "1";
+        warnNotification.style.bottom = "110px";
         setTimeout(function () {
             warnNotification.style.opacity = "0";
+            warnNotification.style.bottom = "80px";
         }, 2000);
+
 
     } else {
         maximizeIcon.src = "../images/maximize-icon.svg";

@@ -77,6 +77,7 @@ public class AdminUserController {
     //Просмотр страницы для добавления/создания администратора
     public String addAdministratorsPage(Model model) {
         model.addAttribute("admin", new User());
+        model.addAttribute("pageTitle", "Доб.Админ");
         return "admin/CreateAdmin";
     }
 
@@ -84,10 +85,10 @@ public class AdminUserController {
     //Отправка данных для добавления/создания нового админа
     public String addAdministrators(@ModelAttribute("admin") @Valid User admin,
                                     BindingResult result,
-                                    RedirectAttributes redirectAttributes) {
+                                    RedirectAttributes redirectAttributes, Model model) {
         if (result.hasErrors()) {
-            redirectAttributes.addFlashAttribute("errors", "Произошли ошибки попробуйте чуть позже");
-            return "redirect:/Admin/users";
+            model.addAttribute("admin", admin);
+            return "admin/CreateAdmin";
         }
         userImpl.saveAdmin(admin);
         redirectAttributes.addFlashAttribute("success", "Новый администратор добавлен успешно");

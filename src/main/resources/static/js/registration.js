@@ -87,19 +87,6 @@ function showPreviousForm() {
 }
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    let notificationMessageBlock = document.querySelector('.notification-message');
-
-    if (notificationMessageBlock) {
-        setTimeout(function () {
-            notificationMessageBlock.classList.add('hidden-success-message');
-        }, 2000);
-
-        notificationMessageBlock.addEventListener('transitionend', function () {
-            notificationMessageBlock.style.display = 'none';
-        });
-    }
-});
 
 
 

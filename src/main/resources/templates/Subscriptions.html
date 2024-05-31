@@ -53,9 +53,13 @@
                     </form>
                 </a>
             </div>
-            <div class="notHaveSubs" th:if="${#lists.isEmpty(subscriptions)}">
-                <p>Трындец Нет подписок</p>
-            </div>
+            <th:block th:if="${#lists.isEmpty(subscriptions)}">
+                <div class="notHaveSubs">
+                    <img th:src="@{/images/noSubs.svg}">
+                    <p>Трындец Нет подписок</p>
+                </div>
+            </th:block>
+
         </div>
     </div>
 </section>

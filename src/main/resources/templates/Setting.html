@@ -95,18 +95,13 @@
                     <div class="setting-send-data">
                         <p>Важно: при смене логина вы автоматически выйдите из системы</p>
                         <div class="send-data-btn">
-                            <button class="profile-setting-save" type="submit">Отмена</button>
+                            <a th:href="@{/profile}" class="profile-setting-save" type="submit">Отмена</a>
                             <button class="profile-setting-save" type="submit">Сохранить</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
-    <div id="user-data-message" style="display: none;" class="user-data-message">
-        <h2>Данные о пользователе изменены!</h2>
-        <p>Вы можете увидеть это в личном кабинете. Не меняли данные? Статья о Безопасности данных</p>
-        <a href="#" id="close-link">Хорошо</a>
     </div>
 </section>
 

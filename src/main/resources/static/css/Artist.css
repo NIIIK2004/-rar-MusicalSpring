@@ -246,12 +246,14 @@
 }
 
 .Artist__info-sets-wrapper {
+    border: 1px solid transparent;
+    border-radius: 7px;
     position: relative;
     transition: all .2s;
 }
 
 .set-wrapper-playlist:hover {
-    transform: scale(1.08);
+    border: 1px solid var(--feolet);
 }
 
 .set-wrapper-album {
@@ -420,6 +422,8 @@
 
 .Artist-empty-block p {
     margin-top: 15px;
+    color: var(--gray);
+    font-size: 17px;
 }
 
 

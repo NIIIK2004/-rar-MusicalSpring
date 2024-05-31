@@ -11,5 +11,6 @@ public interface SubscriptionRepo extends JpaRepository<Subscription, Long> {
     List<Subscription> findByArtistId(Long artistId);
     List<Subscription> findByUserIdAndArtistId(Long userId, Long artistId);
     List<Subscription> getAllSubscriptionsByUser(User user);
+    List<Subscription> findByUser(User user);
 
 }

@@ -193,7 +193,7 @@ body {
     display: flex;
     color: var(--white);
     font-size: 17px;
-    font-weight: 400;
+    font-weight: 300;
     line-height: normal;
     gap: 10px;
 }
@@ -277,51 +277,6 @@ body {
     border-radius: 20px;
 }
 
-.user-data-message {
-    position: fixed;
-    bottom: 35px;
-    right: 35px;
-    padding: 20px;
-    border-radius: 13px;
-    background: var(--feolet);
-    width: 350px;
-    transition: all .4s;
-}
-
-.user-data-message p,
-.user-data-message h2 {
-    color: #FFF;
-    font-family: Nunito, serif;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-wrap: balance;
-}
-
-.user-data-message p {
-    margin-top: 10px;
-}
-
-.user-data-message a {
-    margin-top: 15px;
-    border-radius: 99px;
-    border: 1px solid var(--white);
-    padding: 8px 20px;
-    background: transparent;
-    color: var(--white);
-    font-family: Nunito, serif;
-    font-size: 17px;
-    font-weight: 400;
-    line-height: normal;
-    display: inline-block;
-    float: right;
-}
-
-.hide {
-    opacity: 0;
-    pointer-events: none;
-}
 
 
 

@@ -51,4 +51,5 @@ public class AdminStatisticsController {
         model.addAttribute("pageTitle", "Статистика");
         return "/admin/AdminMainPage";
     }
+
 }

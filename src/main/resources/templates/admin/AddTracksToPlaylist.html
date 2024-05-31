@@ -69,23 +69,7 @@
 
 </body>
 <script th:src="@{/js/basic-tools.js}"></script>
+<script th:src="@{/js/SearchFetchObject.js}"></script>
 <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
 
-<script>
-    function searchTracks() {
-        let searchInput = document.getElementById("searchInput").value.toLowerCase();
-        let tracks = document.querySelectorAll(".playlist-tracks li");
-
-        tracks.forEach(function (track) {
-            let trackTitle = track.querySelector(".checkbox-info-track span:nth-child(3)").textContent.toLowerCase();
-            let trackArtist = track.querySelector(".checkbox-info-track span:first-child").textContent.toLowerCase();
-
-            if (trackTitle.includes(searchInput) || trackArtist.includes(searchInput)) {
-                track.style.display = "block";
-            } else {
-                track.style.display = "none";
-            }
-        });
-    }
-</script>
 </html>

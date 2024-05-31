@@ -38,7 +38,7 @@
         <div class="admin__wrapper">
             <header class="header" th:insert="~{admin/components/Admin-Header :: header}"></header>
             <div class="admin__panel">
-                <form action="/alltrack/saveOrUpdate" method="post" enctype="multipart/form-data">
+                <form id="trackForm" action="/alltrack/saveOrUpdate" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" th:value="${track.id}">
                     <input type="hidden" name="artist_id" th:value="${track.artists != null ? track.artists.id : ''}"/>
 
@@ -84,7 +84,7 @@
                                     <div class="cover-img">
                                         <label for="cover">
                                             <img id="preview" th:src="${'/uploads/' + track.coverfilename}" alt="cover"
-                                                 onerror="this.src='/images/default-download-img.png';">
+                                                 onerror="this.src='/images/admin/uploads-for-images/cover-for-upload-track.svg';">
                                         </label>
                                         <input type="file" name="cover" id="cover" accept="image/*"
                                                onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])">
@@ -106,7 +106,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <button type="submit" class="button_save">Загрузить на площадку</button>
+                            <button id="submitButton" type="submit" class="button_save">Загрузить на площадку</button>
                         </div>
                         <div class="addTrack-right">
                             <h1 class="addTrack-title">Напишите текст песни</h1>
@@ -122,14 +122,13 @@
     </div>
 </div>
 
-<div th:if="${error}" class="error-message">
-    <p th:text="${error}"></p>
-</div>
+<div id="user-data-message" class="alert-delete dn"></div>
 
 </body>
 <script th:src="@{/js/custom-select.js}"></script>
 <script th:src="@{/js/custom-file.js}"></script>
 <script th:src="@{/js/basic-tools.js}"></script>
+<script th:src="@{/js/admin/createFetchObject.js}"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script th:src="@{/js/select2CDN.js}"></script>
@@ -164,7 +163,6 @@
             alert('Пожалуйста, выберите аудиофайл для прослушивания.');
         }
     });
-
 
 </script>
 
