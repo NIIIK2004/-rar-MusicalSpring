@@ -566,7 +566,7 @@ body.slide-out {
     position: fixed;
     width: 100%;
     padding: 10px 0;
-    bottom: 9.4%;
+    bottom: 85px;
     z-index: 999;
 }
 
