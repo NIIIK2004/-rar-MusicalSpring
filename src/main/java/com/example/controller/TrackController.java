@@ -37,6 +37,12 @@ import java.util.stream.Collectors;
 public class TrackController {
     @Value("${upload.path}")
     private String uploadPath;
+
+//    private static final Logger logger = (Logger) LoggerFactory.getLogger(TrackController.class);
+//
+//    @Autowired
+//    private S3Service s3Service;
+
     private final TrackRepo trackRepo;
     private final TrackImpl trackImpl;
     private final ArtistRepo artistRepo;
@@ -178,7 +184,7 @@ public class TrackController {
     }
 
     @PostMapping("/alltrack/saveOrUpdate")
-    //    //Сохранение добавления или редактирования треков - (Отправка запроса)
+    //Сохранение добавления или редактирования треков - (Отправка запроса)
     public ResponseEntity<?> saveOrUpdateTrack(@ModelAttribute("track") Track track,
                                                @RequestParam(value = "cover", required = false) MultipartFile imgfile,
                                                @RequestParam(value = "audio", required = false) MultipartFile audiofile,
@@ -244,12 +250,129 @@ public class TrackController {
             }
         }
 
+
+//        if (imgfile != null && !imgfile.isEmpty()) {
+//            String filenameimg = s3Service.uploadFile(imgfile);
+//            track.setCoverfilename(filenameimg);
+//
+//            if (existingTrack != null && existingTrack.getCoverfilename() != null) {
+//                s3Service.deleteFile(existingTrack.getCoverfilename());
+//            }
+//        } else {
+//            if (existingTrack != null && existingTrack.getCoverfilename() != null) {
+//                track.setCoverfilename(existingTrack.getCoverfilename());
+//            }
+//        }
+//
+//        if (audiofile != null && !audiofile.isEmpty()) {
+//            String filenameaudio = s3Service.uploadFile(audiofile);
+//            track.setAudiofilename(filenameaudio);
+//
+//            if (existingTrack != null && existingTrack.getAudiofilename() != null) {
+//                s3Service.deleteFile(existingTrack.getAudiofilename());
+//            }
+//        } else {
+//            if (existingTrack != null && existingTrack.getAudiofilename() != null) {
+//                track.setAudiofilename(existingTrack.getAudiofilename());
+//            }
+//        }
+
         trackRepo.save(track);
 
         redirectAttributes.addFlashAttribute("successAdd", "Релиз был успешно загружен");
         return ResponseEntity.ok(Collections.singletonMap("redirectUrl", "/Admin-All-Tracks"));
     }
 
+
+//    @PostMapping("/alltrack/saveOrUpdate")
+//    public ResponseEntity<?> saveOrUpdateTrack(@ModelAttribute("track") Track track,
+//                                               @RequestParam(value = "cover", required = false) MultipartFile imgfile,
+//                                               @RequestParam(value = "audio", required = false) MultipartFile audiofile,
+//                                               @RequestParam(value = "artist_id", required = false) Long artistId,
+//                                               RedirectAttributes redirectAttributes) throws IOException {
+//        List<String> errors = new ArrayList<>();
+//
+//        logger.info("Received request to save or update track: {}", track);
+//
+//        if (track.getId() == null) {
+//            if (imgfile == null || imgfile.isEmpty()) {
+//                errors.add("Загрузите обложку релиза");
+//            }
+//            if (audiofile == null || audiofile.isEmpty()) {
+//                errors.add("Загрузите аудиофайл");
+//            }
+//        }
+//
+//        if (artistId == null) {
+//            errors.add("Выберите артиста");
+//        }
+//        if (track.getTitle().isEmpty()) {
+//            errors.add("Заполните, название трека");
+//        }
+//        if (!errors.isEmpty()) {
+//            logger.warn("Validation errors: {}", errors);
+//            return ResponseEntity.badRequest().body(Collections.singletonMap("errors", errors));
+//        }
+//
+//        Artist artist = artistRepo.findById(artistId).orElse(null);
+//        if (artist == null) {
+//            errors.add("Выбранный артист не найден");
+//            logger.warn("Artist not found: {}", artistId);
+//            return ResponseEntity.badRequest().body(Collections.singletonMap("errors", errors));
+//        }
+//
+//        track.setArtists(artist);
+//
+//        Track existingTrack = track.getId() != null ? trackRepo.findById(track.getId()).orElse(null) : null;
+//
+//        if (imgfile != null && !imgfile.isEmpty()) {
+//            try {
+//                String filenameimg = s3Service.uploadFile(imgfile);
+//                track.setCoverfilename(filenameimg);
+//                logger.info("Cover image uploaded successfully: {}", filenameimg);
+//
+//                if (existingTrack != null && existingTrack.getCoverfilename() != null) {
+//                    s3Service.deleteFile(existingTrack.getCoverfilename());
+//                    logger.info("Deleted old cover image: {}", existingTrack.getCoverfilename());
+//                }
+//            } catch (IOException e) {
+//                logger.error("Error uploading cover image", e);
+//                errors.add("Error uploading cover image");
+//                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("errors", errors));
+//            }
+//        } else {
+//            if (existingTrack != null && existingTrack.getCoverfilename() != null) {
+//                track.setCoverfilename(existingTrack.getCoverfilename());
+//            }
+//        }
+//
+//        if (audiofile != null && !audiofile.isEmpty()) {
+//            try {
+//                String filenameaudio = s3Service.uploadFile(audiofile);
+//                track.setAudiofilename(filenameaudio);
+//                logger.info("Audio file uploaded successfully: {}", filenameaudio);
+//
+//                if (existingTrack != null && existingTrack.getAudiofilename() != null) {
+//                    s3Service.deleteFile(existingTrack.getAudiofilename());
+//                    logger.info("Deleted old audio file: {}", existingTrack.getAudiofilename());
+//                }
+//            } catch (IOException e) {
+//                logger.error("Error uploading audio file", e);
+//                errors.add("Error uploading audio file");
+//                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("errors", errors));
+//            }
+//        } else {
+//            if (existingTrack != null && existingTrack.getAudiofilename() != null) {
+//                track.setAudiofilename(existingTrack.getAudiofilename());
+//            }
+//        }
+//
+//        trackRepo.save(track);
+//        logger.info("Track saved successfully: {}", track);
+//
+//        redirectAttributes.addFlashAttribute("successAdd", "Релиз был успешно загружен");
+//        return ResponseEntity.ok(Collections.singletonMap("redirectUrl", "/Admin-All-Tracks"));
+//    }
 
     @GetMapping("/delete/{id}")
     //Удаление трека и удаление всей логики связанных с другими таблицами (Получение запроса - Удаление)
@@ -282,6 +405,15 @@ public class TrackController {
                 file.delete();
             }
         }
+
+        // Удаление файлов из S3
+//        if (track.getAudiofilename() != null) {
+//            s3Service.deleteFile(track.getAudiofilename());
+//        }
+//        if (track.getCoverfilename() != null) {
+//            s3Service.deleteFile(track.getCoverfilename());
+//        }
+
 
         trackImpl.delete(track.getId());
         redirectAttributes.addFlashAttribute("successDelete", "Релиз был успешно удален");
