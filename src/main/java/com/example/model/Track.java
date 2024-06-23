@@ -1,14 +1,13 @@
 package com.example.model;
 
+import com.example.repo.TrackRepo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tracks")
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Track implements Serializable {
+public class Track {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,9 +25,6 @@ public class Track implements Serializable {
     private String releaseyear;
     private String audiofilename;
     private String coverfilename;
-
-    @CreatedDate
-    private LocalDateTime createdDate;
 
     @ManyToOne
     @JoinTable(

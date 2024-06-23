@@ -1,13 +1,7 @@
-function updateFileName() {
-    let input = document.getElementById('audioFile');
-    let fileNameSpan = document.getElementById('audioFileName');
-
-    if (input.files.length > 0) {
-        fileNameSpan.textContent = input.files[0].name;
-    } else {
-        fileNameSpan.textContent = 'Загрузите файл';
-    }
+function goBack() {
+    window.history.back();
 }
+
 
 let inputElement = document.getElementById("photosFile");
 let fileCountElement = document.getElementById("fileNameOrCount");
@@ -33,7 +27,6 @@ fileInput.addEventListener("change", function () {
     uploadForm.submit();
 });
 
-
 function previewFile() {
     const preview = document.getElementById('preview');
     const file = document.querySelector('input[type=file]').files[0];
@@ -43,16 +36,22 @@ function previewFile() {
         if (file) {
             preview.src = reader.result;
         }
-    };
+    }
 
     if (file) {
         reader.readAsDataURL(file);
     }
 }
 
+function updateFileName() {
+    let input = document.getElementById('audioFile');
+    let fileNameSpan = document.getElementById('audioFileName');
 
-
-
-
+    if (input.files.length > 0) {
+        fileNameSpan.textContent = input.files[0].name;
+    } else {
+        fileNameSpan.textContent = 'Загрузите файл';
+    }
+}
 
 

@@ -5,7 +5,6 @@ import com.example.model.Artist;
 import com.example.model.Track;
 import com.example.repo.ArtistRepo;
 import com.example.repo.TrackRepo;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +14,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class TrackImpl implements TrackDao {
+
     private final TrackRepo trackRepo;
     private ArtistRepo artistRepo;
 
@@ -43,14 +43,13 @@ public class TrackImpl implements TrackDao {
         return this.trackRepo.findById(id);
     }
 
-
     public Track findLatestTrackByArtistId(Long artistId) {
         Optional<Track> optionalTrack = trackRepo.findTopByArtistsIdOrderByCoverfilename(artistId);
         return optionalTrack.orElse(null);
     }
 
     @Override
-    public Track editFileds(Long id, String title, String lyrics, String genre, String releaseYear, String audioFileName, String coverFileName, Artist artist) {
+    public Track editFileds(Long id, String title, String lyrics, String genre, String releaseyear, String audiofilename, String coverfilename, Artist artist) {
         Optional<Track> optionalTrack = trackRepo.findById(id);
 
         if (optionalTrack.isPresent()) {
@@ -58,9 +57,9 @@ public class TrackImpl implements TrackDao {
             existingTrack.setTitle(title);
             existingTrack.setLyrics(lyrics);
             existingTrack.setGenre(genre);
-            existingTrack.setReleaseyear(releaseYear);
-            existingTrack.setAudiofilename(audioFileName);
-            existingTrack.setCoverfilename(coverFileName);
+            existingTrack.setReleaseyear(releaseyear);
+            existingTrack.setAudiofilename(audiofilename);
+            existingTrack.setCoverfilename(coverfilename);
 
             if (artist != null) {
                 Artist existingArtist = artistRepo.findById(artist.getId()).orElse(null);
@@ -72,5 +71,4 @@ public class TrackImpl implements TrackDao {
 
         throw new IllegalArgumentException("Невалидный трек: " + id);
     }
-
 }

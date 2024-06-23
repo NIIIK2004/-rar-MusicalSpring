@@ -40,25 +40,12 @@ body {
     flex: 1;
     display: flex;
     justify-content: flex-end;
-    position: relative;
 }
 
-.header__top-nameAdmin:before {
-    display: block;
-    position: absolute;
-    content: "";
-    width: 22px;
-    height: 22px;
-    background: url("/images/admin/monitor.svg") no-repeat;
-    top: 50%;
-    left: 63%;
-    transform: translate(-50%, -50%);
-}
-
-.header__top-logout-onServie,
 .header__top-logout,
 .header__top-nameAdmin {
     color: var(--white);
+    font-family: SF Pro Display, serif;
     font-size: 18px;
     font-weight: 400;
     line-height: normal;
@@ -67,14 +54,15 @@ body {
 .header__left {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
     text-align: left;
     margin-top: 50px;
 }
 
 .header__title {
     color: var(--white);
-    font-size: 50px;
+    font-family: SF Pro Display, serif;
+    font-size: 64px;
     font-weight: 600;
     line-height: normal;
 }
@@ -82,34 +70,25 @@ body {
 .header__left ul {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 45px;
 }
 
 .header__left ul li a {
-    width: 100%;
+    width: fit-content;
     display: flex;
     align-items: center;
     gap: 20px;
 
     color: var(--white);
+    font-family: SF Pro Display, serif;
     font-size: 28px;
-    font-weight: 400;
+    font-weight: 500;
     line-height: normal;
-    transition: all .2s;
-    padding: 16px;
-    border-radius: 13px;
+    transition: all .3s;
 }
 
 .header__left ul li a:hover {
-    padding: 16px;
-    border: transparent;
-    background: var(--black-layer);
-    border-radius: 13px;
-    width: 100%;
-}
-
-.header__left ul li a:active {
-    transform: scale(.98);
+    font-size: 32px;
 }
 
 .header__left ul li a img {
@@ -130,6 +109,7 @@ body {
 .admin-add {
     position: fixed;
     color: var(--white);
+    font-family: SF Pro Display, serif;
     font-size: 28px;
     font-weight: 500;
     line-height: normal;
@@ -158,6 +138,7 @@ body {
     font-size: 19px;
     font-weight: 400;
     line-height: 140%;
+
     transition: all .3s;
 }
 
@@ -165,6 +146,49 @@ body {
     background: #392CBB;
 }
 
+.user-data-message {
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+    padding: 20px;
+    border-radius: 13px;
+    background: var(--feolet);
+    width: 390px;
+    transition: all .4s;
+}
+.user-data-message p,
+.user-data-message h2 {
+    color: #FFF;
+
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-wrap: balance;
+}
+
+.user-data-message p {
+    margin-top: 10px;
+}
+
+.user-data-message a {
+    margin-top: 15px;
+    border-radius: 99px;
+    border: 1px solid var(--white);
+    padding: 8px 20px;
+    background: transparent;
+    color: var(--white);
+    font-size: 17px;
+    font-weight: 400;
+    line-height: normal;
+    display: inline-block;
+    float: right;
+}
+
+.hide {
+    opacity: 0;
+    pointer-events: none;
+}
 
 
 

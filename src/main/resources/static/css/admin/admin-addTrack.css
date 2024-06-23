@@ -59,7 +59,7 @@
 }
 
 .additionalInformation-inputs li label,
-.addTrack-info ul li label {
+.addTrack-info ul li label{
     color: var(--white);
     font-size: 14px;
     font-weight: 300;
@@ -113,6 +113,7 @@
 }
 
 
+
 .cover-img input {
     display: none;
 }
@@ -146,75 +147,4 @@
     outline: none;
     border-radius: 13px;
     resize: none;
-}
-
-/*select 2*/
-
-.select2-container--default .select2-selection--single {
-    border: unset !important;
-    background-color: unset !important;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    background: #262626;
-    font-family: Nunito, serif;
-    color: var(--white) !important;
-    font-size: 15px;
-    font-weight: 300;
-    line-height: 140% !important;
-    border-radius: 10px;
-
-}
-
-.select2-container--default .select2-search--dropdown .select2-search__field {
-    border: 1px solid #565656;
-    border-radius: 5px;
-    background: #313131;
-    outline: none;
-    height: 35px;
-    color: var(--white-text);
-    padding: 14px;
-}
-
-.select2-container .select2-selection--single .select2-selection__rendered {
-    display: flex;
-    padding: 14px 20px !important;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    top: 50% !important;
-    right: 5% !important;
-    transform: translateY(-10%) !important;
-}
-
-.select2-container--open .select2-dropdown--below {
-    top: 30px;
-    background: #262626;
-    border: 1px solid var(--feolet) !important;
-    padding: 2px;
-    border-top-left-radius: 10px !important;
-    border-top-right-radius: 10px !important;
-}
-
-.select2-dropdown {
-    border-radius: 10px !important;
-}
-
-.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
-    background-color: #303030 !important;
-    color: #ffffff !important;
-    font-size: 15px;
-}
-
-.select2-container--default .select2-results>.select2-results__options {
-    max-height: 222px !important;
-}
-
-.select2-results__option {
-    padding: 10px !important;
-    font-size: 15px;
-}
-
-.select2-container--default .select2-results__option--selected {
-    background-color: #5d5d5d;
 }
