@@ -25,7 +25,6 @@ import java.util.*;
 @Controller
 @RequiredArgsConstructor
 public class PlaylistController {
-
     @Value("${upload.path}")
     private String uploadPath;
     private final ArtistRepo artistRepo;
